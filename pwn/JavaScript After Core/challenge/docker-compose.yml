@@ -1,0 +1,13 @@
+# Local copy of the challenge for players. Identical Dockerfile, identical
+# patch, identical pinned WebKit revision -- only the flag is fake.
+#
+#   docker compose up --build -d
+#   nc localhost 1337 < your_exploit.js
+services:
+  javascript-after-core:
+    build: .
+    image: javascript-after-core:local
+    ports:
+      - "1337:1337"
+    environment:
+      FLAG: "pwnsec{fake_flag_for_local_testing}"

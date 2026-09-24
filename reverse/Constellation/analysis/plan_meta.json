@@ -1,0 +1,6 @@
+{
+  "width": 192,
+  "data_shards": 224,
+  "parity_shards": 32,
+  "blocks": 7
+}

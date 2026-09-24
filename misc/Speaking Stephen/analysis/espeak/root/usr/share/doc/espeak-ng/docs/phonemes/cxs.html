@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width; initial-scale=1"/>
+<meta name="robots" content="all"/>
+<style type="text/css">
+body
+{
+	font-family: sans-serif;
+	font-size: 14px;
+	margin: 1em;
+}
+
+*:first-child
+{
+	margin-top: 0;
+}
+
+code, pre
+{
+	font-family: monospace;
+	background: #F7F7F7;
+	color: navy;
+}
+
+code
+{
+	font-size: 85%;
+	padding: 0.2em;
+}
+
+pre
+{
+	margin-left: 3em;
+	padding: 1em;
+}
+
+th
+{
+	text-align: left;
+}
+
+hr
+{
+	border: 0;
+	border-bottom: 1px solid #BBB;
+}
+</style>
+</head>
+<body>
+<h1 id="conlang-x-sampa-transcription-scheme">Conlang X-SAMPA Transcription Scheme</h1>
+
+<ul>
+  <li><a href="#phoneme-transcription-schemes">Phoneme Transcription Schemes</a></li>
+  <li><a href="#consonants">Consonants</a>
+    <ul>
+      <li><a href="#other-symbols">Other Symbols</a></li>
+      <li><a href="#manner-of-articulation">Manner of Articulation</a></li>
+    </ul>
+  </li>
+  <li><a href="#vowels">Vowels</a>
+    <ul>
+      <li><a href="#other-symbols-1">Other Symbols</a></li>
+    </ul>
+  </li>
+  <li><a href="#diacritics">Diacritics</a>
+    <ul>
+      <li><a href="#articulation">Articulation</a></li>
+      <li><a href="#phonation">Phonation</a></li>
+      <li><a href="#rounding-and-labialization">Rounding and Labialization</a></li>
+      <li><a href="#syllabicity">Syllabicity</a></li>
+      <li><a href="#consonant-release">Consonant Release</a></li>
+      <li><a href="#co-articulation">Co-articulation</a></li>
+      <li><a href="#tongue-root">Tongue Root</a></li>
+    </ul>
+  </li>
+  <li><a href="#suprasegmentals">Suprasegmentals</a>
+    <ul>
+      <li><a href="#stress">Stress</a></li>
+      <li><a href="#length">Length</a></li>
+      <li><a href="#rhythm">Rhythm</a></li>
+      <li><a href="#tones">Tones</a></li>
+      <li><a href="#intonation">Intonation</a></li>
+    </ul>
+  </li>
+  <li><a href="#references">References</a></li>
+</ul>
+
+<hr />
+
+<p>The Conlang X-SAMPA (CXS) transcription scheme is documented by Henrik
+Theiling. It is used on the conlang mailing list for transcribing the
+pronunciation of conlangs, but can be used outside that domain. CXS derives
+from X-SAMPA, making various incompatible changes to X-SAMPA with the
+intention of making it easier to read by choosing some representations
+that are closer to the IPA symbols.</p>
+
+<p>This document uses a set of phoneme features based on the features originally
+developed by Evan Kirshenbaum. These features are described in the
+<a href="phonemes.html">phonemes</a> document.</p>
+
+<p>The <code>_</code> character is used as a tie bar to join two phonemes, as well as the
+first character in several diacritics. It can be used for affricates and double
+articulations. The <code>_^</code> non-syllabic marker can be used for the second vowel in
+diphthongs.</p>
+
+<p>The <code>)</code> character is used by CXS as an alternative tie bar that is placed after
+the second phoneme. This is preferred by CXS as it does not clash with any
+diacritics. For example, <code>ts)</code> is an affricate and <code>ts</code> is a consonant cluster
+of <code>t</code> followed by <code>s</code>.</p>
+
+<p>The X-SAMPA <code>-</code> character to differentiate between affricates, double
+articulations, and diphthongs such as <code>ts</code> and consonant clusters such as
+<code>t-s</code> is not supported in CXS.</p>
+
+<h2 id="phoneme-transcription-schemes">Phoneme Transcription Schemes</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>BCP47 Subtag</th>
+      <th>Abbreviation</th>
+      <th>Transcription Scheme</th>
+      <th>Encoding</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="../phonemes.html"><code>fonipa</code></a></td>
+      <td>IPA</td>
+      <td>International Phonetic Alphabet</td>
+      <td>Unicode</td>
+    </tr>
+    <tr>
+      <td><a href="xsampa.html"><code>fonxsamp</code></a></td>
+      <td>X-SAMPA</td>
+      <td>Extended Speech Assessment Methods Phonetic Alphabet</td>
+      <td>ASCII</td>
+    </tr>
+    <tr>
+      <td><code>x-foncxs</code></td>
+      <td>CXS</td>
+      <td>Conlang X-SAMPA</td>
+      <td>ASCII</td>
+    </tr>
+    <tr>
+      <td><a href="kirshenbaum.html"><code>x-fonkirsh</code></a></td>
+      <td> </td>
+      <td>Kirshenbaum (ASCII-IPA)</td>
+      <td>ASCII</td>
+    </tr>
+  </tbody>
+</table>
+
+<ol>
+  <li><code>foncxs</code> and <code>fonkirsh</code> are private use extensions defined in
+the <a href="https://raw.githubusercontent.com/espeak-ng/bcp47-data/master/bcp47-extensions">bcp47-extensions</a>
+file, so have the <code>x-</code> private use specifier before their subtag names.</li>
+</ol>
+
+<h2 id="consonants">Consonants</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th><code>blb</code></th>
+      <th> </th>
+      <th><code>lbd</code></th>
+      <th> </th>
+      <th><code>dnt</code></th>
+      <th> </th>
+      <th><code>alv</code></th>
+      <th> </th>
+      <th><code>pla</code></th>
+      <th> </th>
+      <th><code>rfx</code></th>
+      <th> </th>
+      <th><code>alp</code></th>
+      <th> </th>
+      <th><code>pal</code></th>
+      <th> </th>
+      <th><code>vel</code></th>
+      <th> </th>
+      <th><code>uvl</code></th>
+      <th> </th>
+      <th><code>phr</code></th>
+      <th> </th>
+      <th><code>glt</code></th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+    </tr>
+    <tr>
+      <td><code>nas</code></td>
+      <td> </td>
+      <td><code>m</code></td>
+      <td> </td>
+      <td><code>F</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>n</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>n`</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>J</code></td>
+      <td> </td>
+      <td><code>N</code></td>
+      <td> </td>
+      <td><code>N\</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>stp</code></td>
+      <td><code>p</code></td>
+      <td><code>b</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>t</code></td>
+      <td><code>d</code></td>
+      <td> </td>
+      <td> </td>
+      <td><code>t`</code></td>
+      <td><code>d`</code></td>
+      <td> </td>
+      <td> </td>
+      <td><code>c</code></td>
+      <td><code>J\</code></td>
+      <td><code>k</code></td>
+      <td><code>g</code></td>
+      <td><code>q</code></td>
+      <td><code>G\</code></td>
+      <td><code>&gt;\</code></td>
+      <td> </td>
+      <td><code>?</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>sib</code> <code>afr</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>afr</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>lat</code> <code>afr</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>sib</code> <code>frc</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>s</code></td>
+      <td><code>z</code></td>
+      <td><code>S</code></td>
+      <td><code>Z</code></td>
+      <td><code>s`</code></td>
+      <td><code>z`</code></td>
+      <td><code>s\</code></td>
+      <td><code>z\</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>frc</code></td>
+      <td><code>p\</code></td>
+      <td><code>B</code></td>
+      <td><code>f</code></td>
+      <td><code>v</code></td>
+      <td><code>T</code></td>
+      <td><code>D</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>C</code></td>
+      <td><code>j\</code></td>
+      <td><code>x</code></td>
+      <td><code>G</code></td>
+      <td><code>X</code></td>
+      <td><code>R</code></td>
+      <td> </td>
+      <td> </td>
+      <td><code>h</code></td>
+      <td><code>h\</code></td>
+    </tr>
+    <tr>
+      <td><code>lat</code> <code>frc</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>K</code></td>
+      <td><code>K\</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>apr</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>P</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>r\</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>r\`</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>j</code></td>
+      <td> </td>
+      <td><code>M\</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>lat</code> <code>apr</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>l</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>l`</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>L</code></td>
+      <td> </td>
+      <td><code>L\</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>flp</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>4</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>r`</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>lat</code> <code>flp</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>l\</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>trl</code></td>
+      <td> </td>
+      <td><code>B\</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>r</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>R\</code></td>
+      <td><code>H\</code></td>
+      <td><code>&lt;\</code></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>clk</code></td>
+      <td><code>O\</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>|\</code></td>
+      <td> </td>
+      <td><code>!\</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>!\`</code></td>
+      <td> </td>
+      <td><code>=\</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>lat</code> <code>clk</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>|\|\</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>imp</code></td>
+      <td> </td>
+      <td><code>b_&lt;</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>d_&lt;</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>J\_&lt;</code></td>
+      <td> </td>
+      <td><code>g_&lt;</code></td>
+      <td> </td>
+      <td><code>G\</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>ejc</code></td>
+      <td><code>p_&gt;</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>t_&gt;</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>t`_&gt;</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>c_&gt;</code></td>
+      <td> </td>
+      <td><code>k_&gt;</code></td>
+      <td> </td>
+      <td><code>q_&gt;</code></td>
+      <td> </td>
+      <td><code>&gt;\_&gt;</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>ejc</code> <code>frc</code></td>
+      <td> </td>
+      <td> </td>
+      <td><code>f_&gt;</code></td>
+      <td> </td>
+      <td><code>T_&gt;</code></td>
+      <td> </td>
+      <td><code>s_&gt;</code></td>
+      <td> </td>
+      <td><code>S_&gt;</code></td>
+      <td> </td>
+      <td><code>s`_&gt;</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>x_&gt;</code></td>
+      <td> </td>
+      <td><code>X_&gt;</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>lat</code> <code>ejc</code> <code>frc</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>K_&gt;</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<ol>
+  <li>
+    <p>The X-SAMPA <code>X\</code> and <code>?\</code> are not specified by CXS. Instead, the <code>H\</code> and
+<code>&lt;\</code> consonants are transcribed as fricatives and are included in their
+places.</p>
+  </li>
+  <li>
+    <p><code>\v</code> can also be used for the labio-dental approximant <code>P</code> like in X-SAMPA.</p>
+  </li>
+  <li>
+    <p><code>!\`</code> is specific to CXS. It is not listed in the IPA chart either.</p>
+  </li>
+</ol>
+
+<h3 id="other-symbols">Other Symbols</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th><code>bld</code></th>
+      <th> </th>
+      <th><code>alv</code></th>
+      <th> </th>
+      <th><code>pla</code></th>
+      <th> </th>
+      <th><code>pal</code></th>
+      <th> </th>
+      <th><code>lbv</code></th>
+      <th> </th>
+      <th><code>vel</code></th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+    </tr>
+    <tr>
+      <td><code>nas</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>stp</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>afr</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>vzd</code> <code>frc</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>x\</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>ptr</code> <code>apr</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>H</code></td>
+      <td> </td>
+      <td> </td>
+      <td><code>W</code></td>
+      <td><code>w</code></td>
+    </tr>
+    <tr>
+      <td><code>fzd</code> <code>lat</code> <code>apr</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>5</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<ol>
+  <li><code>5</code> is supported as an alternative to <code>l_e</code> due to its use in some language-
+specific SAMPA phoneme sets.</li>
+</ol>
+
+<h3 id="manner-of-articulation">Manner of Articulation</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Symbol</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>ejc</code></td>
+      <td><code>_&gt;</code></td>
+      <td>ejective</td>
+    </tr>
+    <tr>
+      <td><code>imp</code></td>
+      <td><code>_&lt;</code></td>
+      <td>implosive</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="vowels">Vowels</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th><code>fnt</code></th>
+      <th> </th>
+      <th><code>cnt</code></th>
+      <th> </th>
+      <th><code>bck</code></th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td><code>unr</code></td>
+      <td><code>rnd</code></td>
+      <td><code>unr</code></td>
+      <td><code>rnd</code></td>
+      <td><code>unr</code></td>
+      <td><code>rnd</code></td>
+    </tr>
+    <tr>
+      <td><code>hgh</code></td>
+      <td><code>i</code></td>
+      <td><code>y</code></td>
+      <td><code>i\</code></td>
+      <td><code>u\</code></td>
+      <td><code>M</code></td>
+      <td><code>u</code></td>
+    </tr>
+    <tr>
+      <td><code>smh</code></td>
+      <td><code>I</code></td>
+      <td><code>Y</code></td>
+      <td><code>I\</code></td>
+      <td><code>U\</code></td>
+      <td> </td>
+      <td><code>U</code></td>
+    </tr>
+    <tr>
+      <td><code>umd</code></td>
+      <td><code>e</code></td>
+      <td><code>2</code></td>
+      <td><code>@\</code></td>
+      <td><code>8</code></td>
+      <td><code>7</code></td>
+      <td><code>o</code></td>
+    </tr>
+    <tr>
+      <td><code>mid</code></td>
+      <td> </td>
+      <td> </td>
+      <td><code>@</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>lmd</code></td>
+      <td><code>E</code></td>
+      <td><code>9</code></td>
+      <td><code>3</code></td>
+      <td><code>3\</code></td>
+      <td><code>V</code></td>
+      <td><code>O</code></td>
+    </tr>
+    <tr>
+      <td><code>sml</code></td>
+      <td><code>&amp;</code></td>
+      <td> </td>
+      <td><code>6</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>low</code></td>
+      <td><code>a</code></td>
+      <td><code>&amp;\</code></td>
+      <td> </td>
+      <td> </td>
+      <td><code>A</code></td>
+      <td><code>Q</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<ol>
+  <li>
+    <p><code>i\</code> is in common usage in the conlang mailing list, but the X-SAMPA  <code>1</code>
+transcription is also supported.</p>
+  </li>
+  <li>
+    <p>In CXS, the following vowels are different to the X-SAMPA transcriptions:
+<code>}</code> is replaced by <code>u\</code>, <code>{</code> by <code>&amp;</code>, and <code>&amp;</code> by <code>&amp;\</code>. This makes CXS
+incompatible with X-SAMPA.</p>
+  </li>
+  <li>
+    <p><code>I\</code> and <code>U\</code> are not listed in the IPA chart.</p>
+  </li>
+</ol>
+
+<h3 id="other-symbols-1">Other Symbols</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Features</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>@`</code></td>
+      <td><code>unr</code> <code>mid</code> <code>cnt</code> <code>rzd</code> <code>vwl</code></td>
+    </tr>
+    <tr>
+      <td><code>3`</code></td>
+      <td><code>unr</code> <code>lmd</code> <code>cnt</code> <code>rzd</code> <code>vwl</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<ol>
+  <li><code>@`</code> and <code>3`</code> are not explicitly listed in CXS. The rhoticized
+diacritic is specified instead.</li>
+</ol>
+
+<h2 id="diacritics">Diacritics</h2>
+
+<h3 id="articulation">Articulation</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Symbol</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>lgl</code></td>
+      <td><code>◌_N</code></td>
+      <td>linguolabial</td>
+    </tr>
+    <tr>
+      <td><code>idt</code></td>
+      <td> </td>
+      <td>interdental</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><code>◌_d</code></td>
+      <td>dental</td>
+    </tr>
+    <tr>
+      <td><code>apc</code></td>
+      <td><code>◌_a</code></td>
+      <td>apical</td>
+    </tr>
+    <tr>
+      <td><code>lmn</code></td>
+      <td><code>◌_m</code></td>
+      <td>laminal</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><code>◌_+</code></td>
+      <td>advanced</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><code>◌_-</code></td>
+      <td>retracted</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><code>◌_"</code></td>
+      <td>centralized</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>mid-centralized</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><code>◌_r</code></td>
+      <td>raised</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><code>◌_l</code></td>
+      <td>lowered</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The articulations that do not have a corresponding feature name are recorded
+using the features of their new location in the consonant or vowel charts, not
+using the features of the base phoneme.</p>
+
+<h3 id="phonation">Phonation</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Symbol</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>brv</code></td>
+      <td><code>◌_t</code></td>
+      <td>breathy voice</td>
+    </tr>
+    <tr>
+      <td><code>slv</code></td>
+      <td><code>◌_0</code></td>
+      <td>slack voice</td>
+    </tr>
+    <tr>
+      <td><code>stv</code></td>
+      <td><code>◌_v</code></td>
+      <td>stiff voice</td>
+    </tr>
+    <tr>
+      <td><code>crv</code></td>
+      <td><code>◌_k</code></td>
+      <td>creaky voice</td>
+    </tr>
+    <tr>
+      <td><code>glc</code></td>
+      <td><code>?_◌</code></td>
+      <td>glottal closure</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The IPA <code>_0</code> diacritic is also used to fill the <code>vls</code> spaces in the IPA consonant
+charts. Thus, when <code>_0</code> is used with a <code>vcd</code> consonant that does not have an
+equivalent <code>vls</code> consonant, the resulting consonant is <code>vls</code>, not <code>slv</code>.</p>
+
+<h3 id="rounding-and-labialization">Rounding and Labialization</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Symbol</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>ptr</code></td>
+      <td><code>◌_w</code></td>
+      <td>protruded</td>
+    </tr>
+    <tr>
+      <td><code>cmp</code></td>
+      <td> </td>
+      <td>compressed</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The degree of rounding/labialization can be specified using the following
+symbols:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Symbol</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>mrd</code></td>
+      <td><code>◌_O</code></td>
+      <td>more rounded</td>
+    </tr>
+    <tr>
+      <td><code>lrd</code></td>
+      <td><code>◌_c</code></td>
+      <td>less rounded</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="syllabicity">Syllabicity</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Symbol</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>syl</code></td>
+      <td><code>◌=</code></td>
+      <td>syllabic</td>
+    </tr>
+    <tr>
+      <td><code>nsy</code></td>
+      <td><code>◌_^</code></td>
+      <td>non-syllabic</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="consonant-release">Consonant Release</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Symbol</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>asp</code></td>
+      <td><code>◌_h</code></td>
+      <td>aspirated</td>
+    </tr>
+    <tr>
+      <td><code>nrs</code></td>
+      <td><code>◌_n</code></td>
+      <td>nasal release</td>
+    </tr>
+    <tr>
+      <td><code>lrs</code></td>
+      <td><code>◌_l</code></td>
+      <td>lateral release</td>
+    </tr>
+    <tr>
+      <td><code>unx</code></td>
+      <td><code>◌_}</code></td>
+      <td>no audible release (unexploded)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="co-articulation">Co-articulation</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Symbol</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>pzd</code></td>
+      <td><code>◌_j</code>, <code>◌;</code></td>
+      <td>palatalized</td>
+    </tr>
+    <tr>
+      <td><code>vzd</code></td>
+      <td><code>◌_G</code>, <code>◌_e</code></td>
+      <td>velarized</td>
+    </tr>
+    <tr>
+      <td><code>fzd</code></td>
+      <td><code>◌_?\</code>, <code>◌_e</code></td>
+      <td>pharyngealized</td>
+    </tr>
+    <tr>
+      <td><code>nzd</code></td>
+      <td><code>◌~</code>, <code>◌_~</code></td>
+      <td>nasalized</td>
+    </tr>
+    <tr>
+      <td><code>rzd</code></td>
+      <td><code>◌`</code></td>
+      <td>rhoticized</td>
+    </tr>
+  </tbody>
+</table>
+
+<ol>
+  <li>CXS does not support using <code>'</code> for palatalisation as it conflicts with the
+primary stress symbol. The <code>;</code> symbol is CXS specific.</li>
+</ol>
+
+<h3 id="tongue-root">Tongue Root</h3>
+
+<p>The tongue root position can be specified using the following features:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Symbol</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>atr</code></td>
+      <td><code>◌_A</code></td>
+      <td>advanced tongue root</td>
+    </tr>
+    <tr>
+      <td><code>rtr</code></td>
+      <td><code>◌_q</code></td>
+      <td>retracted tongue root</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="suprasegmentals">Suprasegmentals</h2>
+
+<h3 id="stress">Stress</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>'◌</code>, <code>"◌</code></td>
+      <td>primary stress</td>
+    </tr>
+    <tr>
+      <td><code>"◌</code>, <code>,◌</code>, <code>%◌</code></td>
+      <td>secondary stress</td>
+    </tr>
+  </tbody>
+</table>
+
+<ol>
+  <li>The <code>"</code> primary and <code>%</code> secondary stress markers are from X-SAMPA. The other
+symbols are CXS specific.</li>
+</ol>
+
+<h3 id="length">Length</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Symbol</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>est</code></td>
+      <td><code>◌_X</code></td>
+      <td>extra short</td>
+    </tr>
+    <tr>
+      <td><code>hlg</code></td>
+      <td><code>◌:\</code></td>
+      <td>half-long</td>
+    </tr>
+    <tr>
+      <td><code>lng</code></td>
+      <td><code>◌:</code></td>
+      <td>long</td>
+    </tr>
+    <tr>
+      <td><code>elg</code></td>
+      <td><code>◌::</code></td>
+      <td>extra long</td>
+    </tr>
+  </tbody>
+</table>
+
+<ol>
+  <li>The <code>::</code> symbol for <code>elg</code> is not listed in X-SAMPA, but is derived from the
+transcription for <code>lng</code>.</li>
+</ol>
+
+<h3 id="rhythm">Rhythm</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>◌-\◌</code></td>
+      <td>linking (no break)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="tones">Tones</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>◌_T</code></td>
+      <td>extra high tone</td>
+    </tr>
+    <tr>
+      <td><code>◌_H</code></td>
+      <td>high tone</td>
+    </tr>
+    <tr>
+      <td><code>◌_M</code></td>
+      <td>mid tone</td>
+    </tr>
+    <tr>
+      <td><code>◌_L</code></td>
+      <td>low tone</td>
+    </tr>
+    <tr>
+      <td><code>◌_B</code></td>
+      <td>extra low tone</td>
+    </tr>
+    <tr>
+      <td><code>!◌</code></td>
+      <td>downstep</td>
+    </tr>
+    <tr>
+      <td><code>^◌</code></td>
+      <td>upstep</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>X-SAMPA additionally defines various symbols for contour tones that can be
+defined from the composite tone marks.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Composite</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>◌_R</code></td>
+      <td><code>◌_B_T</code></td>
+      <td>rising contour</td>
+    </tr>
+    <tr>
+      <td><code>◌_F</code></td>
+      <td><code>◌_T_B</code></td>
+      <td>falling contour</td>
+    </tr>
+    <tr>
+      <td><code>◌_R_F</code></td>
+      <td><code>◌_M_H_M</code></td>
+      <td>rising-falling contour</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="intonation">Intonation</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>&lt;R&gt;</code></td>
+      <td>global rise</td>
+    </tr>
+    <tr>
+      <td><code>&lt;F&gt;</code></td>
+      <td>global fall</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="references">References</h2>
+
+<ol>
+  <li><a name="ref1"></a> Theiling, Henrik,
+<a href="http://www.theiling.de/ipa/">Conlang X-Sampa: modified X-Sampa used on the Conlang Mailing List</a>.
+Revised <time datetime="2017-05-13T00:00">2017</time>.</li>
+</ol>
+
+</body>
+</html>

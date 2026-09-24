@@ -1,0 +1,23 @@
+# 분석용 브라우저 프로필은 저장소 밖의 임시 디렉터리에 생성합니다.
+**/chrome-tmp*/
+**/edge-tmp*/
+**/cdp-profile/
+**/Default/shared_proto_db/
+**/Default/Network/Cookies*
+**/Default/Login Data*
+**/Default/Web Data*
+**/Default/History*
+
+# 로컬 비밀 설정 및 개발 도구
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+*.pyc
+
+# 로컬에 보관하고 공개 대상에서만 제외하는 자료
+node_modules/
+/pwn/JavaScript After Core/analysis/local-build/
+/web/readtwice/analysis/tools/
+/web/readtwice/analysis/pwnsec-js/

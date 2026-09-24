@@ -1,0 +1,3 @@
+const http=require('node:http'),puppeteer=require('puppeteer');let seen=[];
+const s=http.createServer((q,r)=>{seen.push({host:q.headers.host,cookie:q.headers.cookie});if(q.url==='/set')r.setHeader('set-cookie','sid=abc; Path=/; HttpOnly; SameSite=Lax');r.end('ok')});
+(async()=>{await new Promise(x=>s.listen(0,'0.0.0.0',x));let b=await puppeteer.launch({executablePath:process.env.CHROME_PATH,headless:'new'}),p=await b.newPage(),n=s.address().port;for(let h of ['localhost','localhost.','LOCALHOST','127.0.0.1'])await p.goto(`http://${h}:${n}/${h==='localhost'?'set':'get'}`);console.log(seen);await b.close();s.close()})();

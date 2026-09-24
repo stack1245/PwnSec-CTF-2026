@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "endpoints": [
+    {
+      "name": "main",
+      "protocol": "https",
+      "url": "https://27efde13aa39f73a.chal.ctf.ae"
+    },
+    {
+      "name": "callback",
+      "protocol": "https",
+      "url": "https://supported-conversation-inter-consoles.trycloudflare.com"
+    }
+  ]
+}

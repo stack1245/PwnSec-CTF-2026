@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width; initial-scale=1"/>
+<meta name="robots" content="all"/>
+<style type="text/css">
+body
+{
+	font-family: sans-serif;
+	font-size: 14px;
+	margin: 1em;
+}
+
+*:first-child
+{
+	margin-top: 0;
+}
+
+code, pre
+{
+	font-family: monospace;
+	background: #F7F7F7;
+	color: navy;
+}
+
+code
+{
+	font-size: 85%;
+	padding: 0.2em;
+}
+
+pre
+{
+	margin-left: 3em;
+	padding: 1em;
+}
+
+th
+{
+	text-align: left;
+}
+
+hr
+{
+	border: 0;
+	border-bottom: 1px solid #BBB;
+}
+</style>
+</head>
+<body>
+<h1 id="espeak-ng-user-guide">eSpeak NG user guide</h1>
+
+<ul>
+  <li><a href="#installation">Installation</a>
+    <ul>
+      <li><a href="#linux">Linux</a></li>
+      <li><a href="#windows">Windows</a></li>
+    </ul>
+  </li>
+  <li>Command line usage
+    <ul>
+      <li><a href="../src/espeak-ng.1.html">espeak-ng Command Line</a></li>
+      <li><a href="../src/speak-ng.1.html">speak-ng Command Line</a></li>
+    </ul>
+  </li>
+  <li>Library usage
+    <ul>
+      <li><a href="integration.html">Integration guide</a></li>
+    </ul>
+  </li>
+  <li><a href="#error-solutions">Error solutions</a>
+    <ul>
+      <li><a href="#problems-with-pcaudiolib">Problems with pcaudiolib</a></li>
+      <li><a href="#problems-with-pulseaudio">Problems with pulseaudio</a></li>
+    </ul>
+  </li>
+  <li><a href="index.html">Full list of documents</a></li>
+</ul>
+
+<h2 id="installation">Installation</h2>
+<p>### Linux</p>
+
+<p>To install precompiled package of eSpeak NG on Linux, use standard package manager of your
+distribution. (Probably is very high, eSpeak NG will be included in package repository).</p>
+
+<p>E.g. for Debian-like distribution (e.g. Ubuntu, Mint, etc.) execute command:</p>
+
+<pre><code>sudo apt-get install espeak-ng
+</code></pre>
+
+<p>For RedHat-like distribution (e.g. CentOS, Fedora, etc.) execute command:</p>
+
+<pre><code>sudo yum install espeak-ng
+</code></pre>
+
+<h3 id="windows">Windows</h3>
+
+<p>To install precompiled binaries of eSpeak NG on Windows:</p>
+
+<ol>
+  <li>
+    <p>open (https://github.com/espeak-ng/espeak-ng/releases) and click on <strong>Latest release</strong> and then appropriate *.msi file, e.g. <strong>espeak-ng-20191129-b702b03-x64.msi</strong></p>
+  </li>
+  <li>
+    <p>Execute downloaded installer package.</p>
+  </li>
+</ol>
+
+<h2 id="error-solutions">Error solutions</h2>
+
+<h2 id="problems-with-pcaudiolib">Problems with pcaudiolib</h2>
+
+<p>if <code>espeak-ng</code> is compiled and installed without <a href="https://github.com/espeak-ng/pcaudiolib">pcaudiolib</a> compiled and installed before, then calling it simply</p>
+
+<pre><code>espeak-ng hello
+</code></pre>
+
+<p>doesn’t produce any sound.
+Then usual workaround with sending data standard output and piping it to <code>aplay</code> (Lubuntu) or <code>paplay</code> (Ubuntu) works:</p>
+
+<pre><code>espeak-ng hello --stdout|aplay
+</code></pre>
+
+<p>But, when <code>pcaudiolib</code> is compiled and installed and espeak-ng is reconfigured, recompiled and reinstalled again, simple call works properly.</p>
+
+<p>If espeak-ng is built from source code, ensure that <code>libpulse-dev</code> package is installed, or <a href="https://github.com/espeak-ng/pcaudiolib">pcaudiolib</a> built and installed and, when do <code>./configure</code> command, check that status says:</p>
+
+<pre><code>PulseAudio support:            yes
+</code></pre>
+
+<p>Then recmpile and install espeak-ng aganin.</p>
+
+<h2 id="problems-with-pulseaudio">Problems with pulseaudio</h2>
+
+<p>If Linux distribution doesn’t support pulseaudio sound system (or it doesn’t work):</p>
+
+<ol>
+  <li>
+    <p>Remove <em>pulseaudio</em> package install <em>alsa</em>:</p>
+
+    <pre><code>sudo apt purge pulseaudio
+sudo apt autoremove
+sudo apt install --reinstall alsa
+</code></pre>
+  </li>
+  <li>
+    <p>Reboot</p>
+
+    <pre><code>sudo reboot
+</code></pre>
+  </li>
+  <li>
+    <p>Recompile espeak-ng with ` –with-pulseaudio=no` support:</p>
+
+    <pre><code>./autogen.sh
+./configure --prefix=/usr --with-pulseaudio=no
+make -B
+sudo make install
+</code></pre>
+  </li>
+</ol>
+
+
+</body>
+</html>

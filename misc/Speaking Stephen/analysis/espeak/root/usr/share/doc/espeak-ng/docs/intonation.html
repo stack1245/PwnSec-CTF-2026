@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width; initial-scale=1"/>
+<meta name="robots" content="all"/>
+<style type="text/css">
+body
+{
+	font-family: sans-serif;
+	font-size: 14px;
+	margin: 1em;
+}
+
+*:first-child
+{
+	margin-top: 0;
+}
+
+code, pre
+{
+	font-family: monospace;
+	background: #F7F7F7;
+	color: navy;
+}
+
+code
+{
+	font-size: 85%;
+	padding: 0.2em;
+}
+
+pre
+{
+	margin-left: 3em;
+	padding: 1em;
+}
+
+th
+{
+	text-align: left;
+}
+
+hr
+{
+	border: 0;
+	border-bottom: 1px solid #BBB;
+}
+</style>
+</head>
+<body>
+<h1 id="intonation">Intonation</h1>
+
+<ul>
+  <li><a href="#clauses">Clauses</a></li>
+  <li><a href="#tune-definitions">Tune Definitions</a>
+    <ul>
+      <li><a href="#tune">tune</a></li>
+      <li><a href="#endtune">endtune</a></li>
+      <li><a href="#prehead">prehead</a></li>
+      <li><a href="#headenv">headenv</a></li>
+      <li><a href="#height">height</a></li>
+      <li><a href="#head">head</a></li>
+      <li><a href="#headextend">headextend</a></li>
+      <li><a href="#nucleus">nucleus</a></li>
+      <li><a href="#nucleus0">nucleus0</a></li>
+      <li><a href="#onset">onset</a></li>
+      <li><a href="#headlast">headlast</a></li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<p>In eSpeak NG (eSpeak) standard intonation model, a “tune” is applied to each
+clause depending on its punctuation. Other intonation models may be used
+for some languages, such as tone languages.</p>
+
+<p>Named tunes are defined in the text file <code>phsource/intonation</code>. This file
+must be compiled for use by eSpeak by using:</p>
+
+<pre><code>espeak-ng --compile-intonations
+</code></pre>
+
+<h2 id="clauses">Clauses</h2>
+
+<p>The tunes which are used for a language can be specified by using a
+<code>tunes</code> statement in a voice file in <code>espeak-ng-data/voices</code>. e.g.:</p>
+
+<pre><code>tunes   s1  c1  q1  e1
+</code></pre>
+
+<p>It’s parameters are four tune names which are used for clauses which end
+in:</p>
+
+<ol>
+  <li>Full-stop.</li>
+  <li>Comma.</li>
+  <li>Question mark.</li>
+  <li>Exclamation mark.</li>
+</ol>
+
+<p>A clause consists of the following parts:</p>
+
+<ol>
+  <li><strong>Pre-head</strong> are any unstressed syllables before the first stressed syllable.</li>
+  <li><strong>Head</strong> is the part from the first stressed syllable up to the last syllable before the nucleus.</li>
+  <li><strong>Nucleus</strong> is stressed syllable which is the focus of the clause. eSpeak chooses the last stressed syllable of the clause.</li>
+  <li><strong>Tail</strong> are the syllables after the nucleus.</li>
+</ol>
+
+<h2 id="tune-definitions">Tune Definitions</h2>
+
+<p>Here is an example tune definition from the file <code>phsource/intonation</code>:</p>
+
+<pre><code>tune s1
+prehead   46 57
+headenv   fall 16
+head       4 80 55 -8 -5
+headextend 0 63 38 13 0
+nucleus  fall 70 18 24 12
+nucleus0 fall 64 8
+endtune
+</code></pre>
+
+<h3 id="tune">tune</h3>
+
+<p><code>tune &lt;tune name&gt;</code> Starts the definition of a tune. The <code>tune name</code> can be used in a <code>tunes</code> statements in voice files.</p>
+
+<h3 id="endtune">endtune</h3>
+
+<p><code>endtune &lt;tune name&gt;</code> Ends the definition of a tune.</p>
+
+<h3 id="prehead">prehead</h3>
+
+<p><code>prehead &lt;start pitch&gt; &lt;end pitch&gt;</code> Gives the pitch path for any series of unstressed
+syllables before the first stressed syllable.</p>
+
+<h3 id="headenv">headenv</h3>
+
+<p><code>headenv &lt;envelope&gt; &lt;height&gt;</code> Gives the pitch envelope which is used for stressed syllables in the head (before the nucleus), including <code>onset</code> and <code>headlast</code> syllables if these are specified.</p>
+
+<h3 id="height">height</h3>
+
+<p><code>height</code> gives a pitch range for the envelope.</p>
+
+<h3 id="head">head</h3>
+
+<pre><code>head &lt;steps&gt; &lt;start pitch&gt; &lt;end pitch&gt; &lt;unstressed start&gt; &lt;unstressed end&gt;
+</code></pre>
+
+<p><code>start pitch</code> give a pitch path for the stressed syllables of the head.</p>
+
+<p><code>steps</code> is the maximum number of stressed syllables for which this applies. If
+there are additional stressed syllables, then the <code>headextend</code> statement is used
+for them.</p>
+
+<p><code>unstressed start</code> give a pitch path for unstressed syllables between two stressed
+syllables. Their values are relative to the pitch of the previous stressed syllable.
+Values are usually negative, meaning that the  unstressed syllables have lower pitch
+than the previous stressed syllable.</p>
+
+<h3 id="headextend">headextend</h3>
+
+<pre><code>headextend &lt;percentage list&gt;
+</code></pre>
+
+<p>If the head contains more stressed syllables than is specified by <code>steps</code> is used.
+It contains up to 8 numbers which are used repeatedly for the additional stressed
+syllables. A value of 0 corresponds to the lower the <code>start pitch</code> values of the
+<code>head</code> statement. 100 corresponds to the higher value.</p>
+
+<p>Negative values and values greater than 100 are allowed.</p>
+
+<h3 id="nucleus">nucleus</h3>
+
+<pre><code>nucleus &lt;envelope&gt; &lt;top pitch&gt; &lt;bottom pitch&gt; &lt;tail start&gt; &lt;tail end&gt;
+</code></pre>
+
+<p>This gives the pitch envelope and pitch range of the last stressed syllable of
+the clause. <code>tail start</code> and <code>tail end</code> give a pitch path for the unstressed
+syllables which are after the last stressed syllable.</p>
+
+<h3 id="nucleus0">nucleus0</h3>
+
+<pre><code>nucleus0 &lt;envelope&gt; &lt;top pitch&gt; &lt;bottom pitch&gt;
+</code></pre>
+
+<p>This is used instead of <code>nucleus</code> if there are no unstressed syllables after
+the last stressed syllable. In this case, the pitch changes of the nucleus and
+the tail and both included in the nucleus.</p>
+
+<h3 id="onset">onset</h3>
+
+<pre><code>onset &lt;pitch&gt; &lt;unstressed start&gt; &lt;unstressed end&gt;
+</code></pre>
+
+<p>This specifies the pitch for the first stressed syllable of the head. If the
+<code>onset</code> statement is present, then the <code>head</code> statement used for the stressed
+syllables after the first.</p>
+
+<h3 id="headlast">headlast</h3>
+
+<pre><code>headlast &lt;pitch&gt; &lt;unstressed start&gt; &lt;unstressed end&gt;
+</code></pre>
+
+<p>This specifies the pitch for the last stressed syllable of the head (i.e. the
+stressed syllable before the nucleus).</p>
+
+</body>
+</html>

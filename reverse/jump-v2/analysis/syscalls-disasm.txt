@@ -1,0 +1,86 @@
+219706-  4bcd5c:	45 0f 57 d2          	xorps  xmm10,xmm10
+219707-  4bcd60:	c3                   	ret
+219708-  4bcd61:	b8 9d 00 00 00       	mov    eax,0x9d
+219709-  4bcd66:	bf 26 00 00 00       	mov    edi,0x26
+219710-  4bcd6b:	be 01 00 00 00       	mov    esi,0x1
+219711-  4bcd70:	31 d2                	xor    edx,edx
+219712-  4bcd72:	45 31 d2             	xor    r10d,r10d
+219713-  4bcd75:	45 31 c0             	xor    r8d,r8d
+219714:  4bcd78:	0f 05                	syscall
+219715-  4bcd7a:	48 85 c0             	test   rax,rax
+219716-  4bcd7d:	0f 88 17 8e 00 00    	js     0x4c5b9a
+219717-  4bcd83:	4c 8d 2d f6 97 08 00 	lea    r13,[rip+0x897f6]        # 0x546580
+219718-  4bcd8a:	4c 8d 35 d7 96 08 00 	lea    r14,[rip+0x896d7]        # 0x546468
+219719-  4bcd91:	bb 0e 00 00 00       	mov    ebx,0xe
+219720-  4bcd96:	41 8b 06             	mov    eax,DWORD PTR [r14]
+219721-  4bcd99:	33 05 b9 96 08 00    	xor    eax,DWORD PTR [rip+0x896b9]        # 0x546458
+219722-  4bcd9f:	33 05 de 82 08 00    	xor    eax,DWORD PTR [rip+0x882de]        # 0x545083
+--
+219739-  4bcdf5:	41 89 45 34          	mov    DWORD PTR [r13+0x34],eax
+219740-  4bcdf9:	48 83 ec 10          	sub    rsp,0x10
+219741-  4bcdfd:	66 c7 04 24 09 00    	mov    WORD PTR [rsp],0x9
+219742-  4bce03:	4c 89 6c 24 08       	mov    QWORD PTR [rsp+0x8],r13
+219743-  4bce08:	b8 9d 00 00 00       	mov    eax,0x9d
+219744-  4bce0d:	bf 16 00 00 00       	mov    edi,0x16
+219745-  4bce12:	be 02 00 00 00       	mov    esi,0x2
+219746-  4bce17:	48 89 e2             	mov    rdx,rsp
+219747:  4bce1a:	0f 05                	syscall
+219748-  4bce1c:	48 83 c4 10          	add    rsp,0x10
+219749-  4bce20:	48 85 c0             	test   rax,rax
+219750-  4bce23:	0f 88 71 8d 00 00    	js     0x4c5b9a
+219751-  4bce29:	49 83 c5 48          	add    r13,0x48
+219752-  4bce2d:	49 83 c6 14          	add    r14,0x14
+219753-  4bce31:	ff cb                	dec    ebx
+219754-  4bce33:	0f 85 5d ff ff ff    	jne    0x4bcd96
+219755-  4bce39:	c3                   	ret
+219756-  4bce3a:	b8 37 13 00 00       	mov    eax,0x1337
+219757-  4bce3f:	bf 30 00 00 00       	mov    edi,0x30
+219758:  4bce44:	0f 05                	syscall
+219759-  4bce46:	48 83 f8 ff          	cmp    rax,0xffffffffffffffff
+219760-  4bce4a:	0f 84 4a 8d 00 00    	je     0x4c5b9a
+219761-  4bce50:	4c 8d 2d cd 95 08 00 	lea    r13,[rip+0x895cd]        # 0x546424
+219762-  4bce57:	41 be 38 13 00 00    	mov    r14d,0x1338
+219763-  4bce5d:	44 89 f0             	mov    eax,r14d
+219764-  4bce60:	41 8b 7d 00          	mov    edi,DWORD PTR [r13+0x0]
+219765:  4bce64:	0f 05                	syscall
+219766-  4bce66:	48 83 f8 ff          	cmp    rax,0xffffffffffffffff
+219767-  4bce6a:	0f 84 2a 8d 00 00    	je     0x4c5b9a
+219768-  4bce70:	49 83 c5 04          	add    r13,0x4
+219769-  4bce74:	41 ff c6             	inc    r14d
+219770-  4bce77:	41 81 fe 44 13 00 00 	cmp    r14d,0x1344
+219771-  4bce7e:	72 dd                	jb     0x4bce5d
+219772-  4bce80:	b8 44 13 00 00       	mov    eax,0x1344
+219773-  4bce85:	8b 3d c9 95 08 00    	mov    edi,DWORD PTR [rip+0x895c9]        # 0x546454
+219774:  4bce8b:	0f 05                	syscall
+219775-  4bce8d:	48 83 f8 ff          	cmp    rax,0xffffffffffffffff
+219776-  4bce91:	0f 84 03 8d 00 00    	je     0x4c5b9a
+219777-  4bce97:	c3                   	ret
+219778-  4bce98:	90                   	nop
+219779-  4bce99:	66 45 0f ef c9       	pxor   xmm9,xmm9
+219780-  4bce9e:	45 0f 52 c9          	rsqrtps xmm9,xmm9
+219781-  4bcea2:	45 0f 53 c9          	rcpps  xmm9,xmm9
+219782-  4bcea6:	66 45 0f ef d2       	pxor   xmm10,xmm10
+--
+230135-  4c5b65:	e8 a6 b4 fe ff       	call   0x4b1010
+230136-  4c5b6a:	e8 f2 71 ff ff       	call   0x4bcd61
+230137-  4c5b6f:	e8 c6 72 ff ff       	call   0x4bce3a
+230138-  4c5b74:	e8 1f 73 ff ff       	call   0x4bce98
+230139-  4c5b79:	b8 01 00 00 00       	mov    eax,0x1
+230140-  4c5b7e:	bf 01 00 00 00       	mov    edi,0x1
+230141-  4c5b83:	48 8d 35 d2 08 08 00 	lea    rsi,[rip+0x808d2]        # 0x54645c
+230142-  4c5b8a:	ba 0a 00 00 00       	mov    edx,0xa
+230143:  4c5b8f:	0f 05                	syscall
+230144-  4c5b91:	b8 3c 00 00 00       	mov    eax,0x3c
+230145-  4c5b96:	31 ff                	xor    edi,edi
+230146:  4c5b98:	0f 05                	syscall
+230147-  4c5b9a:	b8 3c 00 00 00       	mov    eax,0x3c
+230148-  4c5b9f:	bf 01 00 00 00       	mov    edi,0x1
+230149:  4c5ba4:	0f 05                	syscall
+230150-  4c5ba6:	4d 89 e4             	mov    r12,r12
+230151-  4c5ba9:	4d 8d 24 24          	lea    r12,[r12]
+230152-  4c5bad:	66 0f ef ff          	pxor   xmm7,xmm7
+230153-  4c5bb1:	0f 59 ff             	mulps  xmm7,xmm7
+230154-  4c5bb4:	0f 51 ff             	sqrtps xmm7,xmm7
+230155-  4c5bb7:	4d 89 ff             	mov    r15,r15
+230156-  4c5bba:	4d 87 ff             	xchg   r15,r15
+230157-  4c5bbd:	66 45 0f ef c0       	pxor   xmm8,xmm8

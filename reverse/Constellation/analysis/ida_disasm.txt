@@ -1,0 +1,102 @@
+===== 0x140038e50 =====
+0x140038e50: push    rbx
+0x140038e52: push    rsi
+0x140038e53: push    rdi
+0x140038e54: sub     rsp, 60h
+0x140038e58: mov     rax, cs:__security_cookie
+0x140038e5f: xor     rax, rsp
+0x140038e62: mov     [rsp+78h+var_28], rax
+0x140038e67: mov     eax, r8d
+0x140038e6a: mov     rsi, rdx
+0x140038e6d: mov     rbx, rcx
+0x140038e70: mov     [rsp+78h+var_50], rcx
+0x140038e75: mov     [rsp+78h+var_58], 0
+0x140038e7d: mov     rdi, [rdx+8]
+0x140038e81: mov     r8, rdi
+0x140038e84: mov     edx, eax
+0x140038e86: lea     rcx, [rsp+78h+Src]; Src
+0x140038e8b: call    sub_140036540
+0x140038e90: nop
+0x140038e91: xorps   xmm0, xmm0
+0x140038e94: movups  xmmword ptr [rbx], xmm0
+0x140038e97: mov     qword ptr [rbx+10h], 0
+0x140038e9f: mov     qword ptr [rbx+18h], 0Fh
+0x140038ea7: mov     byte ptr [rbx], 0
+0x140038eaa: mov     [rsp+78h+var_58], 1
+0x140038eb2: xor     r8d, r8d
+0x140038eb5: mov     rdx, rdi
+0x140038eb8: mov     rcx, rbx
+0x140038ebb: call    sub_14002B3A0
+0x140038ec0: test    rdi, rdi
+0x140038ec3: jz      short loc_140038F03
+0x140038ec5: xor     eax, eax
+0x140038ec7: mov     r8, [rsi]
+0x140038eca: nop     word ptr [rax+rax+00h]
+0x140038ed0: movzx   edx, byte ptr [r8+rax]
+0x140038ed5: lea     rcx, [rsp+78h+Src]
+0x140038eda: cmp     [rsp+78h+var_30], 0Fh
+0x140038ee0: cmova   rcx, [rsp+78h+Src]
+0x140038ee6: xor     dl, [rcx+rax]
+0x140038ee9: cmp     qword ptr [rbx+18h], 0Fh
+0x140038eee: jbe     short loc_140038EF5
+0x140038ef0: mov     rcx, [rbx]
+0x140038ef3: jmp     short loc_140038EF8
+0x140038ef5: mov     rcx, rbx
+0x140038ef8: mov     [rcx+rax], dl
+0x140038efb: inc     rax
+0x140038efe: cmp     rax, rdi
+0x140038f01: jb      short loc_140038ED0
+0x140038f03: mov     rdx, [rsp+78h+var_30]
+0x140038f08: cmp     rdx, 0Fh
+0x140038f0c: jbe     short loc_140038F3C
+0x140038f0e: inc     rdx
+===== 0x1400396c0 =====
+0x1400396c0: mov     [rsp+arg_8], rbx
+0x1400396c5: mov     [rsp+arg_18], rsi
+0x1400396ca: push    rdi
+0x1400396cb: sub     rsp, 90h
+0x1400396d2: mov     rax, cs:__security_cookie
+0x1400396d9: xor     rax, rsp
+0x1400396dc: mov     [rsp+98h+var_18], rax
+0x1400396e4: mov     esi, r8d
+0x1400396e7: mov     rbx, rcx
+0x1400396ea: cmp     byte ptr [rcx+0F0h], 0
+0x1400396f1: jz      loc_140039828
+0x1400396f7: mov     edi, edx
+0x1400396f9: mov     rdx, [rcx+10h]
+0x1400396fd: cmp     rdi, rdx
+0x140039700: jnb     loc_140039828
+0x140039706: cmp     [rcx+50h], rdx
+0x14003970a: jz      loc_140039814
+0x140039710: xor     r8d, r8d
+0x140039713: lea     rcx, [rsp+98h+var_58]
+0x140039718: call    sub_140006100
+0x14003971d: nop
+0x14003971e: lea     r8, [rsp+98h+var_58]
+0x140039723: cmp     [rsp+98h+var_40], 0Fh
+0x140039729: cmova   r8, [rsp+98h+var_58]
+0x14003972f: mov     rdx, [rsp+98h+var_48]
+0x140039734: mov     eax, 5E17E11Dh
+0x140039739: test    esi, esi
+0x14003973b: cmovz   esi, eax
+0x14003973e: xor     esi, 50524144h
+0x140039744: mov     eax, esi
+0x140039746: shr     eax, 10h
+0x140039749: xor     eax, esi
+0x14003974b: imul    ecx, eax, 7FEB352Dh
+0x140039751: mov     eax, ecx
+0x140039753: shr     eax, 0Fh
+0x140039756: xor     eax, ecx
+0x140039758: imul    ecx, eax, 846CA68Bh
+0x14003975e: mov     [rsp+98h+var_68], r8
+0x140039763: mov     [rsp+98h+var_60], rdx
+0x140039768: mov     r8d, ecx
+0x14003976b: shr     r8d, 10h
+0x14003976f: xor     r8d, ecx
+0x140039772: lea     rdx, [rsp+98h+var_68]
+0x140039777: lea     rcx, [rsp+98h+Block]
+0x14003977c: call    sub_140038E50
+0x140039781: lea     rcx, [rbx+40h]
+0x140039785: lea     rdx, [rsp+98h+Block]
+0x14003978a: call    sub_140010AB0
+0x14003978f: mov     rdx, [rsp+98h+var_20]

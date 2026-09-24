@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width; initial-scale=1"/>
+<meta name="robots" content="all"/>
+<style type="text/css">
+body
+{
+	font-family: sans-serif;
+	font-size: 14px;
+	margin: 1em;
+}
+
+*:first-child
+{
+	margin-top: 0;
+}
+
+code, pre
+{
+	font-family: monospace;
+	background: #F7F7F7;
+	color: navy;
+}
+
+code
+{
+	font-size: 85%;
+	padding: 0.2em;
+}
+
+pre
+{
+	margin-left: 3em;
+	padding: 1em;
+}
+
+th
+{
+	text-align: left;
+}
+
+hr
+{
+	border: 0;
+	border-bottom: 1px solid #BBB;
+}
+</style>
+</head>
+<body>
+<h1 id="voice-and-language-files">Voice and Language Files</h1>
+
+<ul>
+  <li><a href="#identification-attributes">Identification Attributes</a>
+    <ul>
+      <li><a href="#name">name</a></li>
+      <li><a href="#language">language</a></li>
+      <li><a href="#gender">gender</a></li>
+    </ul>
+  </li>
+  <li><a href="#maintenance-attributes">Maintenance Attributes</a>
+    <ul>
+      <li><a href="#maintainer">maintainer</a></li>
+    </ul>
+  </li>
+  <li><a href="#voice-attributes">Voice Attributes</a>
+    <ul>
+      <li><a href="#pitch">pitch</a></li>
+      <li><a href="#formant">formant</a></li>
+      <li><a href="#freq_add">freq_add</a></li>
+      <li><a href="#echo">echo</a></li>
+      <li><a href="#tone">tone</a></li>
+      <li><a href="#flutter">flutter</a></li>
+      <li><a href="#roughness">roughness</a></li>
+      <li><a href="#voicing">voicing</a></li>
+      <li><a href="#consonants">consonants</a></li>
+      <li><a href="#breath">breath</a></li>
+      <li><a href="#breathw">breathw</a></li>
+      <li><a href="#speed">speed</a></li>
+      <li><a href="#words">words</a></li>
+    </ul>
+  </li>
+  <li><a href="#language-attributes">Language Attributes</a>
+    <ul>
+      <li><a href="#brackets">brackets</a></li>
+      <li><a href="#bracketsAnnounced">bracketsAnnounced</a></li>
+      <li><a href="#phonemes">phonemes</a></li>
+      <li><a href="#dictionary">dictionary</a></li>
+      <li><a href="#dictrules">dictrules</a></li>
+      <li><a href="#lowercaseSentence">lowercaseSentence</a></li>
+      <li><a href="#replace">replace</a></li>
+      <li><a href="#stressopt">stressOpt</a></li>
+      <li><a href="#stressrule">stressRule</a></li>
+      <li><a href="#stresslength">stressLength</a></li>
+      <li><a href="#stressadd">stressAdd</a></li>
+      <li><a href="#stressamp">stressAmp</a></li>
+      <li><a href="#intonation">intonation</a></li>
+      <li><a href="#dictmin">dictmin</a></li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<p>A voice file specifies a language (and possibly a language variant or
+dialect or just voice) together with various attributes that affect the
+characteristics of the voice quality and how the language is spoken.</p>
+
+<p>Voice files are located in the <code>espeak-ng-data/</code> folder, and:</p>
+
+<ol>
+  <li>if it describes voice with language or dialect, in <a href="../../../tree/master/espeak-ng-data/lang">lang</a> subfolder;</li>
+  <li>if it describes just voice, in <a href="../../../tree/master/espeak-ng-data/voices/!v">voices/!v</a> subfolder.</li>
+</ol>
+
+<p>Languages are grouped by the <a href="https://en.wikipedia.org/wiki/ISO_639-5">ISO 639-5</a>
+language family of the language being specified in the voice files.
+See also Wikipedia’s
+<a href="https://en.wiktionary.org/wiki/Wiktionary:List_of_families">List of language families</a>
+for more details.</p>
+
+<p>The <code>default</code> voice is used if none is specified in the speak command. You
+can copy your preferred voice to “default” so you can use the speak command
+without the need to specify a voice.</p>
+
+<h2 id="identification-attributes">Identification Attributes</h2>
+
+<h3 id="name">name</h3>
+
+<pre><code>name &lt;name&gt;
+</code></pre>
+
+<p>A mandatory name given to this voice. Should be single word.</p>
+
+<h3 id="language">language</h3>
+
+<p>A mandatory identifier of the language or the voice. It can have one of
+two options:</p>
+
+<pre><code>language &lt;language code&gt; [&lt;priority&gt;]
+</code></pre>
+
+<p><em>or</em></p>
+
+<pre><code>language variant
+</code></pre>
+
+<p><strong>NOTE:</strong> This attribute is mandatory and should appear before the other
+attributes which are listed below.</p>
+
+<p>It selects the default behaviour and characteristics for the language,
+and sets default values for “phonemes”, “dictionary” and other
+attributes.</p>
+
+<p>If value for <code>lanuguage</code> field is <code>variant</code>, then file describes only
+phonetic features of the voice and it can be used as a <a href="../src/espeak-ng.1.html">…+variant</a>
+option for any language.</p>
+
+<p>If <code>language</code> identifies actual language, then &lt;language code&gt; should be a valid
+<a href="https://en.wikipedia.org/wiki/IETF_language_tag">BCP 47</a> language tag. The
+list of valid tags originate from various standards and have been combined
+into the
+<a href="http://www.iana.org/assignments/language-subtag-registry/language-subtag-registry">IANA Language Subtag Registry</a>.
+For example:</p>
+
+<ul>
+  <li>
+    <p><code>de</code> (German) – The <a href="https://en.wikipedia.org/wiki/ISO_639-1">ISO 639-1</a>
+2-letter language code for the language.</p>
+
+    <p><strong>NOTE:</strong> BCP 47 uses ISO 639-1 codes for languages that are allocated
+2-letter codes (e.g. using <code>en</code> instead of <code>eng</code>).</p>
+  </li>
+  <li>
+    <p><code>yue</code> (Cantonese) – The <a href="https://en.wikipedia.org/wiki/ISO_639-3">ISO 639-3</a>
+3-letter language codes for the language.</p>
+  </li>
+  <li>
+    <p><code>ta-Arab</code> (Tamil written in the Arabic alphabet) – The
+<a href="https://en.wikipedia.org/wiki/ISO_15924">ISO 15924</a> 4-letter script code.</p>
+
+    <p><strong>NOTE:</strong> Where the script is the primary script for the language, the script
+tag should be omitted.</p>
+  </li>
+  <li>
+    <p><code>es-419</code> (Spanish (Latin America)) – The
+<a href="https://en.wikipedia.org/wiki/UN_M.49">UN M.49</a> 3-number region codes.</p>
+  </li>
+  <li>
+    <p><code>fr-CA</code> (French (Canada)) – Using the
+<a href="https://en.wikipedia.org/wiki/ISO_3166-2">ISO 3166-2</a> 2-letter region codes.</p>
+  </li>
+  <li>
+    <p><code>en-GB-scotland</code> (English (Scotland)) – This is using the BCP 47 variant
+tags.</p>
+  </li>
+  <li>
+    <p><code>en-GB-x-rp</code> (English (Received Pronunciation)) – This is using the
+<a href="https://raw.githubusercontent.com/espeak-ng/bcp47-data/master/bcp47-extensions">bcp47-extensions</a>
+language tags for accents that cannot be described using the available
+BCP 47 language tags.</p>
+
+    <p><strong>NOTE:</strong> If the accent you are trying to describe cannot be specified using
+the above system, raise an issue in the
+<a href="https://github.com/rhdunn/bcp47-data">bcp47-data</a> project and a private use
+tag will be defined for that accent.</p>
+  </li>
+</ul>
+
+<p>The optional &lt;priority&gt; value gives the preference of this voice
+compared with others for the specified language. A low value indicates a
+more preferred voice. The default value is 5.</p>
+
+<p>More than one <code>language</code> line may be present. A voice may be selected
+for other related languages (variants which have the same initial 2
+letter language code as the specified language), but it will be less
+preferred for these. Different language variants may be specified by
+additional <code>language</code> lines in order to indicate that this is a
+preferred voice for them also. E.g.</p>
+
+<pre><code>language en-GB-x-gbclan
+language en
+</code></pre>
+
+<p>indicates that this is voice is for the <code>en-GB-x-gbclan</code> dialect, but it is
+also a main choice when a general <code>en</code> language is specified. Without
+the second <code>language</code> line, it would be disfavoured from <code>en</code> for being
+a more specialised voice.</p>
+
+<h3 id="gender">gender</h3>
+
+<pre><code>gender &lt;gender&gt; [&lt;age&gt;]
+</code></pre>
+
+<p>This attribute is only a label for use in voice selection. It doesn’t
+change the sound of the voice.</p>
+
+<ul>
+  <li>&lt;gender&gt; may be male, female, or unknown.</li>
+  <li>&lt;age&gt; is optional and gives an age in years.</li>
+</ul>
+
+<h2 id="maintenance-attributes">Maintenance Attributes</h2>
+
+<h3 id="maintainer">maintainer</h3>
+
+<pre><code>maintainer &lt;maintaner&gt;
+</code></pre>
+
+<p>Specifies the person responsible for updating the voice and associated language
+files. If no maintainer is specified, the voice does not currently have an
+active maintainer.</p>
+
+<h3 id="status">status</h3>
+
+<pre><code>status &lt;status level&gt;
+</code></pre>
+
+<p>Specifies how advanced the support for the language is:</p>
+
+<ul>
+  <li>
+    <p><code>testing</code> – Provides the basic level of support, with basic pronunciation
+ rules. Requires feedback from a native speaker to help improve the voice.</p>
+  </li>
+  <li>
+    <p><code>mature</code> – The language is well supported. It has been improved by, or with
+support from, a native speaker.</p>
+  </li>
+</ul>
+
+<h2 id="voice-attributes">Voice Attributes</h2>
+
+<h3 id="pitch">pitch</h3>
+
+<pre><code>pitch &lt;base&gt; &lt;range&gt;
+</code></pre>
+
+<p>Two integer values. The first gives a base pitch to the voice (value in
+Hz) The second controls the range of pitches used by the voice. Setting
+it equal to the base pitch will give a monotone. The default values are 82 118.</p>
+
+<h3 id="formant">formant</h3>
+
+<pre><code>formant &lt;number&gt; &lt;frequency&gt; &lt;strength&gt; &lt;width&gt; &lt;freq_add&gt;
+</code></pre>
+
+<p>Systematically adjusts the frequency, strength, and width of the
+resonance peaks of the voice. Values are percentages of the default
+values. Changing these affects the tone/quality of the voice.</p>
+
+<h3 id="freqadd">freq_add</h3>
+
+<p>Adds a constant value (in Hz) to the frequency of the formant peak. The value
+may be negative.</p>
+
+<ul>
+  <li>Formants 1,2,3 are the standard three formants which define vowels.</li>
+  <li>Formant 0 is used to give a low frequency component to the sounds, of
+frequency lower than F1.</li>
+  <li>Formants 4,5 are higher than F3. They affect the quality of the voice.</li>
+  <li>Formants 6,7,8 are weak, high frequency, additions to vowels to give a
+clearer sound.</li>
+</ul>
+
+<h3 id="echo">echo</h3>
+
+<pre><code>echo &lt;delay&gt; &lt;amplitude&gt;
+</code></pre>
+
+<p>Parameter 1 gives the delay in mS (0 to 250mS).</p>
+
+<p>Parameter 2 gives the echo amplitude (0 to 100).</p>
+
+<p>Adding some echo can give a clearer or more interesting sound, especially when
+listening through a domestic stereo sound system, rather than small computer
+speakers.</p>
+
+<h3 id="tone">tone</h3>
+
+<p>Controls the tone of the sound.</p>
+
+<p><code>tone</code> is followed by up to 4 pairs of <code>&lt;frequency&gt; &lt;amplitude&gt;</code>
+which define a frequency response graph. Frequency is in Hz and
+amplitude is in the range 0 to 255 The default is:</p>
+
+<pre><code>tone 600 170  1200 135  2000 110
+</code></pre>
+
+<p>This means that from frequency 0Hz to 600Hz the amplitude is 170 From
+600Hz to 1200Hz the amplitude decreases from 170 to 135, then decreases
+to 110 at 2000Hz and remains at 110 at higher frequencies. This
+adjustment applies only to voiced sounds such as vowels and sonorant
+consonants (such as <code>[n]</code> and <code>[l]</code>). Unvoiced sounds such as <code>[s]</code> are
+unaffected.</p>
+
+<p>This <code>tone</code> statement can also appear in <code>espeak-ng-data/config</code>, in which case
+it applies to all voices which don’t have their own <code>tone</code> statement.</p>
+
+<h3 id="flutter">flutter</h3>
+
+<pre><code>flutter &lt;value&gt;
+</code></pre>
+
+<p>Default value: 100.</p>
+
+<p>Adds pitch fluctuations to give a wavering or older-sounding voice. A
+large value (eg. 20) makes the voice sound “croaky”.</p>
+
+<h3 id="roughness">roughness</h3>
+
+<pre><code>roughness &lt;value&gt;
+</code></pre>
+
+<p>Default value:  Range 0 - 7</p>
+
+<p>Reduces the amplitude of alternate waveform cycles in order to make the
+voice sound creaky.</p>
+
+<h3 id="voicing">voicing</h3>
+
+<pre><code>voicing &lt;value&gt;
+</code></pre>
+
+<p>Default value: 100</p>
+
+<p>Adjusts the strength of formant-synthesized sounds (vowels and sonorant
+consonants).</p>
+
+<h3 id="consonants">consonants</h3>
+
+<pre><code>consonants &lt;value&gt; &lt;value&gt;
+</code></pre>
+
+<p>Default values: 100, 100</p>
+
+<p>Adjusts the strength of noise sounds which are used in consonants. The
+first value is the strength of unvoiced consonants such as “s” and “t”.</p>
+
+<p>The second value is the strength of the noise component of voiced
+consonants such as “z” and “d”.</p>
+
+<h3 id="breath">breath</h3>
+
+<pre><code>breath &lt;up to 8 integer values&gt;
+</code></pre>
+
+<p>Default values: 0.</p>
+
+<p>Adds noise which corresponds to the formant frequency peaks. The values
+give the strength of noise for each formant peak (formants 1 to 8).</p>
+
+<p>Use together with a low or zero value of the <code>voicing</code> attribute to
+make a “wisper”. For example:</p>
+
+<pre><code>breath   75 75 60 40 15 10
+breathw  150 150 200 200 400 400
+voicing  18
+flutter  20
+formant   0 100 0 100   // remove formant 0 
+</code></pre>
+
+<h3 id="breathw">breathw</h3>
+
+<pre><code>breathw &lt;up to 8 integer values&gt;
+</code></pre>
+
+<p>These values give bandwidths of the noise peaks of the <code>breath</code>
+attribute. If <code>breathw</code> values are not given, then suitable default
+values will be used.</p>
+
+<h3 id="speed">speed</h3>
+
+<pre><code>speed &lt;value&gt;
+</code></pre>
+
+<p>Default value 100</p>
+
+<p>Adjusts the speaking speed by a percentage of the default rate. This
+can be used if a language voice seems faster or slower compared to other
+voices.</p>
+
+<h3 id="words">words</h3>
+
+<pre><code>words &lt;integer value&gt; &lt;integer value&gt;
+</code></pre>
+
+<p>The first parameter  puts a pause between all words, the value can be between
+<code>0</code> and <code>4</code>.</p>
+
+<p>The second parameter adds a short pause if a word ends with a vowel and
+the next words starts with a vowel. Values may be:</p>
+
+<ul>
+  <li><code>0</code>: no pause</li>
+  <li><code>1</code>: no pause, but the two vowels are kept separate</li>
+  <li><code>2</code>: short pause</li>
+</ul>
+
+<p>For example:</p>
+
+<pre><code>words 0 1
+</code></pre>
+
+<p>will put a short pause between two words where the first word end with a
+vowel and the next start with a vowel.</p>
+
+<h2 id="language-attributes">Language Attributes</h2>
+
+<h3 id="brackets">brackets</h3>
+
+<pre><code>brackets &lt;value&gt;
+</code></pre>
+
+<p>Default value: 4</p>
+
+<p>Increases the pause when reading brackets. Example: “Pause (with brackets)”.</p>
+
+<h3 id="bracketsannounced">bracketsAnnounced</h3>
+
+<pre><code>bracketsAnnounced &lt;value&gt;
+</code></pre>
+
+<p>Default value: 2</p>
+
+<p>Increases the pause when reading brackets when –punct is set to read bracket names. Example: “Pause (with brackets)”.</p>
+
+<h3 id="phonemes">phonemes</h3>
+
+<pre><code>phonemes &lt;name&gt;
+</code></pre>
+
+<p>Specifies which set of phonemes to use from those contained in the
+phontab, phonindex, and phondata data files. This is a <code>phonemetable</code>
+name as given in the “phoneme” source file.</p>
+
+<p>This parameter is usually not needed as it is set by default to the
+first two letters of the “language” parameter. However, different voices
+of the same language can use different phoneme sets, to give different
+accents.</p>
+
+<h3 id="dictionary">dictionary</h3>
+
+<pre><code>dictionary &lt;name&gt;
+</code></pre>
+
+<p>Specifies which pair of dictionary files to use. For example, <code>en</code> indicates
+that <code>speak-data/en_dict</code> should be used to translate from words to
+phonemes. This parameter is usually not needed as it is set by default
+to the value of the “language” parameter.</p>
+
+<h3 id="dictrules">dictrules</h3>
+
+<pre><code>dictrules &lt;list of rule numbers&gt;
+</code></pre>
+
+<p>Gives a list of conditional dictionary rules which are applied for this
+voice. Rule numbers are in the range 0 to 31 and are specific to a
+language dictionary. They apply to rules in the language’s <code>*_rules</code>
+dictionary file and also its <code>*_list</code> exceptions list. See
+<a href="dictionary.md#conditional-rules">Text to Phoneme Translation</a>.</p>
+
+<h3 id="lowercasesentence">lowercaseSentence</h3>
+
+<pre><code>lowercaseSentence &lt;no arguments&gt;
+</code></pre>
+
+<p>By default, a sentence end is detected if a period <code>.</code> is followed by an uppercase letter.
+When lowercaseSentence is set, a period followed by a lowercase letter is also handled as end of sentence.</p>
+
+<p>Note that other conditions, such as abbreviations, might override this setting.</p>
+
+<h3 id="replace">replace</h3>
+
+<pre><code>replace &lt;flags&gt; &lt;phoneme&gt; &lt;replacement phoneme&gt;
+</code></pre>
+
+<p>Replace a phoneme by another whenever it occurs.<br />
+&lt;replacement phoneme&gt; may be NULL.</p>
+
+<p>Flags: bit 0: replacement only occurs on the final phoneme of a word.<br />
+Flags: bit 1: replacement doesn’t occur in stressed syllables.</p>
+
+<p>e.g.</p>
+
+<pre><code>replace  0  h  NULL      // drops h's
+replace  0  V  U         // replaces vowel in 'strut' by that in 'foot'
+                         // as occurs in northern British English
+replace  3  N  n         // change 'fishing' to 'fishin' etc.
+                         // (only the last phoneme of a word, only in unstressed syllables)
+</code></pre>
+
+<p>The phoneme mnemonics can be defined for each language, but some are
+listed in <a href="phonemes.html">Phonemes</a>.</p>
+
+<h3 id="stressopt">stressOpt</h3>
+
+<pre><code>stressOpt &lt;list of rule numbers&gt;
+</code></pre>
+
+<p>Gives a list of stress options which are applied for this
+language. (values are defined as bit numbers starting with “S_*” in <a href="../src/libespeak-ng/translate.h">translate.h</a>)</p>
+
+<h3 id="stressrule">stressRule</h3>
+
+<pre><code>stressRule &lt;3 integer values&gt;
+</code></pre>
+
+<p>Three integer parameters. These correspond to:</p>
+
+<ol>
+  <li>langopts-&gt;stress_rule (values in <a href="../src/libespeak-ng/translate.h">translate.h</a>)</li>
+  <li>langopts-&gt;unstressed_wd1 (stress for $u word of 1 syllable)</li>
+  <li>langopts-&gt;unstressed_wd2 (stress for $u word of &gt;1 syllable)</li>
+</ol>
+
+<p>If a value is not given, it defaults to zero. For example:
+“stressRule 2” is equal to “stressRule 2 0 0 0”</p>
+
+<h3 id="stresslength">stressLength</h3>
+
+<pre><code>stressLength &lt;8 integer values&gt;
+</code></pre>
+
+<p>Eight integer parameters. These control the relative lengths of the
+vowels in stressed and unstressed syllables.</p>
+
+<ul>
+  <li>0  unstressed. Unstressed syllable in word
+(syllable with <code>%</code> mark or without any stress mark).</li>
+  <li>1 diminished. Its use depends on the language. In English it’s used for
+unstressed syllables (marked with <code>%%</code>) within multisyllabic words.
+In other languages it is final unstressed syllable.</li>
+  <li>2 secondary stress (syllable with marked with <code>,</code>).</li>
+  <li>3 words marked as “unstressed” in the dictionary.</li>
+  <li>4   not currently used</li>
+  <li>5   not currently used</li>
+  <li>6 stressed syllable (the main syllable in stressed words marked with <code>'</code>).</li>
+  <li>7 tonic syllable (by default, the last stressed syllable in the clause).</li>
+</ul>
+
+<h3 id="stressadd">stressAdd</h3>
+
+<pre><code>stressAdd &lt;8 integer values&gt;
+</code></pre>
+
+<p>Eight integer parameters. These are added to the voice’s corresponding
+<code>stressLength</code> values. They are used in the voice variant files in
+<code>espeak-ng-data/voices/!v</code> to give some variety. Negative values may be used.</p>
+
+<p>Note that setting <code>stressLength</code> after <code>stressAdd</code>  will overwrite this value.
+<code>stressLength</code> must be set before <code>stressAdd</code>.</p>
+
+<h3 id="stressamp">stressAmp</h3>
+
+<pre><code>stressAmp &lt;8 integer values&gt;
+</code></pre>
+
+<p>Eight integer parameters. These control the relative amplitudes of the
+vowels in stressed and unstressed syllables (see stressLength above).
+The general default values are: 16, 16, 20, 20, 20, 24, 24, 22, although
+these defaults may be different for particular languages.</p>
+
+<h3 id="intonation">intonation</h3>
+
+<pre><code>intonation &lt;param1&gt;
+</code></pre>
+
+<ul>
+  <li>1 – Default.</li>
+  <li>2 – Less intonation.</li>
+  <li>3 – Less intonation, and comma does not raise the pitch.</li>
+  <li>4 – Pitch rises (rather than falls) at the end of sentence.</li>
+</ul>
+
+<h3 id="dictmin">dictmin</h3>
+
+<pre><code>dictmin &lt;value&gt;
+</code></pre>
+
+<p>Used for some languages to detect if additional language data is
+installed. If the size of the compiled dictionary data for the language
+(the file <code>espeak-ng-data/*_dict</code>) is less than this size then a
+warning is given.</p>
+
+</body>
+</html>

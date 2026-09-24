@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "endpoints": [
+    {
+      "name": "main",
+      "protocol": "tls",
+      "host": "b31501f4e8de5bb6.chal.ctf.ae",
+      "port": 443
+    }
+  ]
+}

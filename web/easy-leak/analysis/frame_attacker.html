@@ -1,0 +1,27 @@
+<!doctype html>
+<iframe id="target" src="http://127.0.0.1:8765/frame_target.html"></iframe>
+<pre id="out">waiting</pre>
+<script>
+const out = document.querySelector('#out');
+setTimeout(() => {
+  const w = document.querySelector('#target').contentWindow;
+  const result = { outerLength: w.length };
+  try { result.findHit = w.find('TOKEN_secret'); }
+  catch (e) { result.findError = String(e); }
+  try { result.initialName = w.frames[0].name; }
+  catch (e) { result.initialReadError = String(e); }
+  try {
+    w.frames[0].location = 'about:blank';
+    result.navigationAssigned = true;
+  } catch (e) { result.navigationError = String(e); }
+  out.textContent = JSON.stringify(result);
+  setTimeout(() => {
+    try {
+      result.finalName = w.frames[0].name;
+      result.finalBody = w.frames[0].document.body.textContent;
+    } catch (e) { result.finalReadError = String(e); }
+    out.textContent = JSON.stringify(result);
+    (new Image()).src = '/log?result=' + encodeURIComponent(JSON.stringify(result));
+  }, 1000);
+}, 1000);
+</script>

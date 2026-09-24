@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width; initial-scale=1"/>
+<meta name="robots" content="all"/>
+<style type="text/css">
+body
+{
+	font-family: sans-serif;
+	font-size: 14px;
+	margin: 1em;
+}
+
+*:first-child
+{
+	margin-top: 0;
+}
+
+code, pre
+{
+	font-family: monospace;
+	background: #F7F7F7;
+	color: navy;
+}
+
+code
+{
+	font-size: 85%;
+	padding: 0.2em;
+}
+
+pre
+{
+	margin-left: 3em;
+	padding: 1em;
+}
+
+th
+{
+	text-align: left;
+}
+
+hr
+{
+	border: 0;
+	border-bottom: 1px solid #BBB;
+}
+</style>
+</head>
+<body>
+<h1 id="using-espeak-ng-as-a-library">Using eSpeak NG as a library</h1>
+
+<ul>
+  <li><a href="#simple-steps">Simple steps</a></li>
+  <li><a href="#error-solutions">Error solutions</a></li>
+  <li><a href="#additional-info">Additional info</a></li>
+</ul>
+
+<h2 id="simple-steps">Simple steps</h2>
+
+<ol>
+  <li>
+    <p>Ensure you have satisfied <a href="building.html">building dependencies</a></p>
+  </li>
+  <li>
+    <p>To use eSpeak NG as a C library, create file <code>test-espeak.c</code> with following content:</p>
+
+    <pre><code> #include &lt;espeak-ng/speak_lib.h&gt;
+    
+ espeak_AUDIO_OUTPUT output = AUDIO_OUTPUT_SYNCH_PLAYBACK;
+ char *path = NULL;
+ void* user_data;
+ unsigned int *identifier;
+    
+ int main(int argc, char* argv[]) {
+   char voicename[] = {"English"}; // Set voice by its name
+   char text[] = {"Hello world!"};
+   int buflength = 500, options = 0;
+   unsigned int position = 0, position_type = 0, end_position = 0, flags = espeakCHARS_AUTO;
+   espeak_Initialize(output, buflength, path, options);
+   espeak_SetVoiceByName(voicename);
+   printf("Saying  '%s'...\n", text);
+   espeak_Synth(text, buflength, position, position_type, end_position, flags, identifier, user_data);
+   printf("Done\n");
+   return 0;
+ }
+</code></pre>
+  </li>
+  <li>
+    <p>Compile created file with command:</p>
+
+    <pre><code> gcc test-espeak.c -lespeak-ng -o test-espeak
+</code></pre>
+  </li>
+  <li>
+    <p>Run created binary with the command:</p>
+
+    <pre><code> ./test-espeak
+</code></pre>
+  </li>
+</ol>
+
+<h2 id="error-solutions">Error solutions</h2>
+
+<p>If, during compilation, you get error like <code>espeak-ng/speak_lib.h: No such file or directory</code>,
+you may try to replace line:</p>
+
+<pre><code>#include &lt;espeak-ng/speak_lib.h&gt;
+</code></pre>
+
+<p>with</p>
+
+<pre><code>#include "/your/path/to/speak_lib.h"
+</code></pre>
+
+<p>where <code>/your/path/to/</code> is actual path, where header file is located.</p>
+
+<h2 id="additional-info">Additional info</h2>
+
+<p>Code above set library using just voice name with related <a href="languages.html">language</a> to it.
+Code below shows, how to set more detailed properties of the voice (e.g. language, variant and gender):</p>
+
+<pre><code>#include &lt;string.h&gt;
+#include &lt;malloc.h&gt;
+#include &lt;espeak-ng/speak_lib.h&gt;
+
+espeak_AUDIO_OUTPUT output = AUDIO_OUTPUT_SYNCH_PLAYBACK;
+char *path = NULL;
+void* user_data;
+unsigned int *identifier;
+
+int main(int argc, char* argv[] ) {
+  char text[] = {"Hello world!"};
+  int buflength = 500, options = 0;
+  unsigned int position = 0, position_type = 0, end_position = 0, flags = espeakCHARS_AUTO;
+  espeak_Initialize(output, buflength, path, options );
+  espeak_VOICE voice;
+  memset(&amp;voice, 0, sizeof(espeak_VOICE)); // Zero out the voice first
+  const char *langNativeString = "en"; // Set voice by properties
+  voice.languages = langNativeString;
+  voice.name = "US";
+  voice.variant = 2;
+  voice.gender = 2;
+  espeak_SetVoiceByProperties(&amp;voice);
+  printf("Saying  '%s'...\n", text);
+  espeak_Synth(text, buflength, position, position_type, end_position, flags, identifier, user_data);
+  printf("Done\n");
+  return 0;
+}
+</code></pre>
+
+<p>Look for details at <a href="https://github.com/espeak-ng/espeak-ng/blob/master/src/include/espeak-ng/espeak_ng.h">espeak_ng.h</a> and <a href="https://github.com/espeak-ng/espeak-ng/blob/master/src/include/espeak-ng/speak_lib.h">speak_lib.h</a> files.</p>
+
+
+</body>
+</html>

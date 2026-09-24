@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "endpoints": [
+    {
+      "name": "main",
+      "protocol": "https",
+      "url": "https://eb2735d8a9a959a2.chal.ctf.ae"
+    },
+    {
+      "name": "callback",
+      "protocol": "https",
+      "url": "https://coaching-functioning-holder-soil.trycloudflare.com"
+    },
+    {
+      "name": "listener",
+      "protocol": "tcp",
+      "host": "0.0.0.0",
+      "port": 8000
+    }
+  ]
+}

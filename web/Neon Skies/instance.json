@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "endpoints": [
+    {
+      "name": "main",
+      "protocol": "https",
+      "url": "https://ec74dd55349defb4.chal.ctf.ae"
+    },
+    {
+      "name": "stage",
+      "protocol": "https",
+      "url": "https://fa10df3f3ba381f0.chal.ctf.ae"
+    },
+    {
+      "name": "loader",
+      "protocol": "http",
+      "url": "http://httpbin.org/base64"
+    },
+    {
+      "name": "callback",
+      "protocol": "https",
+      "url": "https://webhook.site"
+    }
+  ]
+}

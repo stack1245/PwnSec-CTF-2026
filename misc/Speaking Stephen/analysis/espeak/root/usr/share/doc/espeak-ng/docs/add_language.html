@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width; initial-scale=1"/>
+<meta name="robots" content="all"/>
+<style type="text/css">
+body
+{
+	font-family: sans-serif;
+	font-size: 14px;
+	margin: 1em;
+}
+
+*:first-child
+{
+	margin-top: 0;
+}
+
+code, pre
+{
+	font-family: monospace;
+	background: #F7F7F7;
+	color: navy;
+}
+
+code
+{
+	font-size: 85%;
+	padding: 0.2em;
+}
+
+pre
+{
+	margin-left: 3em;
+	padding: 1em;
+}
+
+th
+{
+	text-align: left;
+}
+
+hr
+{
+	border: 0;
+	border-bottom: 1px solid #BBB;
+}
+</style>
+</head>
+<body>
+<h1 id="adding-or-improving-a-language">Adding or Improving a Language</h1>
+
+<ul>
+  <li><a href="#considerations-before-preparation">Considerations Before Preparation</a>
+    <ul>
+      <li><a href="#language-tag">Language Tag</a></li>
+      <li><a href="#language-family">Language Family</a></li>
+      <li><a href="#accent-optional">Accent (optional)</a></li>
+    </ul>
+  </li>
+  <li><a href="#configuration-files">Configuration Files</a>
+    <ul>
+      <li><a href="#makefileam-file">Makefile.am file</a></li>
+      <li><a href="#phonemes-file">Phonemes file</a></li>
+      <li><a href="#language-file">Language File</a></li>
+      <li><a href="#phoneme-definition-file">Phoneme Definition File</a></li>
+      <li><a href="#dictionary-files">Dictionary Files</a></li>
+      <li><a href="#building-phonemes">Building Phonemes</a></li>
+    </ul>
+  </li>
+  <li><a href="#program-code">Program Code</a></li>
+  <li><a href="#compiling-rules-file-for-debugging">Compiling Rules File for Debugging</a></li>
+  <li><a href="#improving-a-language">Improving a Language</a></li>
+</ul>
+
+<hr />
+
+<h2 id="considerations-before-preparation">Considerations Before Preparation</h2>
+
+<p>Most of the work doesn’t need any programming knowledge, but, to get immediate
+feedback, by running and testing eSpeak,
+you should be able to <a href="../README.md#building">build</a> it.</p>
+
+<p>You also have to understand the language main concepts, be aware of its features,
+and have to have patience and attention to detail.
+Wikipedia is a good source of basic phonetic information, e.g. about [vowels]
+(http://en.wikipedia.org/wiki/Vowel) and <a href="https://en.wikipedia.org/wiki/Consonant">consonants</a>.</p>
+
+<p>In many cases it should be fairly easy to add a rough implementation of
+a new language, hopefully enough to be intelligible. After that it’s a
+gradual process of improvement.</p>
+
+<h3 id="language-tag">Language Tag</h3>
+
+<p>The language is identified using the
+<a href="https://en.wikipedia.org/wiki/IETF_language_tag">BCP 47</a> language tag.
+The list of valid tags originate from various standards and have been combined
+into the
+<a href="http://www.iana.org/assignments/language-subtag-registry/language-subtag-registry">IANA Language Subtag Registry</a>.</p>
+
+<p>These language tags are used to specify the language, such as:</p>
+
+<ul>
+  <li>
+    <p><code>fr</code> (French) – The <a href="https://en.wikipedia.org/wiki/ISO_639-1">ISO 639-1</a>
+2-letter language code for the language.</p>
+
+    <p><strong>NOTE:</strong> BCP 47 uses ISO 639-1 codes for languages that are allocated
+2-letter codes (e.g. using <code>en</code> instead of <code>eng</code>).</p>
+  </li>
+  <li>
+    <p><code>yue</code> (Cantonese) – The <a href="https://en.wikipedia.org/wiki/ISO_639-3">ISO 639-3</a>
+3-letter language codes for the language.</p>
+  </li>
+  <li>
+    <p><code>ta-Arab</code> (Tamil written in the Arabic alphabet) – The
+<a href="https://en.wikipedia.org/wiki/ISO_15924">ISO 15924</a> 4-letter script code.</p>
+
+    <p><strong>NOTE:</strong> Where the script is the primary script for the language, the script
+tag should be omitted.</p>
+  </li>
+</ul>
+
+<h3 id="language-family">Language Family</h3>
+
+<p>The languages are grouped by the closest language family the language belongs.
+These language families are defined in
+<a href="https://en.wikipedia.org/wiki/ISO_639-5">ISO 639-5</a>. See also Wikipedia’s
+<a href="https://en.wiktionary.org/wiki/Wiktionary:List_of_families">List of language families</a>
+for more details.</p>
+
+<p>For example, the Celtic languages (Welsh, Irish Gaelic, Scottish Gaelic, etc.)
+are listed under the <code>cel</code> language family code.</p>
+
+<h3 id="accent-optional">Accent (optional)</h3>
+
+<p>If necessary, the language tags are also used to specify the accent or dialect of a language,
+such as:</p>
+
+<ul>
+  <li>
+    <p><code>es-419</code> (Spanish (Latin America)) – The
+<a href="https://en.wikipedia.org/wiki/UN_M.49">UN M.49</a> 3-number region codes.</p>
+  </li>
+  <li>
+    <p><code>fr-CA</code> (French (Canada)) – Using the
+<a href="https://en.wikipedia.org/wiki/ISO_3166-2">ISO 3166-2</a> 2-letter region codes.</p>
+  </li>
+  <li>
+    <p><code>en-GB-scotland</code> (English (Scotland)) – This is using the BCP 47 variant
+tags.</p>
+  </li>
+  <li>
+    <p><code>en-GB-x-rp</code> (English (Received Pronunciation)) – This is using the
+<a href="https://raw.githubusercontent.com/espeak-ng/bcp47-data/master/bcp47-extensions">bcp47-extensions</a>
+language tags for accents that cannot be described using the available
+BCP 47 language tags.</p>
+
+    <p><strong>NOTE:</strong> If the accent you are trying to describe cannot be specified using
+the above system, raise an issue in the
+<a href="https://github.com/rhdunn/bcp47-data">bcp47-data</a> project and a private use
+tag will be defined for that accent.</p>
+  </li>
+</ul>
+
+<h2 id="configuration-files">Configuration Files</h2>
+
+<p>To add new language, you have to create or edit following files:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>path/file</th>
+      <th>action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Makefile.am</td>
+      <td><a href="#makefileam-file">edit</a></td>
+    </tr>
+    <tr>
+      <td>espeak-ng-data/lang/roa/fr</td>
+      <td><a href="#language-file">create</a></td>
+    </tr>
+    <tr>
+      <td>phsource/phonemes</td>
+      <td><a href="#phonemes-file">edit</a></td>
+    </tr>
+    <tr>
+      <td>phsource/ph_french</td>
+      <td><a href="#phoneme-definition-file">create</a> (optional)</td>
+    </tr>
+    <tr>
+      <td>dictsource/fr_list</td>
+      <td><a href="#dictionary-files">create</a></td>
+    </tr>
+    <tr>
+      <td>dictsource/fr_rules</td>
+      <td><a href="#dictionary-files">create</a></td>
+    </tr>
+    <tr>
+      <td>dictsource/fr_extra</td>
+      <td>create (optional)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>where:</p>
+
+<ul>
+  <li><strong>french</strong> is name of the newly created language</li>
+  <li><strong>fr</strong> is the code of this language</li>
+  <li><strong>roa</strong> is the family of this language</li>
+</ul>
+
+<h3 id="makefileam-file">Makefile.am File</h3>
+
+<p><code>Makefile.am</code> is build configuration file. It should be edited if you add
+new language text-to-phoneme translation rules or set of sounds (phonemes).
+Usually you have to add necessary entries for new language, but may not need if
+you add new dialect for existing language.</p>
+
+<p>Search for configuration of existing languages (e.g. English)
+and add similar lines for your language in following sections.
+E.g. for French:</p>
+
+<pre><code>dictionaries: \
+...
+espeak-ng-data/fr_dict \
+...
+
+fr: espeak-ng-data/fr_dict
+espeak-ng-data/fr_dict: dictsource/fr_list dictsource/fr_rules dictsource/fr_extra dictsource/fr_emoji
+...
+</code></pre>
+
+<p>Note, that you don’t need to add <code>fr_extra</code> or <code>fr_emoji</code> reference in the last group, if your language doesn’t have this file.</p>
+
+<p>Optionally, if you have <a href="#phoneme-definition-file">phoneme definition file</a>, following line also should be added:</p>
+
+<pre><code>phsource/phonemes.stamp: \
+...
+phsource/ph_french \
+...
+</code></pre>
+
+<h3 id="language-file">Language File</h3>
+
+<p>E.g. <code>espeak-ng-data/lang/roa/fr</code> is the language file for French.
+This gives the language name and may set some options.</p>
+
+<p>Each language needs a language file in <code>espeak-ng-data/lang</code> grouped by the
+<a href="#language-family">language family</a>. The filename of the default voice for a
+language should be the same as the language code (e.g. <code>fr</code> for French).</p>
+
+<p>The simplest voice file would contain just 2 lines to give the language
+name (from the
+<a href="https://github.com/rhdunn/bcp47-data/blob/master/language-subtag-registry">IANA Language Subtag Registry</a>
+and language code, e.g.:</p>
+
+<pre><code>name French
+language fr
+</code></pre>
+
+<p>This language code specifies which phoneme table and dictionary to use
+(i.e. <code>phonemetable fr</code> and <code>espeak-ng-data/fr_dict</code>) to be used. If
+needed, these can be overridden by <code>phonemes</code> and <code>dictionary</code>
+attributes in the voice file. For example you may want to start the
+implementation of a new language by using the phoneme table of an
+existing language.</p>
+
+<p>Details of the contents of language files are given in <a href="voices.html">Voices</a>.</p>
+
+<h3 id="phonemes-file">Phonemes File</h3>
+
+<p>Open file <code>phsource/phonemes</code> and add following lines</p>
+
+<ol>
+  <li>Set of standard (already defined) phonemes for languge</li>
+</ol>
+
+<p><code>
+	...
+	phonemetable fr base
+	...
+</code>
+  where:
+        <em>…</em> means other existing lines of the configuration file and
+        <em>base</em> is usually is <code>base1</code> or code of other (already defined) language:</p>
+
+<ul>
+  <li>
+    <p><code>base</code> phoneme table contains only definitions of some “control” phonemes
+such as stress marks and pauses defined in top of the <code>phonemes</code> file.</p>
+  </li>
+  <li>
+    <p><code>base1</code> includes <code>base</code> and also has basic set of vowels and consonants
+defined under <code>phonemetable base1</code> section in <code>phonemes</code> file.</p>
+  </li>
+  <li>
+    <p><code>base2</code> has additional phonemes (mostly diphones) included from <code>ph_base2</code> file.</p>
+  </li>
+  <li>
+    <p>Other language e.g. <code>en</code> has all phonemes defined in its corresponding phoneme
+definition file e.g. <code>phsourc/ph_english</code> for English language.</p>
+  </li>
+</ul>
+
+<ol>
+  <li>Optionally, if you have customized phonemes in  <a href="#phoneme-definition-file">Phoneme Definition File</a>,
+add additional line: to include it:</li>
+</ol>
+
+<p><code>
+	...
+	include ph_french
+	...
+</code>
+For example, if <code>phsource/phonemes</code> has following lines:</p>
+
+<pre><code>phonemetable fr base
+include ph_french
+</code></pre>
+
+<p>it defines a phoneme table <code>fr</code> which inherits phoneme definitions from
+<code>base</code> table and adds new definitions or overrides existing
+definitions of <code>base</code> phonemes from the <code>phonemes/ph_french</code> file.</p>
+
+<h3 id="phoneme-definition-file">Phoneme Definition File</h3>
+
+<p>If you decide to customize definitions of phonemes (vowel and consonant
+sounds) for the language, then you have to create e.g. <code>phsource/ph_french</code>
+phoneme definition file for French.</p>
+
+<p>The phonemes file for the language defines those additional phonemes
+which are not inherited (generally the vowels and diphthongs, plus any
+additional consonants that are needed), or phonemes whose definitions
+differ from the inherited version (eg. the redefinition of a consonant).</p>
+
+<p>Usually it will contain mostly vowels. Most consonants will be inherited from the
+common phoneme definitions in the <em>master phoneme file</em>: <code>phsource/phonemes</code> as
+described in <a href="#phonemes-file">Phonemes File</a> section above.</p>
+
+<p>Details of phonemes files are given in <a href="phontab.html">Phoneme Tables</a>.</p>
+
+<h3 id="building-phonemes">Building Phonemes</h3>
+
+<p>To build the phoneme files, run:</p>
+
+<pre><code>espeak-ng --compile-phonemes
+</code></pre>
+
+<p>or:</p>
+
+<pre><code>make phsource/phonemes.stamp
+</code></pre>
+
+<p>For many languages, the consonant phonemes which are already available
+in eSpeak, together with the available vowel files which can be used to
+define vowel phonemes, will be sufficient. At least for an initial
+implementation.</p>
+
+<h3 id="dictionary-files">Dictionary Files</h3>
+
+<p>There are usually two dictionary files, e.g. for French:</p>
+
+<ul>
+  <li>
+    <p><code>dictsource/fr_list</code>. This contains pronunciations for numbers, letter and
+symbol names, and words with exceptional pronunciations. It also gives
+attributes such as “unstressed” and “pause” to some common words.
+The <code>fr_list</code> file contains:</p>
+
+    <ul>
+      <li>Pronunciations which exceptions to the rules in <code>fr_rules</code>, (e.g. foreign
+names).</li>
+      <li>Pronunciation of letter names, symbol names, and punctuation names.</li>
+      <li>Pronunciation of numbers.</li>
+      <li>Attributes for words. For example, common function words which should not
+be stressed, or conjunctions which should be preceded by a pause.</li>
+    </ul>
+  </li>
+  <li>
+    <p><code>dictsource/fr_rules</code>. This contains the spelling-to-phoneme translation
+ rules.</p>
+  </li>
+</ul>
+
+<p>Details of the contents of the dictionary files are given in
+<a href="dictionary.html">Dictionary</a>.</p>
+
+<p>The <code>fr_rules</code> and <code>fr_list</code> files are compiled to produce the
+<code>espeak-ng-data/fr_dict</code> file, which eSpeak uses when it is speaking.</p>
+
+<p>Once the language’s phonemes have been defined, then pronunciation
+dictionary data can be produced in order to translate the language’s
+source text into phonemes. This consists of two source files:
+<code>fr_rules</code> (the spelling to phoneme rules) and <code>fr_list</code> (an
+exceptions list, and attributes of certain words). The corresponding
+compiled data file is <code>espeak-ng-data/fr_dict</code> which is produced from
+the <code>fr_rules</code> and <code>fr_list</code> sources by the command:</p>
+
+<pre><code>espeak-ng --compile=fr
+</code></pre>
+
+<p>or by:</p>
+
+<pre><code>make fr
+</code></pre>
+
+<h2 id="program-code">Program Code</h2>
+
+<p>The behaviour of the eSpeak program is controlled by various options
+such as:</p>
+
+<ul>
+  <li>Default rules for which syllable of a word has the main stress.</li>
+  <li>Relative lengths and amplitude of vowels in stressed and unstressed syllables.</li>
+  <li>Which intonation tunes to use.</li>
+  <li>Rules for speaking numbers.</li>
+</ul>
+
+<p>Most of these options can be set in the voice file in espeak-ng-data/lang folder (see <a href="voices.html">Voices</a>).
+However some advanced options may be needed to add in source code in the function <code>SelectTranslator()</code>
+of the <a href="https://github.com/espeak-ng/espeak-ng/blob/master/src/libespeak-ng/tr_languages.c">tr_languages.c</a>
+file.</p>
+
+<h2 id="compiling-rules-file-for-debugging">Compiling Rules File for Debugging</h2>
+
+<p>When <code>espeak-ng</code> is invoked with <code>-X</code> parameter, it shows more detailed trace of 
+chosen language rules for pronunciation. This trace can show line numbers also, 
+if language is compiled with <code>--compile-debug</code> option.</p>
+
+<p>To do this, go to <code>espeak-ng</code> project root folder, then:</p>
+
+<pre><code>cd dictsource
+espeak-ng --compile-debug=en
+</code></pre>
+
+<p>When invoked in following way:</p>
+
+<pre><code>espeak-ng -ven -X "Test."
+</code></pre>
+
+<p>It will show:</p>
+
+<pre><code>Translate 'test'
+  1  5965:  t [t]
+
+  1  2104:  e [E]
+
+  1  5725:  s [s]
+
+  1  5965:  t [t]
+
+ t'Est
+</code></pre>
+
+<h2 id="improving-a-language">Improving a Language</h2>
+
+<p>Listen carefully to the eSpeak voice. Try to identify what sounds wrong
+and what needs to be improved.</p>
+
+<ul>
+  <li>
+    <p>Make the spelling-to-phoneme translation rules more accurate, including
+the position of stressed syllables within words. Some languages are easier
+than others. I expect most are easier than English.</p>
+  </li>
+  <li>
+    <p>Improve the sounds of the phonemes. It may be that a phoneme should sound
+different depending on adjacent sounds, or whether it’s at the start or the
+end of a word, between vowels, in a stressed or unstressed syllable, etc.
+This may consist of making small adjustments to vowel and diphthong quality
+or length, or adjusting the strength of consonants. Phoneme definitions can
+include conditional statements which can be used to change the sound of a
+phoneme depending on its environment. Bigger changes may be recording new or
+replacement consonant sounds, or may even need program code to implement new
+types of sounds.</p>
+  </li>
+  <li>
+    <p>Some common words should be added to the dictionary (the <code>fr_list</code> file for
+the language) with an “unstressed” attribute <code>$u</code> or <code>$u+</code> (e.g. in English,
+words such as “the”, “is”, “had”, “my”, “she”, “of”, “in”, “some”), or should
+be preceded by a short pause (such as “and”, “but”, “which”), or have other
+attributes, in order to make the speech flow better.</p>
+  </li>
+  <li>
+    <p>Improve the rhythm of the speech by adjusting the relative lengths of vowels
+in different contexts, e.g. stressed/unstressed syllable, or depending on the
+following phonemes. This is important for making the speech sound good for the
+language.</p>
+  </li>
+  <li>
+    <p>Make new intonation “tunes” for statements or questions (see
+<a href="intonation.html">Intonation</a>).</p>
+  </li>
+</ul>
+
+<p>For most of the eSpeak languages, I do not speak or understand the language, and I
+do not know how it should sound. I can only make improvements as a result of
+feedback from speakers of that language. If you want to help to improve a
+language, listen carefully and try to identify individual errors, either in
+the spelling-to-phoneme translation, the position of stressed syllables within
+words, or the sound of phonemes, or problems with rhythm and vowel lengths.</p>
+
+</body>
+</html>

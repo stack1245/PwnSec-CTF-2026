@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "endpoints": [
+    {
+      "name": "web",
+      "protocol": "https",
+      "url": "https://b0276423eb2c46fd.chal.ctf.ae"
+    },
+    {
+      "name": "bot",
+      "protocol": "https",
+      "url": "https://bot-b0276423eb2c46fd.chal.ctf.ae"
+    }
+  ]
+}

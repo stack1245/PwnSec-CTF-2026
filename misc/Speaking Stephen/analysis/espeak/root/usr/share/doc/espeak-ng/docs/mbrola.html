@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width; initial-scale=1"/>
+<meta name="robots" content="all"/>
+<style type="text/css">
+body
+{
+	font-family: sans-serif;
+	font-size: 14px;
+	margin: 1em;
+}
+
+*:first-child
+{
+	margin-top: 0;
+}
+
+code, pre
+{
+	font-family: monospace;
+	background: #F7F7F7;
+	color: navy;
+}
+
+code
+{
+	font-size: 85%;
+	padding: 0.2em;
+}
+
+pre
+{
+	margin-left: 3em;
+	padding: 1em;
+}
+
+th
+{
+	text-align: left;
+}
+
+hr
+{
+	border: 0;
+	border-bottom: 1px solid #BBB;
+}
+</style>
+</head>
+<body>
+<h1 id="mbrola-voices">MBROLA Voices</h1>
+
+<ul>
+  <li><a href="#voice-names">Voice Names</a></li>
+  <li><a href="#windows-installation">Windows Installation</a></li>
+  <li><a href="#linux-installation">Linux Installation</a>
+    <ul>
+      <li><a href="#installation-of-standard-packages">Installation of standard packages</a></li>
+      <li><a href="#installation-of-mbrola-package-from-source">Installation of MBROLA package from source</a></li>
+    </ul>
+  </li>
+  <li><a href="#usage">Usage</a></li>
+  <li><a href="#adding-new-mbrola-voice-entry-to-espeak-ng">Adding new MBROLA voice entry to eSpeak NG</a>
+    <ul>
+      <li><a href="#1-add-mbrola-voice-definition-file">1. Add MBROLA voice definition file</a></li>
+      <li><a href="#2-add-mbrola-phoneme-translation-file">2. Add MBROLA phoneme translation file</a></li>
+      <li><a href="#3-compile-voice-and-update-makefileam-file">3. Compile voice and update Makefile.am file</a></li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<p>The <a href="https://github.com/numediart/MBROLA">MBROLA</a> is an open source speech engine
+with collection of diphone voices for speech synthesis. Voices are cost-free for
+non-commerical purposes, but are not open source.</p>
+
+<p>MBROLA does not include any text-to-phoneme translation, so this
+must be done by another program. eSpeak NG can be used as a front-end to MBROLA,
+to provide spelling-to-phoneme translation and intonation, which MBROLA then uses
+to generate speech sound.</p>
+
+<h2 id="voice-names">Voice Names</h2>
+
+<p>To use a MBROLA voice, eSpeak NG needs information to translate from its
+own phonemes to the equivalent MBROLA phonemes.</p>
+
+<p>The eSpeak NG voices which use MBROLA are named as:</p>
+
+<pre><code>mb-xxN
+</code></pre>
+
+<p>where <code>xxN</code> is the name of a MBROLA voice (e.g. <code>mb-en1</code> for the MBROLA
+<code>en1</code> English voice). These voice files are in eSpeak NG’s folder
+<code>.../espeak-ng-data/voices/mb</code> (where <code>...</code> is usually <code>/usr/share</code>,
+but could be somewhere else).</p>
+
+<p>There are some additional eSpeak NG MBROLA voices, which speak English text
+using a MBROLA voice for a different language. These contain the name of
+the MBROLA voice with a suffix <code>-en</code>. For example, the voice
+<code>mb-de4-en</code> will speak English text with a German accent by using the
+MBROLA <code>de4</code> voice.</p>
+
+<p>The following MBROLA voices are available in eSpeak NG<sup><a href="#footnote1">1</a></sup>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>MBROLA Voice</th>
+      <th>Language</th>
+      <th>Gender</th>
+      <th>eSpeak</th>
+      <th>Debian Package</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>af1</code></td>
+      <td>Afrikaans</td>
+      <td>male</td>
+      <td><code>mb-af1</code></td>
+      <td><code>mbrola-af1</code></td>
+    </tr>
+    <tr>
+      <td><code>ar1</code></td>
+      <td>Arabic</td>
+      <td>male</td>
+      <td><code>mb-ar1</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>ar2</code></td>
+      <td>Arabic</td>
+      <td>male</td>
+      <td><code>mb-ar2</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>br1</code></td>
+      <td>Brazillian Portugues</td>
+      <td>male</td>
+      <td><code>mb-br1</code></td>
+      <td><code>mbrola-br1</code></td>
+    </tr>
+    <tr>
+      <td><code>br2</code></td>
+      <td>Brazillian Portugues</td>
+      <td>male</td>
+      <td><code>mb-br2</code></td>
+      <td><code>mbrola-br2</code></td>
+    </tr>
+    <tr>
+      <td><code>br3</code></td>
+      <td>Brazillian Portugues</td>
+      <td>male</td>
+      <td><code>mb-br3</code></td>
+      <td><code>mbrola-br3</code></td>
+    </tr>
+    <tr>
+      <td><code>br4</code></td>
+      <td>Brazillian Portugues</td>
+      <td>female</td>
+      <td><code>mb-br4</code></td>
+      <td><code>mbrola-br4</code></td>
+    </tr>
+    <tr>
+      <td><code>bz1</code></td>
+      <td>Breton</td>
+      <td>female</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>ca1</code></td>
+      <td>Canadian French</td>
+      <td>male</td>
+      <td><code>mb-ca1</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>ca2</code></td>
+      <td>Canadian French</td>
+      <td>male</td>
+      <td><code>mb-ca2</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>cn1</code></td>
+      <td>Mandarin Chinese</td>
+      <td>female</td>
+      <td><code>mb-cn1</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>cr1</code></td>
+      <td>Croatian</td>
+      <td>male</td>
+      <td><code>mb-cr1</code></td>
+      <td><code>mbrola-cr1</code></td>
+    </tr>
+    <tr>
+      <td><code>cz1</code></td>
+      <td>Czech</td>
+      <td>female</td>
+      <td><code>mb-cz1</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>cz2</code></td>
+      <td>Czech</td>
+      <td>male</td>
+      <td><code>mb-cz2</code></td>
+      <td><code>mbrola-cz2</code></td>
+    </tr>
+    <tr>
+      <td><code>de1</code></td>
+      <td>German</td>
+      <td>female</td>
+      <td><code>mb-de1</code></td>
+      <td><code>mbrola-de1</code></td>
+    </tr>
+    <tr>
+      <td><code>de2</code></td>
+      <td>German</td>
+      <td>male</td>
+      <td><code>mb-de2</code></td>
+      <td><code>mbrola-de2</code></td>
+    </tr>
+    <tr>
+      <td><code>de3</code></td>
+      <td>German</td>
+      <td>female</td>
+      <td><code>mb-de3</code></td>
+      <td><code>mbrola-de3</code></td>
+    </tr>
+    <tr>
+      <td><code>de4</code></td>
+      <td>German</td>
+      <td>male</td>
+      <td><code>mb-de4</code></td>
+      <td><code>mbrola-de4</code></td>
+    </tr>
+    <tr>
+      <td><code>de5</code></td>
+      <td>German</td>
+      <td>female</td>
+      <td><code>mb-de5</code></td>
+      <td><code>mbrola-de5</code></td>
+    </tr>
+    <tr>
+      <td><code>de6</code></td>
+      <td>German</td>
+      <td>male</td>
+      <td><code>mb-de6</code></td>
+      <td><code>mbrola-de6</code></td>
+    </tr>
+    <tr>
+      <td><code>de7</code></td>
+      <td>German</td>
+      <td>female</td>
+      <td><code>mb-de7</code></td>
+      <td><code>mbrola-de7</code></td>
+    </tr>
+    <tr>
+      <td><code>de8</code></td>
+      <td>German-Bavarian</td>
+      <td>male</td>
+      <td><code>mb-de8</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>ee1</code></td>
+      <td>Estonian</td>
+      <td>male</td>
+      <td><code>mb-ee1</code></td>
+      <td><code>mbrola-ee1</code></td>
+    </tr>
+    <tr>
+      <td><code>en1</code></td>
+      <td>British English</td>
+      <td>female</td>
+      <td><code>mb-en1</code></td>
+      <td><code>mbrola-en1</code></td>
+    </tr>
+    <tr>
+      <td><code>es1</code></td>
+      <td>Spanish</td>
+      <td>male</td>
+      <td><code>mb-es1</code></td>
+      <td><code>mbrola-es1</code></td>
+    </tr>
+    <tr>
+      <td><code>es2</code></td>
+      <td>Spanish</td>
+      <td>male</td>
+      <td><code>mb-es2</code></td>
+      <td><code>mbrola-es2</code></td>
+    </tr>
+    <tr>
+      <td><code>es3</code></td>
+      <td>Spanish</td>
+      <td>female</td>
+      <td><code>mb-es3</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>es4</code></td>
+      <td>Spanish</td>
+      <td>male</td>
+      <td><code>mb-es4</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>fr1</code></td>
+      <td>French</td>
+      <td>male</td>
+      <td><code>mb-fr1</code></td>
+      <td><code>mbrola-fr1</code></td>
+    </tr>
+    <tr>
+      <td><code>fr2</code></td>
+      <td>French</td>
+      <td>female</td>
+      <td><code>mb-fr2</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>fr3</code></td>
+      <td>French</td>
+      <td>male</td>
+      <td><code>mb-fr3</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>fr4</code></td>
+      <td>French</td>
+      <td>female</td>
+      <td><code>mb-fr4</code></td>
+      <td><code>mbrola-fr4</code></td>
+    </tr>
+    <tr>
+      <td><code>fr5</code></td>
+      <td>Belgian French</td>
+      <td>male</td>
+      <td><code>mb-fr5</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>fr6</code></td>
+      <td>French</td>
+      <td>male</td>
+      <td><code>mb-fr6</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>fr7</code></td>
+      <td>Belgian French</td>
+      <td>male</td>
+      <td><code>mb-fr7</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>gr1</code></td>
+      <td>Greek</td>
+      <td>male</td>
+      <td><code>mb-gr1</code></td>
+      <td><code>mbrola-gr1</code></td>
+    </tr>
+    <tr>
+      <td><code>gr2</code></td>
+      <td>Greek</td>
+      <td>male</td>
+      <td><code>mb-gr2</code></td>
+      <td><code>mbrola-gr2</code></td>
+    </tr>
+    <tr>
+      <td><code>hb1</code></td>
+      <td>Hebrew</td>
+      <td>male</td>
+      <td><code>mb-hb1</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>hb2</code></td>
+      <td>Hebrew</td>
+      <td>female</td>
+      <td><code>mb-hb2</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>hn1</code></td>
+      <td>Korean</td>
+      <td>male</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>hu1</code></td>
+      <td>Hungarian</td>
+      <td>female</td>
+      <td><code>mb-hu1</code></td>
+      <td><code>mbrola-hu1</code></td>
+    </tr>
+    <tr>
+      <td><code>ic1</code></td>
+      <td>Icelandic</td>
+      <td>male</td>
+      <td><code>mb-ic1</code></td>
+      <td><code>mbrola-ic1</code></td>
+    </tr>
+    <tr>
+      <td><code>in1</code></td>
+      <td>Hindi</td>
+      <td>male</td>
+      <td><code>mb-in1</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>in2</code></td>
+      <td>Hindi</td>
+      <td>female</td>
+      <td><code>mb-in2</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>id1</code></td>
+      <td>Indonesian</td>
+      <td>male</td>
+      <td><code>mb-id1</code></td>
+      <td><code>mbrola-id1</code></td>
+    </tr>
+    <tr>
+      <td><code>ir1</code></td>
+      <td>Iranian Persian</td>
+      <td>male</td>
+      <td><code>mb-ir1</code></td>
+      <td><code>mbrola-ir1</code></td>
+    </tr>
+    <tr>
+      <td><code>it1</code></td>
+      <td>Italian</td>
+      <td>male</td>
+      <td><code>mb-it1</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>it2</code></td>
+      <td>Italian</td>
+      <td>female</td>
+      <td><code>mb-it2</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>it3</code></td>
+      <td>Italian</td>
+      <td>male</td>
+      <td><code>mb-it3</code></td>
+      <td><code>mbrola-it3</code></td>
+    </tr>
+    <tr>
+      <td><code>it4</code></td>
+      <td>Italian</td>
+      <td>female</td>
+      <td><code>mb-it4</code></td>
+      <td><code>mbrola-it4</code></td>
+    </tr>
+    <tr>
+      <td><code>jp1</code></td>
+      <td>Japanese</td>
+      <td>male</td>
+      <td><code>mb-jp1</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>jp2</code></td>
+      <td>Japanese</td>
+      <td>female</td>
+      <td><code>mb-jp2</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>jp3</code></td>
+      <td>Japanese</td>
+      <td>female</td>
+      <td><code>mb-jp3</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>la1</code></td>
+      <td>Classical Latin</td>
+      <td>male</td>
+      <td><code>mb-la1</code></td>
+      <td><code>mbrola-la1</code></td>
+    </tr>
+    <tr>
+      <td><code>lt1</code></td>
+      <td>Lithuanian</td>
+      <td>male</td>
+      <td><code>mb-lt1</code></td>
+      <td><code>mbrola-lt1</code></td>
+    </tr>
+    <tr>
+      <td><code>lt2</code></td>
+      <td>Lithuanian</td>
+      <td>male</td>
+      <td><code>mb-lt2</code></td>
+      <td><code>mbrola-lt2</code></td>
+    </tr>
+    <tr>
+      <td><code>ma1</code></td>
+      <td>Malay</td>
+      <td>female</td>
+      <td><code>mb-ma1</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>mx1</code></td>
+      <td>Mexican Spanish</td>
+      <td>male</td>
+      <td><code>mb-mx1</code></td>
+      <td><code>mbrola-mx1</code></td>
+    </tr>
+    <tr>
+      <td><code>mx2</code></td>
+      <td>Mexican Spanish</td>
+      <td>male</td>
+      <td><code>mb-mx2</code></td>
+      <td><code>mbrola-mx2</code></td>
+    </tr>
+    <tr>
+      <td><code>nl1</code></td>
+      <td>Dutch</td>
+      <td>male</td>
+      <td><code>mb-nl1</code> <sup><a href="#footnote2">2</a></sup></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>nl2</code></td>
+      <td>Dutch</td>
+      <td>male</td>
+      <td><code>mb-nl2</code></td>
+      <td><code>mbrola-nl2</code></td>
+    </tr>
+    <tr>
+      <td><code>nl3</code></td>
+      <td>Dutch</td>
+      <td>female</td>
+      <td><code>mb-nl3</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>nz1</code></td>
+      <td>Maori</td>
+      <td>male</td>
+      <td><code>mb-nz1</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>pl1</code></td>
+      <td>Polish</td>
+      <td>female</td>
+      <td><code>mb-pl1</code></td>
+      <td><code>mbrola-pl1</code></td>
+    </tr>
+    <tr>
+      <td><code>pt1</code></td>
+      <td>Portuguese</td>
+      <td>female</td>
+      <td><code>mb-pt1</code></td>
+      <td><code>mbrola-pt1</code></td>
+    </tr>
+    <tr>
+      <td><code>ro1</code></td>
+      <td>Romanian</td>
+      <td>male</td>
+      <td><code>mb-ro1</code></td>
+      <td><code>mbrola-ro1</code></td>
+    </tr>
+    <tr>
+      <td><code>sw1</code></td>
+      <td>Swedish</td>
+      <td>male</td>
+      <td><code>mb-sw1</code></td>
+      <td><code>mbrola-sw1</code></td>
+    </tr>
+    <tr>
+      <td><code>sw2</code></td>
+      <td>Swedish</td>
+      <td>female</td>
+      <td><code>mb-sw2</code></td>
+      <td><code>mbrola-sw2</code></td>
+    </tr>
+    <tr>
+      <td><code>tl1</code></td>
+      <td>Telugu</td>
+      <td>female</td>
+      <td><code>mb-tl1</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>tr1</code></td>
+      <td>Turkish</td>
+      <td>male</td>
+      <td><code>mb-tr1</code></td>
+      <td><code>mbrola-tr1</code></td>
+    </tr>
+    <tr>
+      <td><code>tr2</code></td>
+      <td>Turkish</td>
+      <td>female</td>
+      <td><code>mb-tr2</code></td>
+      <td><code>mbrola-tr2</code></td>
+    </tr>
+    <tr>
+      <td><code>us1</code></td>
+      <td>American English</td>
+      <td>female</td>
+      <td><code>mb-us1</code></td>
+      <td><code>mbrola-us1</code></td>
+    </tr>
+    <tr>
+      <td><code>us2</code></td>
+      <td>American English</td>
+      <td>male</td>
+      <td><code>mb-us2</code></td>
+      <td><code>mbrola-us2</code></td>
+    </tr>
+    <tr>
+      <td><code>us3</code></td>
+      <td>American English</td>
+      <td>male</td>
+      <td><code>mb-us3</code></td>
+      <td><code>mbrola-us3</code></td>
+    </tr>
+    <tr>
+      <td><code>vz1</code></td>
+      <td>Venezuelan Spanish</td>
+      <td>male</td>
+      <td><code>mb-vz1</code></td>
+      <td><code>mbrola-vz1</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>eSpeak NG will look for mbrola voices firstly in <code>espeak-ng-data/mbrola</code> and then in <code>/usr/share/mbrola</code>.</p>
+
+<p>The installation instructions below use the MBROLA voice <code>en1</code> as an
+example. You can use other mbrola voices for which there is an
+equivalent eSpeak NG voice in <code>espeak-ng-data/voices/mb</code>.</p>
+
+<h2 id="windows-installation">Windows Installation</h2>
+
+<p>The SAPI5 version of eSpeak NG uses the <code>mbrola.dll</code>.</p>
+
+<ol>
+  <li>
+    <p>Install eSpeak NG. Include the voice <code>mb-en1</code> in the list of voices during
+the eSpeak NG installation.</p>
+  </li>
+  <li>
+    <p>Install the PC/Windows version of MBROLA (<code>MbrolaTools35.exe</code>) from:
+<a href="http://www.tcts.fpms.ac.be/synthesis/mbrola/bin/pcwin/MbrolaTools35.exe">http://www.tcts.fpms.ac.be/synthesis/mbrola/bin/pcwin/MbrolaTools35.exe</a>.</p>
+  </li>
+  <li>
+    <p>Download the <code>en1</code> or other voice from:
+<a href="https://github.com/numediart/MBROLA-voices">https://github.com/numediart/MBROLA-voices</a></p>
+  </li>
+  <li>
+    <p>Save downloaded <code>en1</code> data file into <code>C:/Program Files/eSpeak/espeak-ng-data/mbrola</code>.</p>
+  </li>
+  <li>
+    <p>Use the voice <code>espeak-MB-EN1</code> from the list of SAPI5 voices.</p>
+  </li>
+</ol>
+
+<h2 id="linux-installation">Linux Installation</h2>
+
+<h3 id="installation-of-standard-packages">Installation of standard packages</h3>
+
+<p>There are standard packages prepared for MBROLA binary and voices on different Linux distributions.
+On Debian/Ubuntu-like Linux, you can install mbrola using <code>apt-get</code> package manager:</p>
+
+<pre><code>sudo apt-get install mbrola mbrola-en1
+</code></pre>
+
+<p>where:</p>
+
+<ul>
+  <li><code>mbrola</code> is package containing MBROLA executable,</li>
+  <li><code>mbrola-en1</code> is mbrola data files for <strong>en1</strong> MBROLA voice.</li>
+</ul>
+
+<p>You can check other available voices searching with command:</p>
+
+<pre><code>apt-cache search mbrola
+</code></pre>
+
+<p>If some MBROLA voice is not available as Debian package, you can download data files
+from <a href="https://github.com/numediart/MBROLA-voices">https://github.com/numediart/MBROLA-voices</a>
+and save them in <code>/usr/share/mbrola/xxN/xxN</code> file, where <code>xxN</code> is code and number of language file.</p>
+
+<h3 id="installation-of-mbrola-package-from-source">Installation of MBROLA package from source</h3>
+
+<ol>
+  <li>
+    <p>Install necessary packages:
+<code>
+sudo apt-get install git make gcc
+</code></p>
+  </li>
+  <li>
+    <p>Clone MBROLA git repository:
+<code>
+git clone https://github.com/numediart/MBROLA.git
+cd MBROLA
+</code></p>
+  </li>
+  <li>
+    <p>Compile MBROLA:
+<code>
+make
+</code></p>
+  </li>
+  <li>
+    <p>Install MBROLA:
+<code>
+sudo cp Bin/mbrola /usr/bin/mbrola
+</code></p>
+  </li>
+  <li>
+    <p>Download the <code>en1</code> or other voice from
+<a href="https://github.com/numediart/MBROLA-voices">https://github.com/numediart/MBROLA-voices</a></p>
+  </li>
+  <li>
+    <p>Copy the <code>en1</code> data file to <code>/usr/share/mbrola/en1</code> folder.</p>
+  </li>
+</ol>
+
+<h2 id="usage">Usage</h2>
+
+<p>If you use the eSpeak NG voice such as <code>mb-en1</code> then eSpeak NG will use the mbrola “en1” voice, e.g.:</p>
+
+<pre><code>espeak-ng -v mb-en1 "Hello world"
+</code></pre>
+
+<p>To generate mbrola phoneme data (.pho file) you can use:</p>
+
+<pre><code>espeak-ng -v mb-en1 -q --pho "Hello world"
+</code></pre>
+
+<p>or</p>
+
+<pre><code>espeak-ng -v mb-en1 -q --pho --phonout=out.pho "Hello world"
+</code></pre>
+
+<p>If you have issues with sound system integration, you can pass MBROLA’s output to standard output,
+which then can be played by ALSA (<code>aplay</code>) or PulseAudio (<code>paplay</code>) player throug the pipe:</p>
+
+<pre><code>    espeak-ng -vmb-en1 --stdout "Hello world"|aplay
+</code></pre>
+
+<h2 id="adding-new-mbrola-voice-entry-to-espeak-ng">Adding new MBROLA voice entry to eSpeak NG</h2>
+
+<p>To add new MBROLA voice entry for eSpeak NG you have to:</p>
+
+<ol>
+  <li>add MBROLA voice definition file,</li>
+  <li>add MBROLA phoneme translation file,</li>
+  <li>update Makefile.am file and compile voice.</li>
+</ol>
+
+<p>These steps are described in details in following sections.</p>
+
+<h3 id="add-mbrola-voice-definition-file">1. Add MBROLA voice definition file</h3>
+
+<p>eSpeak NG’s voice files for MBROLA voices are in <code>espeak-ng-data/voices/mb</code> folder.
+Voice definition file is in form <code>mb-xxN</code> and have to contain at least this line:
+<code>mbrola &lt;voice&gt; &lt;translation&gt;</code>, e.g.</p>
+
+<pre><code>mbrola en1 en1_phtrans
+</code></pre>
+
+<p>Where:
+* <code>en1</code> is the name of the MBROLA voice.
+* <code>en1_phtrans</code> is a translation file to convert between eSpeak NG phonemes and
+  the equivalent MBROLA phonemes.</p>
+
+<p>If language code differs between MBROLA voice and eSpeak NG language,
+then additional line is necessary:</p>
+
+<pre><code>    language xx
+</code></pre>
+
+<p>where <code>xx</code> is code of the language in eSpeak NG.</p>
+
+<p>Binary <code>xxN_phtrans</code> files are kept in <code>espeak-ng-data/mbrola_ph</code> folder
+and are generated from <code>phsource/mb/xxN</code> text files, during MBROLA
+voice compilation.</p>
+
+<p>Additionally MBROLA voice definition file can have other optional parameters,
+similar to eSpeak NG voices, which are described <a href="voices.html">Voices</a> file.</p>
+
+<h3 id="add-mbrola-phoneme-translation-file">2. Add MBROLA phoneme translation file</h3>
+
+<p>MBROLA phoneme translation files specify translations from eSpeak NG
+phoneme names to mbrola phoneme names.</p>
+
+<p>The source phoneme translation files are in <code>.../phsource/mbrola</code> folder and
+their name is in form <code>xxN</code> of referenced MBROLA voice.</p>
+
+<p><em>Note:</em></p>
+
+<ul>
+  <li>
+    <p>eSpeak NG phonemes are referenced from voice files in <code>phsource</code> folder of particular language e.g.
+<code>ph_english</code> and/or general <code>phonemes</code> file.</p>
+  </li>
+  <li>
+    <p>MBROLA phonemes are usualy listed in <code>README.txt</code> file of MBROLA voice.</p>
+  </li>
+</ul>
+
+<p>Each line in the mbrola phoneme translation file contains:</p>
+
+<pre><code>&lt;control&gt; &lt;espeak ph1&gt; &lt;espeak ph2&gt; &lt;percent&gt; &lt;mbrola ph1&gt; [&lt;mbrola ph2&gt;]
+</code></pre>
+
+<ul>
+  <li>
+    <p><code>&lt;control&gt;</code> \
+bit 0 (+1)  skip the next phoneme \
+bit 1 (+2)  match this and previous phoneme \
+bit 2 (+4)  only at the start of a word \
+bit 3 (+8)  don’t match two phonemes across a word boundary \
+bit 4 (+16) add this phoneme name as a prefix to the next phoneme name (used for de4 phoneme prefix ‘?’) \
+bit 5 (+32) only in stressed syllable \
+bit 6 (+64) only at the end of a word</p>
+  </li>
+  <li>
+    <p><code>&lt;espeak ph1&gt;</code> \
+The eSpeak NG phoneme which is to be translated to an mbrola phoneme.</p>
+  </li>
+  <li>
+    <p><code>&lt;espeak ph2&gt;</code> \
+If this field is not <code>NULL</code>, then the match only occurs if
+this field matches the next phoneme. If control bit <code>1</code> is set, then the
+<em>previous</em> rather than the <em>next</em> phoneme is matched. This field may
+also have the following values:
+<code>VWL</code> \
+matches any Vowel phoneme.</p>
+  </li>
+  <li>
+    <p><code>&lt;percent&gt;</code> \
+If this field is zero then only one mbrola phoneme is used. If this
+field is non-zero, then two mbrola phonemes are used, and this value
+gives the percentage length of the first mbrola phoneme.</p>
+  </li>
+  <li>
+    <p><code>&lt;mbrola ph1&gt;</code> \
+The mbrola phoneme to which the eSpeak NG phoneme is translated. This
+field may be <code>NULL</code>.</p>
+  </li>
+  <li>
+    <p><code>&lt;mbrola ph2&gt;</code> \
+The second mbrola phoneme. This field is only used if the &lt;percent&gt;
+field is not zero.</p>
+  </li>
+</ul>
+
+<p>The list is searched from start to finish, until a match is found.
+Therefore, a line with more specific match condition should appear
+before a line which matches the same eSpeak NG phoneme but with a more
+general condition.</p>
+
+<p><strong>Note:</strong></p>
+
+<p>You can get list (and descriptions) of defined phonemes for particular eSpeak NG language
+by entering command in <code>phsource</code> folder:</p>
+
+<pre><code>egrep "^phoneme " phonemes ph_english|cut -d$' ' -f2-|sort
+</code></pre>
+
+<p>where <code>ph_english</code> is phoneme definition for particular language</p>
+
+<p>Note that <code>ph_language</code> file can extend or override phoneme definitions
+in <code>phonemes</code> file. Translations for all defined phonemes should be
+given in the mbrola phoneme translation file.</p>
+
+<p>If the language’s <code>*_list</code> or <code>*_rules</code> files includes rules to speak
+words “as English” the mbrola phoneme translation file should include
+rules which translate English phonemes into near equivalents, so that
+they can spoken by the MBROLA voice.</p>
+
+<p>For latest Linux verson of <code>mbrola</code> you can get list of diphones for particular
+language by entering command:</p>
+
+<pre><code>  mbrola -d /usr/share/mbrola/en1/en1
+</code></pre>
+
+<p>where <code>/usr/share/mbrola/en1/en1</code> is location of the voice file.</p>
+
+<p>When phoneme translation source file is compiled (look at next section)
+<code>espeak-ng-data/mbrola_ph/xxN_phtrans</code> file is created.</p>
+
+<h3 id="compile-voice-and-update-makefileam-file">3. Compile voice and update Makefile.am file</h3>
+
+<p>Separate MBROLA voice can be compiled using comand:</p>
+
+<pre><code>espeak-ng --compile-mbrola=&lt;xxN&gt;
+</code></pre>
+
+<p>where <code>xxN</code> is MBROLA voice name.</p>
+
+<p><code>Makefile.am</code> is build configuration file which should be extended, to include automatic compilation
+of newly added MBROLA voice for eSpeak NG.</p>
+
+<p>Search for  <code>mbrola: \</code> line in <code>Makefile.am</code> and add additional line for newly created MBROLA voice, e.g.:</p>
+
+<pre><code>mbrola: \
+...
+espeak-ng-data/mbrola_ph/xxN_phtrans \
+</code></pre>
+
+<p>Note that it could be that several voices share the same translation file. Then translation file
+is named just <code>xx</code>.</p>
+
+<p>When <code>Makefile.am</code> is update, when espek-ng will be compiled, e.g. by
+entering command <code>automake; make -B</code> newly added MBROLA voice will be compiled automatically.</p>
+
+<p><a name="footnote1">1</a>: You can get list of configured entries for MBROLA synthesizer with following command
+in espeak-ng project folder:
+<code>
+cd espeak-ng-data/voices/mb/; for i in $(ls); do printf "$i "; grep name $i|awk '{print $2}'; done
+</code>
+<a name="footnote2">2</a>: This voice has very limited set of diphones and is usable only for reading numbers.</p>
+
+
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "endpoints": [
+    {
+      "name": "main",
+      "protocol": "https",
+      "url": "https://d2903cc9612cf92a.chal.ctf.ae"
+    }
+  ]
+}

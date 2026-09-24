@@ -1,0 +1,4 @@
+<!doctype html><script>
+const q=new URLSearchParams(location.search),A='http://localhost:'+(q.has('local')?3001:3000),i=q.get('rid'),w=open(A+'/review?rid='+i);
+onmessage=e=>{let p=e.ports[0];if(!p)return;p.postMessage('ready');setTimeout(()=>{w.location='/helper';setTimeout(()=>location='about:blank',250)},500)};
+</script>

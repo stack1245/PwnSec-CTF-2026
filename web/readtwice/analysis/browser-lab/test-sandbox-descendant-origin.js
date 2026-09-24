@@ -1,0 +1,3 @@
+const http=require('http'),puppeteer=require('puppeteer');
+const server=http.createServer((q,r)=>{r.setHeader('Content-Security-Policy','sandbox allow-scripts');if(q.url==='/')r.end(`<iframe id=f src=/secret></iframe><script>onload=()=>{try{document.title=f.contentDocument.body.textContent}catch(e){document.title=e.name}}</script>`);else r.end('SECRET')});
+(async()=>{await new Promise(x=>server.listen(8145,'127.0.0.1',x));let b=await puppeteer.launch({executablePath:process.env.CHROME_PATH,headless:'new'}),p=await b.newPage();await p.goto('http://127.0.0.1:8145/');await new Promise(x=>setTimeout(x,500));console.log(await p.title());await b.close();server.close()})();

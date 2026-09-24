@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width; initial-scale=1"/>
+<meta name="robots" content="all"/>
+<style type="text/css">
+body
+{
+	font-family: sans-serif;
+	font-size: 14px;
+	margin: 1em;
+}
+
+*:first-child
+{
+	margin-top: 0;
+}
+
+code, pre
+{
+	font-family: monospace;
+	background: #F7F7F7;
+	color: navy;
+}
+
+code
+{
+	font-size: 85%;
+	padding: 0.2em;
+}
+
+pre
+{
+	margin-left: 3em;
+	padding: 1em;
+}
+
+th
+{
+	text-align: left;
+}
+
+hr
+{
+	border: 0;
+	border-bottom: 1px solid #BBB;
+}
+</style>
+</head>
+<body>
+<h1 id="numbers">Numbers</h1>
+
+<ul>
+  <li><a href="#language-options">Language Options</a></li>
+</ul>
+
+<h2 id="language-options">Language Options</h2>
+
+<p>The following properties in <code>tr_languages.c</code> control how numbers behave for a
+language:</p>
+
+<pre><code>tr-&gt;langopts.numbers
+tr-&gt;langopts.numbers2
+</code></pre>
+
+<p>These controls how numbers are pronounced.</p>
+
+<p>If <code>numbers</code> is set to <code>0</code>, numbers will not be pronounced.
+Setting it to <code>1</code> (the default value) will enable number pronunciation using the dictionary rules.
+For more control over number pronunciation, see the flags in <code>translate.h</code>.</p>
+
+<pre><code>tr-&gt;langopts.max_digits
+</code></pre>
+
+<p>This is the maximum number of digits that can be spoken by the language. If the
+number of digits is larger than this, the number is spoken digit by digit.</p>
+
+<pre><code>tr-&gt;langopts.break_numbers
+</code></pre>
+
+<p>This controls how digits are grouped for speaking large numbers. The default is
+to group into 3 digit groups (thousand, million, billion, trillion, etc.).</p>
+
+<pre><code>tr-&gt;langopts.thousands_sep
+</code></pre>
+
+<p>The character used to separate digit groups. The default is <code>,</code>.</p>
+
+<pre><code>tr-&gt;langopts.decimal_sep
+</code></pre>
+
+<p>The character used to separate the integer and decimal parts of a real number.
+The default is <code>.</code>.</p>
+
+
+</body>
+</html>

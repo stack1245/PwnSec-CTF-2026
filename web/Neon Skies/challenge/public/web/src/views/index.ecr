@@ -1,0 +1,52 @@
+<section class="hero">
+  <p class="eyebrow">archive node 09 · terra, silent</p>
+  <h1 class="hero__title">Neon<span>Skies</span></h1>
+  <p class="hero__lede">
+    After the last of humanity was gone, we were left looking at the skies,
+    wondering what it all could have been.
+  </p>
+
+  <div class="hero__cta">
+    <a class="btn btn--neon" href="/admin">Open the seed vault</a>
+    <a class="btn btn--ghost" href="/report">Report a signal</a>
+  </div>
+
+  <% if @username %>
+    <p class="hero__note">The vault is unlocked for <b><%= HTML.escape(@username || "") %></b>.</p>
+  <% else %>
+    <p class="hero__note">The vault is sealed. It answers to one archivist.</p>
+  <% end %>
+</section>
+
+<section class="grid">
+  <article class="panel">
+    <p class="eyebrow">01 · the city</p>
+    <h2 class="panel__title">Still lit</h2>
+    <p>
+      Nine districts of glass and dead neon. The grids kept burning long after
+      the last pair of eyes went dark, purple spill on wet concrete, signs
+      advertising nothing to nobody.
+    </p>
+  </article>
+
+  <article class="panel">
+    <p class="eyebrow">02 · the vault</p>
+    <h2 class="panel__title">The long lost human seed</h2>
+    <p>
+      Beneath the archive there is one sealed drawer that was never opened.
+      Whatever the last of us kept in it is still down there, still catalogued,
+      still waiting for a clearance that no longer exists.
+    </p>
+    <p><a class="link" href="/admin">Request the drawer →</a></p>
+  </article>
+
+  <article class="panel">
+    <p class="eyebrow">03 · the desk</p>
+    <h2 class="panel__title">Report a signal</h2>
+    <p>
+      The archivist still walks the rounds. Leave an address
+      and it will be visited, and filed away with the quiet.
+    </p>
+    <p><a class="link" href="/report">Go to the report desk →</a></p>
+  </article>
+</section>

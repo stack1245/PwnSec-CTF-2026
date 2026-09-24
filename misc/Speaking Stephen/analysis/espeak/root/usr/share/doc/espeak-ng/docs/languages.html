@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width; initial-scale=1"/>
+<meta name="robots" content="all"/>
+<style type="text/css">
+body
+{
+	font-family: sans-serif;
+	font-size: 14px;
+	margin: 1em;
+}
+
+*:first-child
+{
+	margin-top: 0;
+}
+
+code, pre
+{
+	font-family: monospace;
+	background: #F7F7F7;
+	color: navy;
+}
+
+code
+{
+	font-size: 85%;
+	padding: 0.2em;
+}
+
+pre
+{
+	margin-left: 3em;
+	padding: 1em;
+}
+
+th
+{
+	text-align: left;
+}
+
+hr
+{
+	border: 0;
+	border-bottom: 1px solid #BBB;
+}
+</style>
+</head>
+<body>
+<h1 id="languages">Languages</h1>
+
+<p>Development version of eSpeak NG supports 127 languages and accents,
+which are listed in table below.</p>
+
+<p>To check, what languages are supported by distributed version, run <code>espeak-ng --voices</code> command.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Family Code</th>
+      <th>Identifier</th>
+      <th>Language Family</th>
+      <th>Language</th>
+      <th>Accent/Dialect</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>gmw</code></td>
+      <td><code>af</code></td>
+      <td>West Germanic</td>
+      <td>Afrikaans</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>ine</code></td>
+      <td><code>sq</code></td>
+      <td>Indo-European</td>
+      <td>Albanian</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>sem</code></td>
+      <td><code>am</code></td>
+      <td>Semitic</td>
+      <td>Amharic</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>sem</code></td>
+      <td><code>ar</code></td>
+      <td>Semitic</td>
+      <td>Arabic<sup>[3,7]</sup></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>roa</code></td>
+      <td><code>an</code></td>
+      <td>Romance</td>
+      <td>Aragonese</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>ine</code></td>
+      <td><code>hy</code></td>
+      <td>Indo-European</td>
+      <td>Armenian</td>
+      <td>East Armenian</td>
+    </tr>
+    <tr>
+      <td><code>ine</code></td>
+      <td><code>hyw</code></td>
+      <td>Indo-European</td>
+      <td>Armenian</td>
+      <td>West Armenian</td>
+    </tr>
+    <tr>
+      <td><code>inc</code></td>
+      <td><code>as</code></td>
+      <td>Indic</td>
+      <td>Assamese</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>trk</code></td>
+      <td><code>az</code></td>
+      <td>Turkic</td>
+      <td>Azerbaijani</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>trk</code></td>
+      <td><code>ba</code></td>
+      <td>Turkic</td>
+      <td>Bashkir</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>trk</code></td>
+      <td><code>cu</code></td>
+      <td>Turkic</td>
+      <td>Chuvash</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><code>eu</code></td>
+      <td> </td>
+      <td>Basque</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>zle</code></td>
+      <td><code>be</code></td>
+      <td>East Slavic</td>
+      <td>Belarussian</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>inc</code></td>
+      <td><code>bn</code></td>
+      <td>Indic</td>
+      <td>Bengali</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>inc</code></td>
+      <td><code>bpy</code></td>
+      <td>Indic</td>
+      <td>Bishnupriya Manipuri</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>zls</code></td>
+      <td><code>bs</code></td>
+      <td>South Slavic</td>
+      <td>Bosnian<sup>[1,2]</sup></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>zls</code></td>
+      <td><code>bg</code></td>
+      <td>South Slavic</td>
+      <td>Bulgarian</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>sit</code></td>
+      <td><code>my</code></td>
+      <td>Sino-Tibetan</td>
+      <td>Burmese</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>roa</code></td>
+      <td><code>ca</code></td>
+      <td>Romance</td>
+      <td>Catalan</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>iro</code></td>
+      <td><code>chr</code></td>
+      <td>Iroquoian</td>
+      <td>Cherokee <sup>[1,6]</sup></td>
+      <td>Western/C.E.D.</td>
+    </tr>
+    <tr>
+      <td><code>sit</code></td>
+      <td><code>yue</code></td>
+      <td>Sino-Tibetan</td>
+      <td>Chinese</td>
+      <td>Cantonese</td>
+    </tr>
+    <tr>
+      <td><code>sit</code></td>
+      <td><code>hak</code></td>
+      <td>Sino-Tibetan</td>
+      <td>Chinese</td>
+      <td>Hakka</td>
+    </tr>
+    <tr>
+      <td><code>map</code></td>
+      <td><code>haw</code></td>
+      <td>Austronesian</td>
+      <td>Hawaiian</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>sit</code></td>
+      <td><code>cmn</code></td>
+      <td>Sino-Tibetan</td>
+      <td>Chinese</td>
+      <td>Mandarin</td>
+    </tr>
+    <tr>
+      <td><code>zls</code></td>
+      <td><code>hr</code></td>
+      <td>South Slavic</td>
+      <td>Croatian<sup>[1,2]</sup></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>zlw</code></td>
+      <td><code>cs</code></td>
+      <td>West Slavic</td>
+      <td>Czech</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>gmq</code></td>
+      <td><code>da</code></td>
+      <td>North Germanic</td>
+      <td>Danish</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>gmw</code></td>
+      <td><code>nl</code></td>
+      <td>West Germanic</td>
+      <td>Dutch</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>gmw</code></td>
+      <td><code>en-us</code></td>
+      <td>West Germanic</td>
+      <td>English</td>
+      <td>American</td>
+    </tr>
+    <tr>
+      <td><code>gmw</code></td>
+      <td><code>en</code></td>
+      <td>West Germanic</td>
+      <td>English</td>
+      <td>British</td>
+    </tr>
+    <tr>
+      <td><code>gmw</code></td>
+      <td><code>en-029</code></td>
+      <td>West Germanic</td>
+      <td>English</td>
+      <td>Caribbean</td>
+    </tr>
+    <tr>
+      <td><code>gmw</code></td>
+      <td><code>en-gb-x-gbclan</code></td>
+      <td>West Germanic</td>
+      <td>English</td>
+      <td>Lancastrian</td>
+    </tr>
+    <tr>
+      <td><code>gmw</code></td>
+      <td><code>en-gb-x-rp</code></td>
+      <td>West Germanic</td>
+      <td>English</td>
+      <td>Received Pronunciation</td>
+    </tr>
+    <tr>
+      <td><code>gmw</code></td>
+      <td><code>en-gb-scotland</code></td>
+      <td>West Germanic</td>
+      <td>English</td>
+      <td>Scottish</td>
+    </tr>
+    <tr>
+      <td><code>gmw</code></td>
+      <td><code>en-gb-x-gbcwmd</code></td>
+      <td>West Germanic</td>
+      <td>English</td>
+      <td>West Midlands</td>
+    </tr>
+    <tr>
+      <td><code>art</code></td>
+      <td><code>eo</code></td>
+      <td>Constructed</td>
+      <td>Esperanto</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>urj</code></td>
+      <td><code>et</code></td>
+      <td>Uralic</td>
+      <td>Estonian</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>ira</code></td>
+      <td><code>fa</code></td>
+      <td>Iranian</td>
+      <td>Persian</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>ira</code></td>
+      <td><code>fa-latn</code></td>
+      <td>Iranian</td>
+      <td>Persian<sup>[1,5]</sup></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>urj</code></td>
+      <td><code>fi</code></td>
+      <td>Uralic</td>
+      <td>Finnish</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>roa</code></td>
+      <td><code>fr-be</code></td>
+      <td>Romance</td>
+      <td>French</td>
+      <td>Belgium</td>
+    </tr>
+    <tr>
+      <td><code>roa</code></td>
+      <td><code>fr</code></td>
+      <td>Romance</td>
+      <td>French</td>
+      <td>France</td>
+    </tr>
+    <tr>
+      <td><code>roa</code></td>
+      <td><code>fr-ch</code></td>
+      <td>Romance</td>
+      <td>French</td>
+      <td>Switzerland</td>
+    </tr>
+    <tr>
+      <td><code>cel</code></td>
+      <td><code>ga</code></td>
+      <td>Celtic</td>
+      <td>Gaelic</td>
+      <td>Irish</td>
+    </tr>
+    <tr>
+      <td><code>cel</code></td>
+      <td><code>gd</code></td>
+      <td>Celtic</td>
+      <td>Gaelic</td>
+      <td>Scottish</td>
+    </tr>
+    <tr>
+      <td><code>ccs</code></td>
+      <td><code>ka</code></td>
+      <td>South Caucasian</td>
+      <td>Georgian</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>gmw</code></td>
+      <td><code>de</code></td>
+      <td>West Germanic</td>
+      <td>German</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>grk</code></td>
+      <td><code>grc</code></td>
+      <td>Greek</td>
+      <td>Greek</td>
+      <td>Ancient</td>
+    </tr>
+    <tr>
+      <td><code>grk</code></td>
+      <td><code>el</code></td>
+      <td>Greek</td>
+      <td>Greek</td>
+      <td>Modern</td>
+    </tr>
+    <tr>
+      <td><code>esx</code></td>
+      <td><code>kl</code></td>
+      <td>Eskimo-Aleut</td>
+      <td>Greenlandic</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>sai</code></td>
+      <td><code>gn</code></td>
+      <td>South American Indian</td>
+      <td>Guarani</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>inc</code></td>
+      <td><code>gu</code></td>
+      <td>Indic</td>
+      <td>Gujarati</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>roa</code></td>
+      <td><code>ht</code></td>
+      <td>Romance</td>
+      <td>Hatian Creole</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>sem</code></td>
+      <td><code>he</code></td>
+      <td>Semitic</td>
+      <td>Hebrew</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>inc</code></td>
+      <td><code>hi</code></td>
+      <td>Indic</td>
+      <td>Hindi</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>urj</code></td>
+      <td><code>hu</code></td>
+      <td>Uralic</td>
+      <td>Hungarian</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>gmq</code></td>
+      <td><code>is</code></td>
+      <td>North Germanic</td>
+      <td>Icelandic</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>poz</code></td>
+      <td><code>id</code></td>
+      <td>Malayo-Polynesian</td>
+      <td>Indonesian</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>art</code></td>
+      <td><code>ia</code></td>
+      <td>Constructed</td>
+      <td>Interlingua</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>art</code></td>
+      <td><code>io</code></td>
+      <td>Constructed</td>
+      <td>Ido</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>roa</code></td>
+      <td><code>it</code></td>
+      <td>Romance</td>
+      <td>Italian</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>jpx</code></td>
+      <td><code>ja</code></td>
+      <td>Japanese</td>
+      <td>Japanese<sup>[4]</sup></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>dra</code></td>
+      <td><code>kn</code></td>
+      <td>Dravidian</td>
+      <td>Kannada</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>inc</code></td>
+      <td><code>kok</code></td>
+      <td>Indic</td>
+      <td>Konkani</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><code>ko</code></td>
+      <td> </td>
+      <td>Korean</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>ira</code></td>
+      <td><code>ku</code></td>
+      <td>Iranian</td>
+      <td>Kurdish</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>trk</code></td>
+      <td><code>kk</code></td>
+      <td>Turkic</td>
+      <td>Kazakh</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>trk</code></td>
+      <td><code>ky</code></td>
+      <td>Turkic</td>
+      <td>Kyrgyz</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>itc</code></td>
+      <td><code>la</code></td>
+      <td>Italic</td>
+      <td>Latin</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>gmw</code></td>
+      <td><code>lb</code></td>
+      <td>West Germanic</td>
+      <td>Luxembourgish</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>bat</code></td>
+      <td><code>ltg</code></td>
+      <td>Baltic</td>
+      <td>Latgalian</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>bat</code></td>
+      <td><code>lv</code></td>
+      <td>Baltic</td>
+      <td>Latvian</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>art</code></td>
+      <td><code>lfn</code></td>
+      <td>Constructed</td>
+      <td>Lingua Franca Nova<sup>[1,2]</sup></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>bat</code></td>
+      <td><code>lt</code></td>
+      <td>Baltic</td>
+      <td>Lithuanian</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>art</code></td>
+      <td><code>jbo</code></td>
+      <td>Constructed</td>
+      <td>Lojban</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>poz</code></td>
+      <td><code>mi</code></td>
+      <td>Malayo-Polynesian</td>
+      <td>Māori</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>zls</code></td>
+      <td><code>mk</code></td>
+      <td>South Slavic</td>
+      <td>Macedonian<sup>[1,2]</sup></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>poz</code></td>
+      <td><code>ms</code></td>
+      <td>Malayo-Polynesian</td>
+      <td>Malay</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>dra</code></td>
+      <td><code>ml</code></td>
+      <td>Dravidian</td>
+      <td>Malayalam</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>sem</code></td>
+      <td><code>mt</code></td>
+      <td>Semitic</td>
+      <td>Maltese</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>inc</code></td>
+      <td><code>mr</code></td>
+      <td>Indic</td>
+      <td>Marathi</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>azc</code></td>
+      <td><code>nci</code></td>
+      <td>Uto-Aztecan</td>
+      <td>Nahuatl</td>
+      <td>Classical</td>
+    </tr>
+    <tr>
+      <td><code>inc</code></td>
+      <td><code>ne</code></td>
+      <td>Indic</td>
+      <td>Nepali</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>gmq</code></td>
+      <td><code>nb</code></td>
+      <td>North Germanic</td>
+      <td>Norwegian Bokmål</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>trk</code></td>
+      <td><code>nog</code></td>
+      <td>Turkic</td>
+      <td>Nogai</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>inc</code></td>
+      <td><code>or</code></td>
+      <td>Indic</td>
+      <td>Oriya</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>cus</code></td>
+      <td><code>om</code></td>
+      <td>Cushitic</td>
+      <td>Oromo</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>roa</code></td>
+      <td><code>pap</code></td>
+      <td>Romance</td>
+      <td>Papiamento</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>art</code></td>
+      <td><code>py</code></td>
+      <td>Constructed</td>
+      <td>Pyash</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>zlw</code></td>
+      <td><code>pl</code></td>
+      <td>West Slavic</td>
+      <td>Polish</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>roa</code></td>
+      <td><code>pt-br</code></td>
+      <td>Romance</td>
+      <td>Portuguese</td>
+      <td>Brazillian</td>
+    </tr>
+    <tr>
+      <td><code>art</code></td>
+      <td><code>qdb</code></td>
+      <td>Constructed</td>
+      <td>Lang Belta</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><code>qu</code></td>
+      <td> </td>
+      <td>Quechua</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>myn</code></td>
+      <td><code>quc</code></td>
+      <td>Mayan</td>
+      <td>K’iche’</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>art</code></td>
+      <td><code>qya</code></td>
+      <td>Constructed</td>
+      <td>Quenya</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>roa</code></td>
+      <td><code>pt</code></td>
+      <td>Romance</td>
+      <td>Portuguese</td>
+      <td>Portugal</td>
+    </tr>
+    <tr>
+      <td><code>inc</code></td>
+      <td><code>pa</code></td>
+      <td>Indic</td>
+      <td>Punjabi</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>art</code></td>
+      <td><code>piqd</code></td>
+      <td>Constructed</td>
+      <td>Klingon</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>roa</code></td>
+      <td><code>ro</code></td>
+      <td>Romance</td>
+      <td>Romanian</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>zle</code></td>
+      <td><code>ru</code></td>
+      <td>East Slavic</td>
+      <td>Russian</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>zle</code></td>
+      <td><code>ru-lv</code></td>
+      <td>East Slavic</td>
+      <td>Russian</td>
+      <td>Latvia</td>
+    </tr>
+    <tr>
+      <td><code>zle</code></td>
+      <td><code>uk</code></td>
+      <td>East Slavic</td>
+      <td>Ukrainian</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>art</code></td>
+      <td><code>sjn</code></td>
+      <td>Constructed</td>
+      <td>Sindarin</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>zls</code></td>
+      <td><code>sr</code></td>
+      <td>South Slavic</td>
+      <td>Serbian<sup>[1,2]</sup></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>bnt</code></td>
+      <td><code>tn</code></td>
+      <td>Bantu</td>
+      <td>Setswana</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>inc</code></td>
+      <td><code>sd</code></td>
+      <td>Indic</td>
+      <td>Sindhi</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>tai</code></td>
+      <td><code>shn</code></td>
+      <td>Tai</td>
+      <td>Shan (Tai Yai)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>inc</code></td>
+      <td><code>si</code></td>
+      <td>Indic</td>
+      <td>Sinhala</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>zlw</code></td>
+      <td><code>sk</code></td>
+      <td>West Slavic</td>
+      <td>Slovak</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>zls</code></td>
+      <td><code>sl</code></td>
+      <td>South Slavic</td>
+      <td>Slovenian</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>urj</code></td>
+      <td><code>smj</code></td>
+      <td>Uralic</td>
+      <td>Lule Saami</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>roa</code></td>
+      <td><code>es</code></td>
+      <td>Romance</td>
+      <td>Spanish</td>
+      <td>Spain</td>
+    </tr>
+    <tr>
+      <td><code>roa</code></td>
+      <td><code>es-419</code></td>
+      <td>Romance</td>
+      <td>Spanish</td>
+      <td>Latin American</td>
+    </tr>
+    <tr>
+      <td><code>bnt</code></td>
+      <td><code>sw</code></td>
+      <td>Bantu</td>
+      <td>Swahili</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>gmq</code></td>
+      <td><code>sv</code></td>
+      <td>North Germanic</td>
+      <td>Swedish</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>dra</code></td>
+      <td><code>ta</code></td>
+      <td>Dravidian</td>
+      <td>Tamil</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>tai</code></td>
+      <td><code>th</code></td>
+      <td>Tai</td>
+      <td>Thai</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>trk</code></td>
+      <td><code>tk</code></td>
+      <td>Turkic</td>
+      <td>Turkmen<sup>[1]</sup></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>trk</code></td>
+      <td><code>tt</code></td>
+      <td>Turkic</td>
+      <td>Tatar</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>dra</code></td>
+      <td><code>te</code></td>
+      <td>Dravidian</td>
+      <td>Telugu</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>trk</code></td>
+      <td><code>tr</code></td>
+      <td>Turkic</td>
+      <td>Turkish</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>trk</code></td>
+      <td><code>ug</code></td>
+      <td>Turkic</td>
+      <td>Uyghur<sup>[1,3]</sup></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>inc</code></td>
+      <td><code>ur</code></td>
+      <td>Indic</td>
+      <td>Urdu</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>trk</code></td>
+      <td><code>uz</code></td>
+      <td>Turkic</td>
+      <td>Uzbek<sup>[1,2]</sup></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>aav</code></td>
+      <td><code>vi-vn-x-central</code></td>
+      <td>Austroasiatic</td>
+      <td>Vietnamese</td>
+      <td>Central Vietnam</td>
+    </tr>
+    <tr>
+      <td><code>aav</code></td>
+      <td><code>vi</code></td>
+      <td>Austroasiatic</td>
+      <td>Vietnamese</td>
+      <td>Northern Vietnam</td>
+    </tr>
+    <tr>
+      <td><code>aav</code></td>
+      <td><code>vi-vn-x-south</code></td>
+      <td>Austroasiatic</td>
+      <td>Vietnamese</td>
+      <td>Southern Vietnam</td>
+    </tr>
+    <tr>
+      <td><code>cel</code></td>
+      <td><code>cy</code></td>
+      <td>Celtic</td>
+      <td>Welsh</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The languages in espeak-ng are grouped by their
+<a href="https://en.wikipedia.org/wiki/List_of_ISO_639-5_codes">ISO 639-5</a> language
+family code. They are identified by their
+<a href="https://en.wikipedia.org/wiki/BCP47">BCP 47</a> identifier. For several accents
+and dialects,
+<a href="https://raw.githubusercontent.com/espeak-ng/bcp47-data/master/bcp47-extensions">private-use extensions</a>
+have been used.</p>
+
+<p>[1] With Latin alphabet.</p>
+
+<p>[2] With Cyrillic alphabet.</p>
+
+<p>[3] With Arabic alphabet.</p>
+
+<p>[4] With Hiragana and Katakana syllabary.</p>
+
+<p>[5] Only Farsi/Persian.</p>
+
+<p>[6] Only Cherokee-English Dictionary fully annotated UTF-8 pronunciation.</p>
+
+<p>[7] Only fully diacritized Arabic.</p>
+
+
+</body>
+</html>

@@ -1,0 +1,144 @@
+973   execve("./jump_v2", ["./jump_v2"], 0x7fff2e2eb788 /* 25 vars */) = 0
+973   brk(NULL)                         = 0x593f11cb1000
+973   mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x71cf72c4d000
+973   access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+973   openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+973   fstat(3, {st_mode=S_IFREG|0644, st_size=49267, ...}) = 0
+973   mmap(NULL, 49267, PROT_READ, MAP_PRIVATE, 3, 0) = 0x71cf72c40000
+973   close(3)                          = 0
+973   openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libgcc_s.so.1", O_RDONLY|O_CLOEXEC) = 3
+973   read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+973   fstat(3, {st_mode=S_IFREG|0644, st_size=183024, ...}) = 0
+973   mmap(NULL, 185256, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x71cf72c12000
+973   mmap(0x71cf72c16000, 147456, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x4000) = 0x71cf72c16000
+973   mmap(0x71cf72c3a000, 16384, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x28000) = 0x71cf72c3a000
+973   mmap(0x71cf72c3e000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2b000) = 0x71cf72c3e000
+973   close(3)                          = 0
+973   openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+973   read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\220\243\2\0\0\0\0\0"..., 832) = 832
+973   pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+973   fstat(3, {st_mode=S_IFREG|0755, st_size=2129424, ...}) = 0
+973   pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+973   mmap(NULL, 2174352, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x71cf72800000
+973   mmap(0x71cf72828000, 1609728, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x28000) = 0x71cf72828000
+973   mmap(0x71cf729b1000, 323584, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1b1000) = 0x71cf729b1000
+973   mmap(0x71cf72a00000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1ff000) = 0x71cf72a00000
+973   mmap(0x71cf72a06000, 52624, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x71cf72a06000
+973   close(3)                          = 0
+973   mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x71cf72c0f000
+973   arch_prctl(ARCH_SET_FS, 0x71cf72c0f740) = 0
+973   set_tid_address(0x71cf72c0fa10)   = 973
+973   set_robust_list(0x71cf72c0fa20, 24) = 0
+973   rseq(0x71cf72c10060, 0x20, 0, 0x53053053) = 0
+973   mprotect(0x71cf72a00000, 16384, PROT_READ) = 0
+973   mprotect(0x71cf72c3e000, 4096, PROT_READ) = 0
+973   mprotect(0x593efc6d6000, 16384, PROT_READ) = 0
+973   mprotect(0x71cf72c8d000, 8192, PROT_READ) = 0
+973   prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+973   munmap(0x71cf72c40000, 49267)     = 0
+973   poll([{fd=0, events=0}, {fd=1, events=0}, {fd=2, events=0}], 3, 0) = 1 ([{fd=0, revents=POLLHUP}])
+973   rt_sigaction(SIGPIPE, {sa_handler=SIG_IGN, sa_mask=[PIPE], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x71cf72845330}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+973   getrandom("\x6e\x61\x7b\x09\x19\x22\xfa\xc1", 8, GRND_NONBLOCK) = 8
+973   brk(NULL)                         = 0x593f11cb1000
+973   brk(0x593f11cd2000)               = 0x593f11cd2000
+973   openat(AT_FDCWD, "/proc/self/maps", O_RDONLY|O_CLOEXEC) = 3
+973   prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+973   fstat(3, {st_mode=S_IFREG|0444, st_size=0, ...}) = 0
+973   read(3, "593efc53c000-593efc694000 r--p 0"..., 1024) = 1024
+973   read(3, "1cf72a00000-71cf72a04000 r--p 00"..., 1024) = 1024
+973   read(3, "cf72c55000 r--p 00000000 00:00 0"..., 1024) = 833
+973   close(3)                          = 0
+973   sched_getaffinity(973, 32, [0 1 2 3 4 5 6 7]) = 8
+973   rt_sigaction(SIGSEGV, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+973   sigaltstack(NULL, {ss_sp=NULL, ss_flags=SS_DISABLE, ss_size=0}) = 0
+973   mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x71cf72c4a000
+973   mprotect(0x71cf72c4a000, 4096, PROT_NONE) = 0
+973   sigaltstack({ss_sp=0x71cf72c4b000, ss_flags=0, ss_size=8192}, NULL) = 0
+973   gettid()                          = 973
+973   rt_sigaction(SIGSEGV, {sa_handler=0x593efc6d52f0, sa_mask=[], sa_flags=SA_RESTORER|SA_ONSTACK|SA_SIGINFO, sa_restorer=0x71cf72845330}, NULL, 8) = 0
+973   rt_sigaction(SIGBUS, NULL, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+973   rt_sigaction(SIGBUS, {sa_handler=0x593efc6d52f0, sa_mask=[], sa_flags=SA_RESTORER|SA_ONSTACK|SA_SIGINFO, sa_restorer=0x71cf72845330}, NULL, 8) = 0
+973   write(1, "Input: ", 7)            = 7
+973   read(0, "BBBB\n", 8192)           = 5
+973   mmap(NULL, 1335296, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x71cf72ac9000
+973   memfd_create("jump_v2-child", MFD_CLOEXEC|MFD_ALLOW_SEALING) = 3
+973   write(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\2\0>\0\1\0\0\0\26JL\0\0\0\0\0"..., 1334088) = 1334088
+973   statx(3, "", AT_STATX_SYNC_AS_STAT|AT_EMPTY_PATH, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFREG|0777, stx_size=1334088, ...}) = 0
+973   fchmod(3, 0700)                   = 0
+973   fcntl(3, F_ADD_SEALS, F_SEAL_SEAL|F_SEAL_SHRINK|F_SEAL_GROW|F_SEAL_WRITE) = 0
+973   openat(AT_FDCWD, "/proc/self/fd/3", O_RDONLY|O_CLOEXEC) = 4
+973   close(3)                          = 0
+973   openat(AT_FDCWD, "/dev/null", O_RDONLY|O_CLOEXEC) = 3
+973   pipe2([5, 6], O_CLOEXEC)          = 0
+973   pipe2([8, 9], O_CLOEXEC)          = 0
+973   prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=10*1024, rlim_max=1024*1024}) = 0
+973   prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=10*1024, rlim_max=1024*1024}) = 0
+973   prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=10*1024, rlim_max=1024*1024}) = 0
+973   prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=10*1024, rlim_max=1024*1024}) = 0
+973   prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=10*1024, rlim_max=1024*1024}) = 0
+973   prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=10*1024, rlim_max=1024*1024}) = 0
+973   mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x71cf72c41000
+973   rt_sigprocmask(SIG_BLOCK, ~[], [], 8) = 0
+973   clone3({flags=CLONE_VM|CLONE_VFORK|CLONE_CLEAR_SIGHAND, exit_signal=SIGCHLD, stack=0x71cf72c41000, stack_size=0x9000}, 88 <unfinished ...>
+974   rt_sigprocmask(SIG_BLOCK, NULL, ~[KILL STOP], 8) = 0
+974   rt_sigaction(SIGPIPE, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x71cf72845330}, NULL, 8) = 0
+974   dup2(3, 0)                        = 0
+974   dup2(6, 1)                        = 1
+974   dup2(9, 2)                        = 2
+974   rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+974   execve("/proc/self/fd/4", ["/proc/self/fd/4"], 0x7fff877560d8 /* 25 vars */ <unfinished ...>
+973   <... clone3 resumed>)             = 974
+973   munmap(0x71cf72c41000, 36864 <unfinished ...>
+974   <... execve resumed>)             = 0
+973   <... munmap resumed>)             = 0
+973   rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+974   prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0 <unfinished ...>
+973   close(3 <unfinished ...>
+974   <... prctl resumed>)              = 0
+973   <... close resumed>)              = 0
+974   prctl(PR_SET_SECCOMP, SECCOMP_MODE_FILTER, {len=9, filter=0x546580} <unfinished ...>
+973   close(6 <unfinished ...>
+974   <... prctl resumed>)              = 0
+973   <... close resumed>)              = 0
+974   prctl(PR_SET_SECCOMP, SECCOMP_MODE_FILTER, {len=9, filter=0x5465c8} <unfinished ...>
+973   close(9 <unfinished ...>
+974   <... prctl resumed>)              = 0
+973   <... close resumed>)              = 0
+974   prctl(PR_SET_SECCOMP, SECCOMP_MODE_FILTER, {len=9, filter=0x546610} <unfinished ...>
+973   ioctl(5, FIONBIO, [1] <unfinished ...>
+974   <... prctl resumed>)              = 0
+973   <... ioctl resumed>)              = 0
+974   prctl(PR_SET_SECCOMP, SECCOMP_MODE_FILTER, {len=9, filter=0x546658} <unfinished ...>
+973   ioctl(8, FIONBIO, [1] <unfinished ...>
+974   <... prctl resumed>)              = 0
+973   <... ioctl resumed>)              = 0
+974   prctl(PR_SET_SECCOMP, SECCOMP_MODE_FILTER, {len=9, filter=0x5466a0} <unfinished ...>
+973   poll([{fd=5, events=POLLIN}, {fd=8, events=POLLIN}], 2, -1 <unfinished ...>
+974   <... prctl resumed>)              = 0
+974   prctl(PR_SET_SECCOMP, SECCOMP_MODE_FILTER, {len=9, filter=0x5466e8}) = 0
+974   prctl(PR_SET_SECCOMP, SECCOMP_MODE_FILTER, {len=9, filter=0x546730}) = 0
+974   prctl(PR_SET_SECCOMP, SECCOMP_MODE_FILTER, {len=9, filter=0x546778}) = 0
+974   prctl(PR_SET_SECCOMP, SECCOMP_MODE_FILTER, {len=9, filter=0x5467c0}) = 0
+974   prctl(PR_SET_SECCOMP, SECCOMP_MODE_FILTER, {len=9, filter=0x546808}) = 0
+974   prctl(PR_SET_SECCOMP, SECCOMP_MODE_FILTER, {len=9, filter=0x546850}) = 0
+974   prctl(PR_SET_SECCOMP, SECCOMP_MODE_FILTER, {len=9, filter=0x546898}) = 0
+974   prctl(PR_SET_SECCOMP, SECCOMP_MODE_FILTER, {len=9, filter=0x5468e0}) = 0
+974   prctl(PR_SET_SECCOMP, SECCOMP_MODE_FILTER, {len=9, filter=0x546928}) = 0
+974   syscall_0x1337(0x30, 0x2, 0x7fff8a88ffa8, 0, 0, 0xffffffffffffffff) = -1 ENOSYS (Function not implemented)
+974   syscall_0x1338(0xd5fc21d8, 0x2, 0x7fff8a88ffa8, 0, 0, 0xffffffffffffffff) = -1 EPERM (Operation not permitted)
+974   exit(1)                           = ?
+973   <... poll resumed>)               = 2 ([{fd=5, revents=POLLHUP}, {fd=8, revents=POLLHUP}])
+974   +++ exited with 1 +++
+973   --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=974, si_uid=1000, si_status=1, si_utime=0, si_stime=0} ---
+973   read(5, "", 32)                   = 0
+973   ioctl(8, FIONBIO, [0])            = 0
+973   read(8, "", 32)                   = 0
+973   close(8)                          = 0
+973   close(5)                          = 0
+973   wait4(974, [{WIFEXITED(s) && WEXITSTATUS(s) == 1}], 0, NULL) = 974
+973   close(4)                          = 0
+973   munmap(0x71cf72ac9000, 1335296)   = 0
+973   sigaltstack({ss_sp=NULL, ss_flags=SS_DISABLE, ss_size=8192}, NULL) = 0
+973   munmap(0x71cf72c4a000, 12288)     = 0
+973   exit_group(0)                     = ?
+973   +++ exited with 0 +++

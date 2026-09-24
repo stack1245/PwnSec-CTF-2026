@@ -1,0 +1,11 @@
+HTTP/1.1 200 OK
+Server: nginx
+Date: Sat, 12 Sep 2026 23:54:39 GMT
+Content-Type: text/html; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Vary: rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, Accept-Encoding
+link: </_next/static/media/a48f173cf18e9cdf-s.p.ttf>; rel=preload; as="font"; crossorigin=""; type="font/ttf", </_next/static/media/e610371dfdcbc3e7-s.p.ttf>; rel=preload; as="font"; crossorigin=""; type="font/ttf", </_next/static/css/d3603847dbbcb7ce.css>; rel=preload; as="style", </_next/static/css/9c26654a868436b5.css>; rel=preload; as="style"
+X-Powered-By: Next.js
+Cache-Control: private, no-cache, no-store, max-age=0, must-revalidate
+

@@ -1,0 +1,24 @@
+cookie=0x5ffbcf package_start=0x101ae0 python=310 library=python310.dll
+m       206 ->       271 struct
+m      1850 ->      3125 pyimod01_archive
+m      9689 ->     22883 pyimod02_importers
+m      1770 ->      3620 pyimod03_ctypes
+m       634 ->      1053 pyimod04_pywin32
+s       595 ->       838 pyiboot01_bootstrap
+s       872 ->      1503 pyi_rth_inspect
+s      1887 ->      3003 stub
+b     52405 ->     98224 VCRUNTIME140.dll
+b     43068 ->     80880 _bz2.pyd
+b     55570 ->    120816 _ctypes.pyd
+b    119184 ->    248816 _decimal.pyd
+b     27900 ->     61936 _hashlib.pyd
+b     86598 ->    155632 _lzma.pyd
+b     36244 ->     76272 _socket.pyd
+b    254381 ->    879899 base_library.zip
+b   1312114 ->   3439512 libcrypto-1_1.dll
+b     18268 ->     32792 libffi-7.dll
+b   1969217 ->   4450288 python310.dll
+b     15630 ->     27120 select.pyd
+b    407304 ->   1119728 unicodedata.pyd
+o         0 ->         0 pyi-contents-directory _internal
+z    818613 ->    818613 PYZ.pyz

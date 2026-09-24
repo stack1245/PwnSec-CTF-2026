@@ -1,0 +1,4 @@
+const http=require('http'),puppeteer=require('puppeteer');let seen=[],n=0;
+const b=http.createServer((q,r)=>{seen.push({server:'b',site:q.headers['sec-fetch-site'],dest:q.headers['sec-fetch-dest']});r.end('target')});
+const a=http.createServer((q,r)=>{seen.push({server:'a',site:q.headers['sec-fetch-site'],dest:q.headers['sec-fetch-dest']});if(++n===1)r.end('<script>location.reload()</script>');else r.writeHead(302,{location:`http://localhost:${b.address().port}/x`}).end()});
+(async()=>{await Promise.all([new Promise(x=>a.listen(0,'127.0.0.1',x)),new Promise(x=>b.listen(0,'localhost',x))]);let br=await puppeteer.launch({executablePath:process.env.CHROME_PATH,headless:'new'}),p=await br.newPage();await p.goto(`http://127.0.0.1:${a.address().port}/`);await new Promise(x=>setTimeout(x,500));console.log(seen);await br.close();a.close();b.close()})();

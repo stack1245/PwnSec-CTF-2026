@@ -1,0 +1,1955 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width; initial-scale=1"/>
+<meta name="robots" content="all"/>
+<style type="text/css">
+body
+{
+	font-family: sans-serif;
+	font-size: 14px;
+	margin: 1em;
+}
+
+*:first-child
+{
+	margin-top: 0;
+}
+
+code, pre
+{
+	font-family: monospace;
+	background: #F7F7F7;
+	color: navy;
+}
+
+code
+{
+	font-size: 85%;
+	padding: 0.2em;
+}
+
+pre
+{
+	margin-left: 3em;
+	padding: 1em;
+}
+
+th
+{
+	text-align: left;
+}
+
+hr
+{
+	border: 0;
+	border-bottom: 1px solid #BBB;
+}
+</style>
+</head>
+<body>
+<h1 id="phoneme-features-and-the-international-phonetic-alphabet">Phoneme Features and the International Phonetic Alphabet</h1>
+
+<ul>
+  <li><a href="#phoneme-transcription-schemes">Phoneme Transcription Schemes</a></li>
+  <li><a href="#consonants">Consonants</a>
+    <ul>
+      <li><a href="#other-symbols">Other Symbols</a></li>
+      <li><a href="#gemination">Gemination</a></li>
+      <li><a href="#manner-of-articulation">Manner of Articulation</a></li>
+      <li><a href="#place-of-articulation">Place of Articulation</a></li>
+      <li><a href="#voice">Voice</a></li>
+    </ul>
+  </li>
+  <li><a href="#vowels">Vowels</a>
+    <ul>
+      <li><a href="#other-symbols-1">Other Symbols</a></li>
+      <li><a href="#rounding">Rounding</a></li>
+      <li><a href="#height">Height</a></li>
+      <li><a href="#backness">Backness</a></li>
+    </ul>
+  </li>
+  <li><a href="#diacritics">Diacritics</a>
+    <ul>
+      <li><a href="#articulation">Articulation</a></li>
+      <li><a href="#air-flow">Air Flow</a></li>
+      <li><a href="#phonation">Phonation</a></li>
+      <li><a href="#rounding-and-labialization">Rounding and Labialization</a></li>
+      <li><a href="#syllabicity">Syllabicity</a></li>
+      <li><a href="#consonant-release">Consonant Release</a></li>
+      <li><a href="#co-articulation">Co-articulation</a></li>
+      <li><a href="#tongue-root">Tongue Root</a></li>
+      <li><a href="#fortis-and-lenis">Fortis and Lenis</a></li>
+    </ul>
+  </li>
+  <li><a href="#suprasegmentals">Suprasegmentals</a>
+    <ul>
+      <li><a href="#stress">Stress</a></li>
+      <li><a href="#length">Length</a></li>
+      <li><a href="#rhythm">Rhythm</a></li>
+      <li><a href="#tones">Tones</a></li>
+      <li><a href="#intonation">Intonation</a></li>
+    </ul>
+  </li>
+  <li><a href="#references">References</a></li>
+</ul>
+
+<hr />
+
+<p>Evan Kirshenbaum created an ASCII transcription of the International Phonetic
+Alphabet (IPA)<sup>[<a href="#ref1">1</a>], [<a href="#ref2">2</a>]</sup>.
+As well as using ASCII characters for specific IPA phonemes, this transcription
+provides a set of 3-letter feature abbreviations allowing a phoneme to be
+described as a sequence of features.</p>
+
+<p>This document extends Evan Kirshenbaum’s feature set to be able to describe the
+different phonemes in the IPA and as are used in the various languages of the
+world. The origin column is used to describe where the feature originated from:</p>
+
+<ol>
+  <li><code>kirshenbaum</code> – The feature originated from Evan Kirshenbaum’s ASCII-IPA
+ Feature Abbreviation table in Appendix A of his ASCII-IPA document
+ <sup>[<a href="#ref1">1</a>], [<a href="#ref2">2</a>]</sup>.</li>
+  <li><code>cainteoir</code> – The feature originated from the Cainteoir Text-to-Speech
+phoneme features <sup>[<a href="#ref5">5</a>]</sup>.</li>
+  <li><code>espeak-ng</code> – The features originate from the eSpeak NG Text-to-Speech
+program, and are defined in this document.</li>
+</ol>
+
+<p>Not all the Cainteoir Text-to-Speech phoneme features are listed here, only
+the ones that are relevant to eSpeak NG.</p>
+
+<p>The goal of this document is not to provide a detailed guide on phonetics. Nor
+is it intended to be able to accurately record differences in IPA diacritics.
+Instead, it is designed to be a transcription guide for authors of espeak-ng
+languages and voices on how to specify phonemes so that the IPA and feature
+transcriptions are consistent.</p>
+
+<h2 id="phoneme-transcription-schemes">Phoneme Transcription Schemes</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>BCP47 Subtag</th>
+      <th>Abbreviation</th>
+      <th>Transcription Scheme</th>
+      <th>Encoding</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>fonipa</code></td>
+      <td>IPA</td>
+      <td>International Phonetic Alphabet</td>
+      <td>Unicode</td>
+    </tr>
+    <tr>
+      <td><a href="phonemes/xsampa.html"><code>fonxsamp</code></a></td>
+      <td>X-SAMPA</td>
+      <td>Extended Speech Assessment Methods Phonetic Alphabet</td>
+      <td>ASCII</td>
+    </tr>
+    <tr>
+      <td><a href="phonemes/cxs.html"><code>x-foncxs</code></a></td>
+      <td>CXS</td>
+      <td>Conlang X-SAMPA</td>
+      <td>ASCII</td>
+    </tr>
+    <tr>
+      <td><a href="phonemes/kirshenbaum.html"><code>x-fonkirsh</code></a></td>
+      <td> </td>
+      <td>Kirshenbaum (ASCII-IPA)</td>
+      <td>ASCII</td>
+    </tr>
+  </tbody>
+</table>
+
+<ol>
+  <li><code>foncxs</code> and <code>fonkirsh</code> are private use extensions defined in
+the <a href="https://raw.githubusercontent.com/espeak-ng/bcp47-data/master/bcp47-extensions">bcp47-extensions</a>
+file, so have the <code>x-</code> private use specifier before their subtag names.</li>
+</ol>
+
+<h2 id="consonants">Consonants</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th><code>blb</code></th>
+      <th> </th>
+      <th><code>lbd</code></th>
+      <th> </th>
+      <th><code>dnt</code></th>
+      <th> </th>
+      <th><code>alv</code></th>
+      <th> </th>
+      <th><code>pla</code></th>
+      <th> </th>
+      <th><code>rfx</code></th>
+      <th> </th>
+      <th><code>alp</code></th>
+      <th> </th>
+      <th><code>pal</code></th>
+      <th> </th>
+      <th><code>vel</code></th>
+      <th> </th>
+      <th><code>uvl</code></th>
+      <th> </th>
+      <th><code>phr</code></th>
+      <th> </th>
+      <th><code>glt</code></th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+    </tr>
+    <tr>
+      <td><code>nas</code></td>
+      <td>m̥</td>
+      <td>m</td>
+      <td> </td>
+      <td>ɱ</td>
+      <td> </td>
+      <td> </td>
+      <td>n̥</td>
+      <td>n</td>
+      <td> </td>
+      <td> </td>
+      <td>ɳ̊</td>
+      <td>ɳ</td>
+      <td>ɲ̟̊</td>
+      <td>ɲ̟</td>
+      <td>ɲ̊</td>
+      <td>ɲ</td>
+      <td>ŋ̊</td>
+      <td>ŋ</td>
+      <td>ɴ̥</td>
+      <td>ɴ</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>stp</code></td>
+      <td>p</td>
+      <td>b</td>
+      <td>p̪</td>
+      <td>b̪</td>
+      <td>t̪</td>
+      <td>d̪</td>
+      <td>t</td>
+      <td>d</td>
+      <td> </td>
+      <td> </td>
+      <td>ʈ</td>
+      <td>ɖ</td>
+      <td> </td>
+      <td> </td>
+      <td>c</td>
+      <td>ɟ</td>
+      <td>k</td>
+      <td>ɡ</td>
+      <td>q</td>
+      <td>ɢ</td>
+      <td>ʡ</td>
+      <td> </td>
+      <td>ʔ</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>sib</code> <code>afr</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>t͡s</td>
+      <td>d͡z</td>
+      <td>t͡ʃ</td>
+      <td>d͡ʒ</td>
+      <td>ʈ͡ʂ</td>
+      <td>ɖ͡ʐ</td>
+      <td>t͡ɕ</td>
+      <td>d͡ʑ</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>afr</code></td>
+      <td>p͡ɸ</td>
+      <td>b͡β</td>
+      <td>p̪͡f</td>
+      <td>b̪͡v</td>
+      <td>t͡θ</td>
+      <td>d͡ð</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>c͡ç</td>
+      <td>ɟ͡ʝ</td>
+      <td>k͡x</td>
+      <td>ɡ͡ɣ</td>
+      <td>q͡χ</td>
+      <td>ɢ͡ʁ</td>
+      <td>ʡ͡ħ</td>
+      <td>ʡ͡ʕ</td>
+      <td>ʔ͡h</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>lat</code> <code>afr</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>t͡ɬ</td>
+      <td>d͡ɮ</td>
+      <td> </td>
+      <td> </td>
+      <td>ʈ͡ɭ̊˔</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>c͡ʎ̥˔</td>
+      <td> </td>
+      <td>k͡ʟ̝̊</td>
+      <td>ɡ͡ʟ̝</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>sib</code> <code>frc</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>s</td>
+      <td>z</td>
+      <td>ʃ</td>
+      <td>ʒ</td>
+      <td>ʂ</td>
+      <td>ʐ</td>
+      <td>ɕ</td>
+      <td>ʑ</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>frc</code></td>
+      <td>ɸ</td>
+      <td>β</td>
+      <td>f</td>
+      <td>v</td>
+      <td>θ</td>
+      <td>ð</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>ç</td>
+      <td>ʝ</td>
+      <td>x</td>
+      <td>ɣ</td>
+      <td>χ</td>
+      <td>ʁ</td>
+      <td>ħ</td>
+      <td>ʕ</td>
+      <td>h</td>
+      <td>ɦ</td>
+    </tr>
+    <tr>
+      <td><code>lat</code> <code>frc</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>ɬ</td>
+      <td>ɮ</td>
+      <td> </td>
+      <td> </td>
+      <td>ɭ̊˔</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>ʎ̥˔</td>
+      <td>ʎ̝</td>
+      <td>ʟ̝̊</td>
+      <td>ʟ̝</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>apr</code></td>
+      <td> </td>
+      <td> </td>
+      <td>ʋ̥</td>
+      <td>ʋ</td>
+      <td> </td>
+      <td> </td>
+      <td>ɹ̥</td>
+      <td>ɹ</td>
+      <td> </td>
+      <td> </td>
+      <td>ɻ̊</td>
+      <td>ɻ</td>
+      <td> </td>
+      <td> </td>
+      <td>j̊</td>
+      <td>j</td>
+      <td>ɰ̊</td>
+      <td>ɰ</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>lat</code> <code>apr</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>l̥</td>
+      <td>l</td>
+      <td> </td>
+      <td> </td>
+      <td>ɭ̊</td>
+      <td>ɭ</td>
+      <td> </td>
+      <td> </td>
+      <td>ʎ̥</td>
+      <td>ʎ</td>
+      <td>ʟ̥</td>
+      <td>ʟ</td>
+      <td> </td>
+      <td>ʟ̠</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>flp</code></td>
+      <td> </td>
+      <td>ⱱ̟</td>
+      <td> </td>
+      <td>ⱱ</td>
+      <td> </td>
+      <td> </td>
+      <td>ɾ̥</td>
+      <td>ɾ</td>
+      <td> </td>
+      <td> </td>
+      <td>ɽ̊</td>
+      <td>ɽ</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>ɢ̆</td>
+      <td> </td>
+      <td>ʡ̮</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>lat</code> <code>flp</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>ɺ</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>ɭ̆</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>ʎ̮</td>
+      <td> </td>
+      <td>ʟ̆</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>trl</code></td>
+      <td> </td>
+      <td>ʙ</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>r̥</td>
+      <td>r</td>
+      <td> </td>
+      <td> </td>
+      <td>ɽ͡r̥</td>
+      <td>ɽ͡r</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>ʀ̥</td>
+      <td>ʀ</td>
+      <td>ʜ</td>
+      <td>ʢ</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>clk</code></td>
+      <td>ʘ</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>ǀ</td>
+      <td> </td>
+      <td>ǃ</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>ǂ</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>lat</code> <code>clk</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>ǁ</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>imp</code></td>
+      <td> </td>
+      <td>ɓ</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>ɗ</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>ʄ</td>
+      <td> </td>
+      <td>ɠ</td>
+      <td> </td>
+      <td>ʛ</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>ejc</code></td>
+      <td>pʼ</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>tʼ</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>ʈʼ</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>cʼ</td>
+      <td> </td>
+      <td>kʼ</td>
+      <td> </td>
+      <td>qʼ</td>
+      <td> </td>
+      <td>ʡʼ</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>ejc</code> <code>frc</code></td>
+      <td> </td>
+      <td> </td>
+      <td>fʼ</td>
+      <td> </td>
+      <td>θʼ</td>
+      <td> </td>
+      <td>sʼ</td>
+      <td> </td>
+      <td>ʃʼ</td>
+      <td> </td>
+      <td>ʂʼ</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>xʼ</td>
+      <td> </td>
+      <td>χʼ</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>lat</code> <code>ejc</code> <code>frc</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>ɬʼ</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="other-symbols">Other Symbols</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th><code>bld</code></th>
+      <th> </th>
+      <th><code>alv</code></th>
+      <th> </th>
+      <th><code>pla</code></th>
+      <th> </th>
+      <th><code>pal</code></th>
+      <th> </th>
+      <th><code>lbv</code></th>
+      <th> </th>
+      <th><code>vel</code></th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+    </tr>
+    <tr>
+      <td><code>nas</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>ŋ͡m</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>stp</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>k͡p</td>
+      <td>ɡ͡b</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>afr</code></td>
+      <td>p͡f</td>
+      <td>b͡v</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>vzd</code> <code>frc</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>ɧ</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>ptr</code> <code>apr</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>ɥ</td>
+      <td> </td>
+      <td> </td>
+      <td>ʍ</td>
+      <td>w</td>
+    </tr>
+    <tr>
+      <td><code>fzd</code> <code>lat</code> <code>apr</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>ɫ</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="gemination">Gemination</h3>
+
+<p>Gemination is found in several languages including Italian and Japanese.
+It is also present in the suprasegmental phonology between words such as
+“lamppost” and “evenness”.</p>
+
+<p>Some linguists use the <a href="#length">long</a> suprasegmental for geminate consonants.
+The eSpeak NG convention is to use consonant length for <a href="#phonation">phonation</a>
+when consonant length is distinct without gemination occurring.</p>
+
+<p>The way gemination is represented in eSpeak NG is to duplicate the phonemes,
+with the first phoneme using the <code>unx</code> feature. For example, n̚.n for a
+geminated n. This describes how with the <code>stp</code> and <code>nas</code> consonants, the
+mouth remains closed (<code>unx</code>) for the first of the geminated consonants.</p>
+
+<h3 id="manner-of-articulation">Manner of Articulation</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Symbol</th>
+      <th>Name</th>
+      <th>Origin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>nas</code></td>
+      <td> </td>
+      <td>nasal</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>stp</code></td>
+      <td> </td>
+      <td>plosive (stop)</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>afr</code></td>
+      <td> </td>
+      <td>affricate</td>
+      <td><code>espeak-ng</code></td>
+    </tr>
+    <tr>
+      <td><code>frc</code></td>
+      <td> </td>
+      <td>fricative</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>flp</code></td>
+      <td> </td>
+      <td>tap/flap</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>trl</code></td>
+      <td> </td>
+      <td>trill</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>apr</code></td>
+      <td> </td>
+      <td>approximant</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>clk</code></td>
+      <td> </td>
+      <td>click</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>ejc</code></td>
+      <td>◌ʼ</td>
+      <td>ejective</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>imp</code></td>
+      <td> </td>
+      <td>implosive</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>vwl</code></td>
+      <td> </td>
+      <td>vowel</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The <code>vwl</code> phonemes are described using vowel height and backness features,
+while consonants (the other manners of articulation) are described using
+place of articulation features.</p>
+
+<p><strong>NOTE:</strong> Evan Kirshenbaum defines an <code>orl</code> (oral) feature which is not
+used. From context, it looks like <code>{orl,stp}</code> was indended to be used for
+plosives, and <code>{nas,stp}</code> for nasals. That feature is not defined in this
+document, but is defined in the <a href="phoneme_model.html">phoneme model</a>.</p>
+
+<p>The manner of articulation can be refined using the following features:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Name</th>
+      <th>Origin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>lat</code></td>
+      <td>lateral</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>sib</code></td>
+      <td>sibilant</td>
+      <td><code>cainteoir</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>NOTE:</strong> Evan Kirshenbaum defines a <code>ctl</code> (central) feature which is not
+used. From context, it looks like it was intended to explicitly annotate
+consonants as having a central release, similar to how the <code>lat</code> feature
+is used for lateral release. As consonants are implicitly central, the
+<code>ctl</code> feature is not needed and as such is not defined in this document.</p>
+
+<h3 id="place-of-articulation">Place of Articulation</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Name</th>
+      <th>Origin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>blb</code></td>
+      <td>bilabial</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>lbd</code></td>
+      <td>labio-dental</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>bld</code></td>
+      <td>bilabial-labio-dental</td>
+      <td><code>espeak-ng</code></td>
+    </tr>
+    <tr>
+      <td><code>dnt</code></td>
+      <td>dental</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>alv</code></td>
+      <td>alveolar</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>pla</code></td>
+      <td>palato-alveolar</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>rfx</code></td>
+      <td>retroflex</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>alp</code></td>
+      <td>alveolo-palatal</td>
+      <td><code>cainteoir</code></td>
+    </tr>
+    <tr>
+      <td><code>pal</code></td>
+      <td>palatal</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>vel</code></td>
+      <td>velar</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>lbv</code></td>
+      <td>labio-velar</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>uvl</code></td>
+      <td>uvular</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>phr</code></td>
+      <td>pharyngeal</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>glt</code></td>
+      <td>glottal</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The <code>bld</code> place of articulation is used for <code>afr</code> consonants that have a <code>blb</code>
+onset and a <code>lbd</code> release, e.g. in the German p͡f consonant.</p>
+
+<p><strong>NOTE:</strong> The IPA charts make a distinction between pharyngeal and epiglottal
+consonants, but Wikipedia does not. This model uses the Wikipedia descriptions.</p>
+
+<h3 id="voice">Voice</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Name</th>
+      <th>Origin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>vls</code></td>
+      <td>voiceless</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>vcd</code></td>
+      <td>voiced</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="vowels">Vowels</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th><code>fnt</code></th>
+      <th> </th>
+      <th><code>cnt</code></th>
+      <th> </th>
+      <th><code>bck</code></th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td><code>unr</code></td>
+      <td><code>rnd</code></td>
+      <td><code>unr</code></td>
+      <td><code>rnd</code></td>
+      <td><code>unr</code></td>
+      <td><code>rnd</code></td>
+    </tr>
+    <tr>
+      <td><code>hgh</code></td>
+      <td>i</td>
+      <td>y</td>
+      <td>ɨ</td>
+      <td>ʉ</td>
+      <td>ɯ</td>
+      <td>u</td>
+    </tr>
+    <tr>
+      <td><code>smh</code></td>
+      <td>ɪ</td>
+      <td>ʏ</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>ʊ</td>
+    </tr>
+    <tr>
+      <td><code>umd</code></td>
+      <td>e</td>
+      <td>ø</td>
+      <td>ɘ</td>
+      <td>ɵ</td>
+      <td>ɤ</td>
+      <td>o</td>
+    </tr>
+    <tr>
+      <td><code>mid</code></td>
+      <td> </td>
+      <td> </td>
+      <td>ə</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>lmd</code></td>
+      <td>ɛ</td>
+      <td>œ</td>
+      <td>ɜ</td>
+      <td>ɞ</td>
+      <td>ʌ</td>
+      <td>ɔ</td>
+    </tr>
+    <tr>
+      <td><code>sml</code></td>
+      <td>æ</td>
+      <td> </td>
+      <td>ɐ</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>low</code></td>
+      <td>a</td>
+      <td>ɶ</td>
+      <td> </td>
+      <td> </td>
+      <td>ɑ</td>
+      <td>ɒ</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="other-symbols-1">Other Symbols</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Features</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ɚ</td>
+      <td><code>unr</code> <code>mid</code> <code>cnt</code> <code>rzd</code> <code>vwl</code></td>
+    </tr>
+    <tr>
+      <td>ɝ</td>
+      <td><code>unr</code> <code>lmd</code> <code>cnt</code> <code>rzd</code> <code>vwl</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="height">Height</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Name</th>
+      <th>Origin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>hgh</code></td>
+      <td>close (high)</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>smh</code></td>
+      <td>near-close (semi-high)</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>umd</code></td>
+      <td>close-mid (upper-mid)</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>mid</code></td>
+      <td>mid</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>lmd</code></td>
+      <td>open-mid (lower-mid)</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>sml</code></td>
+      <td>near-open (semi-low)</td>
+      <td><code>cainteoir</code></td>
+    </tr>
+    <tr>
+      <td><code>low</code></td>
+      <td>open (low)</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="backness">Backness</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Name</th>
+      <th>Origin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>fnt</code></td>
+      <td>front</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>cnt</code></td>
+      <td>center</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>bck</code></td>
+      <td>back</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>NOTE:</strong> The <code>smh</code> vowels are more <code>cnt</code> than the other vowels. However, this
+distinction is not needed to classify these vowels so there are no features
+for front-central and back-central. The <code>fnt</code> and <code>bck</code> features are used
+instead.</p>
+
+<h3 id="rounding">Rounding</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Name</th>
+      <th>Origin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>unr</code></td>
+      <td>unrounded</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>rnd</code></td>
+      <td>rounded</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="diacritics">Diacritics</h2>
+
+<h3 id="articulation">Articulation</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Symbol</th>
+      <th>Name</th>
+      <th>Origin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>lgl</code></td>
+      <td>◌̼</td>
+      <td>linguolabial</td>
+      <td><code>cainteoir</code></td>
+    </tr>
+    <tr>
+      <td><code>idt</code></td>
+      <td>◌̪͆</td>
+      <td>interdental</td>
+      <td><code>espeak-ng</code></td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>◌̪</td>
+      <td>dental</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>apc</code></td>
+      <td>◌̺</td>
+      <td>apical</td>
+      <td><code>espeak-ng</code></td>
+    </tr>
+    <tr>
+      <td><code>lmn</code></td>
+      <td>◌̻</td>
+      <td>laminal</td>
+      <td><code>cainteoir</code></td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>◌̟</td>
+      <td>advanced</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>◌̠</td>
+      <td>retracted</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>◌̈</td>
+      <td>centralized</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>◌̽</td>
+      <td>mid-centralized</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>◌̝</td>
+      <td>raised</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>◌̞</td>
+      <td>lowered</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The articulations that do not have a corresponding feature name are recorded
+using the features of their new location in the consonant or vowel charts, not
+using the features of the base phoneme.</p>
+
+<h3 id="air-flow">Air Flow</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Symbol</th>
+      <th>Name</th>
+      <th>Origin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>egs</code></td>
+      <td>↑</td>
+      <td>egressive</td>
+      <td><code>espeak-ng</code></td>
+    </tr>
+    <tr>
+      <td><code>igs</code></td>
+      <td>↓</td>
+      <td>ingressive</td>
+      <td><code>espeak-ng</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The ↑ and ↓ symbols are from the extended IPA<sup>[<a href="#ref7">7</a>]</sup>.
+They only need to be used when the air flow is different to the base IPA
+phoneme (e.g. using ↓ on pulmonic consonants).</p>
+
+<h3 id="phonation">Phonation</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Symbol</th>
+      <th>Name</th>
+      <th>Origin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>brv</code></td>
+      <td>◌̤</td>
+      <td>breathy voice</td>
+      <td><code>espeak-ng</code></td>
+    </tr>
+    <tr>
+      <td><code>slv</code></td>
+      <td>◌̥</td>
+      <td>slack voice</td>
+      <td><code>cainteoir</code></td>
+    </tr>
+    <tr>
+      <td><code>stv</code></td>
+      <td>◌̬</td>
+      <td>stiff voice</td>
+      <td><code>cainteoir</code></td>
+    </tr>
+    <tr>
+      <td><code>crv</code></td>
+      <td>◌̰</td>
+      <td>creaky voice</td>
+      <td><code>cainteoir</code></td>
+    </tr>
+    <tr>
+      <td><code>glc</code></td>
+      <td>ʔ͡◌</td>
+      <td>glottal closure</td>
+      <td><code>espeak-ng</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The IPA ◌̥ diacritic is also used to fill the <code>vls</code> spaces in the IPA consonant
+charts. Thus, when ◌̥ is used with a <code>vcd</code> consonant that does not have an
+equivalent <code>vls</code> consonant, the resulting consonant is <code>vls</code>, not <code>slv</code>.</p>
+
+<p><strong>NOTE:</strong> Evan Kirshenbaum uses the <code>mrm</code> (murmured) feature for breathy voice,
+using it for <code>[ɦ]</code> instead of <code>vcd</code>, following the way the phoneme is pronounced
+instead of how it is annotated on the IPA chart.</p>
+
+<h3 id="rounding-and-labialization">Rounding and Labialization</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Symbol</th>
+      <th>Name</th>
+      <th>Origin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>ptr</code></td>
+      <td>◌ʷ, ◌ᶣ</td>
+      <td>protruded</td>
+      <td><code>espeak-ng</code></td>
+    </tr>
+    <tr>
+      <td><code>cmp</code></td>
+      <td>◌ᵝ</td>
+      <td>compressed</td>
+      <td><code>espeak-ng</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>NOTE:</strong> Evan Kirshenbaum uses the <code>lzd</code> (labialized) feature for protruded.</p>
+
+<p>The degree of rounding/labialization can be specified using the following
+features:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Symbol</th>
+      <th>Name</th>
+      <th>Origin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>mrd</code></td>
+      <td>◌̹</td>
+      <td>more rounded</td>
+      <td><code>cainteoir</code></td>
+    </tr>
+    <tr>
+      <td><code>lrd</code></td>
+      <td>◌̜</td>
+      <td>less rounded</td>
+      <td><code>cainteoir</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="syllabicity">Syllabicity</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Symbol</th>
+      <th>Name</th>
+      <th>Origin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>syl</code></td>
+      <td>◌̩</td>
+      <td>syllabic</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>nsy</code></td>
+      <td>◌̯</td>
+      <td>non-syllabic</td>
+      <td><code>cainteoir</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="consonant-release">Consonant Release</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Symbol</th>
+      <th>Name</th>
+      <th>Origin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>asp</code></td>
+      <td>◌ʰ</td>
+      <td>aspirated</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>nrs</code></td>
+      <td>◌ⁿ</td>
+      <td>nasal release</td>
+      <td><code>espeak-ng</code></td>
+    </tr>
+    <tr>
+      <td><code>lrs</code></td>
+      <td>◌ˡ</td>
+      <td>lateral release</td>
+      <td><code>espeak-ng</code></td>
+    </tr>
+    <tr>
+      <td><code>unx</code></td>
+      <td>◌̚</td>
+      <td>no audible release (unexploded)</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="co-articulation">Co-articulation</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Symbol</th>
+      <th>Name</th>
+      <th>Origin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>pzd</code></td>
+      <td>◌ʲ</td>
+      <td>palatalized</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>vzd</code></td>
+      <td>◌ˠ, ◌̴</td>
+      <td>velarized</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>fzd</code></td>
+      <td>◌ˤ, ◌̴</td>
+      <td>pharyngealized</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>nzd</code></td>
+      <td>◌̃</td>
+      <td>nasalized</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>rzd</code></td>
+      <td>◌˞</td>
+      <td>rhoticized</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The combining ◌̴ mark is used for velarized or pharyngealized consonants.
+Wikipedia recommends precomposed letters for this as this combining mark
+is deprecated, and the font may not render the composed form correctly.</p>
+
+<h3 id="tongue-root">Tongue Root</h3>
+
+<p>The tongue root position can be specified using the following features:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Symbol</th>
+      <th>Name</th>
+      <th>Origin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>atr</code></td>
+      <td>◌̘</td>
+      <td>advanced tongue root</td>
+      <td><code>cainteoir</code></td>
+    </tr>
+    <tr>
+      <td><code>rtr</code></td>
+      <td>◌̙</td>
+      <td>retracted tongue root</td>
+      <td><code>cainteoir</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="fortis-and-lenis">Fortis and Lenis</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Symbol</th>
+      <th>Name</th>
+      <th>Origin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>fts</code></td>
+      <td>◌͈</td>
+      <td>fortis</td>
+      <td><code>espeak-ng</code></td>
+    </tr>
+    <tr>
+      <td><code>lns</code></td>
+      <td>◌͉</td>
+      <td>lenis</td>
+      <td><code>espeak-ng</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The extended IPA<sup>[<a href="#ref7">7</a>]</sup> ◌͈ and ◌͉ diacritics
+are used to specify lesser (<code>lns</code>) and greater (<code>fts</code>) oral pressure than
+the unmodified voiced or voiceless phoneme. This distinction is made by
+the Ewe, Tabasaran, Archi, and other languages<sup>[<a href="#ref8">8</a>]</sup>.</p>
+
+<p>Where fortis and lenis are used to contrast consonant durations (e.g. in
+the Jawoyn, Ojibwe, and Zurich German languages<sup>[<a href="#ref8">8</a>]</sup>),
+the <a href="#length">length</a> suprasegmentals are used instead.</p>
+
+<h2 id="suprasegmentals">Suprasegmentals</h2>
+
+<h3 id="stress">Stress</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>ˈ◌</code></td>
+      <td>primary stress</td>
+    </tr>
+    <tr>
+      <td><code>ˌ◌</code></td>
+      <td>secondary stress</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="length">Length</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Symbol</th>
+      <th>Name</th>
+      <th>Origin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>est</code></td>
+      <td>◌̆</td>
+      <td>extra short</td>
+      <td><code>cainteoir</code></td>
+    </tr>
+    <tr>
+      <td><code>hlg</code></td>
+      <td>◌ˑ</td>
+      <td>half-long</td>
+      <td><code>cainteoir</code></td>
+    </tr>
+    <tr>
+      <td><code>lng</code></td>
+      <td>◌ː</td>
+      <td>long</td>
+      <td><code>kirshenbaum</code></td>
+    </tr>
+    <tr>
+      <td><code>elg</code></td>
+      <td>◌ːː</td>
+      <td>extra long</td>
+      <td><code>espeak-ng</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="rhythm">Rhythm</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>.</code></td>
+      <td>syllable break</td>
+    </tr>
+    <tr>
+      <td><code>◌‿◌</code></td>
+      <td>linking (no break)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="tones">Tones</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>◌˥</code></td>
+      <td>extra high tone</td>
+    </tr>
+    <tr>
+      <td><code>◌˦</code></td>
+      <td>high tone</td>
+    </tr>
+    <tr>
+      <td><code>◌˧</code></td>
+      <td>mid tone</td>
+    </tr>
+    <tr>
+      <td><code>◌˨</code></td>
+      <td>low tone</td>
+    </tr>
+    <tr>
+      <td><code>◌˩</code></td>
+      <td>extra low tone</td>
+    </tr>
+    <tr>
+      <td><code>ꜛ◌</code></td>
+      <td>upstep</td>
+    </tr>
+    <tr>
+      <td><code>ꜜ◌</code></td>
+      <td>downstep</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="intonation">Intonation</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>|</code></td>
+      <td>minor (foot) break</td>
+    </tr>
+    <tr>
+      <td><code>‖</code></td>
+      <td>major (intonation) break</td>
+    </tr>
+    <tr>
+      <td><code>↗︎</code></td>
+      <td>global rise</td>
+    </tr>
+    <tr>
+      <td><code>↘︎</code></td>
+      <td>global fall</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="references">References</h2>
+
+<ol>
+  <li>
+    <p><a name="ref1"></a> Kirshenbaum, Evan,
+<a href="https://web.archive.org/web/20160419125856/http://www.kirshenbaum.net/IPA/faq.html">Representing IPA phonetics in ASCII</a> (HTML). 1993.</p>
+  </li>
+  <li>
+    <p><a name="ref2"></a> Kirshenbaum, Evan,
+<a href="https://web.archive.org/web/20160419125856/http://www.kirshenbaum.net/IPA/ascii-ipa.pdf">Representing IPA phonetics in ASCII</a> (PDF). 2001.</p>
+  </li>
+  <li>
+    <p><a name="ref3"></a> International Phonetic Association,
+<a href="https://www.internationalphoneticassociation.org/content/ipa-chart">The International Phonetic Alphabet and the IPA Chart</a>. 2015.
+Creative Commons Attribution-Sharealike 3.0 Unported License (CC-BY-SA).</p>
+  </li>
+  <li>
+    <p><a name="ref4"></a> Wikipedia.
+<a href="https://en.wikipedia.org/wiki/International_Phonetic_Alphabet">International Phonetic Alphabet</a>. 2017.
+Creative Commons Attribution-Sharealike 3.0 Unported License (CC-BY-SA).</p>
+  </li>
+  <li>
+    <p><a name="ref5"></a> Dunn, R. H.,
+<a href="https://raw.githubusercontent.com/rhdunn/cainteoir-engine/master/src/libcainteoir/phoneme/phoneme.cpp">Cainteoir Text-to-Speech Phoneme Features</a>. 2013-2015.</p>
+  </li>
+  <li>
+    <p><a name="ref6"></a> Wikipedia.
+<a href="https://en.wikipedia.org/wiki/Voiced_glottal_fricative">Voiced glottal fricative</a>. 2017,
+Creative Commons Attribution-Sharealike 3.0 Unported License (CC-BY-SA).</p>
+  </li>
+  <li>
+    <p><a name="ref7"></a> Wikipedia.
+<a href="https://en.wikipedia.org/wiki/Extensions_to_the_International_Phonetic_Alphabet">Extensions to the International Phonetic Alphabet</a>. 2017,
+Creative Commons Attribution-Sharealike 3.0 Unported License (CC-BY-SA).</p>
+  </li>
+  <li>
+    <p><a name="ref8"></a> Wikipedia.
+<a href="https://en.wikipedia.org/wiki/Fortis_and_lenis">Fortis and lenis</a>. 2017,
+Creative Commons Attribution-Sharealike 3.0 Unported License (CC-BY-SA).</p>
+  </li>
+  <li>
+    <p><a name="ref9"></a> Wikipedia.
+<a href="https://en.wikipedia.org/wiki/Place_of_articulation">Place of articulation</a>. 2017,
+Creative Commons Attribution-Sharealike 3.0 Unported License (CC-BY-SA).</p>
+  </li>
+</ol>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title><%= HTML.escape(@title) %> · Neon Skies</title>
+<link rel="icon" href="data:,">
+<style>
+<%= STYLESHEET %>
+</style>
+</head>
+<body>
+
+<div class="sky" aria-hidden="true">
+  <div class="sky__base" data-depth="0"></div>
+  <div class="sky__stars" data-depth="0.010"></div>
+  <div class="sky__stars sky__stars--deep" data-depth="0.022"></div>
+  <div class="sky__nebula" data-depth="0.016"></div>
+
+  <div class="skyline skyline--far" data-depth="0.030">
+    <% @far.each do |b| %>
+    <i class="bld bld--far" style="<%= b.css_vars %>"></i>
+    <% end %>
+  </div>
+
+  <div class="skyline skyline--mid" data-depth="0.055">
+    <% @mid.each do |b| %>
+    <i class="bld bld--mid" style="<%= b.css_vars %>"></i>
+    <% end %>
+  </div>
+
+  <div class="skyline skyline--near" data-depth="0.090">
+    <% @near.each do |b| %>
+    <i class="bld bld--near" style="<%= b.css_vars %>"></i>
+    <% end %>
+  </div>
+
+  <div class="sky__haze" data-depth="0.040"></div>
+</div>
+
+<main class="stage">
+<%= @body %>
+</main>
+
+<footer class="foot">
+  <p>Terra, silent · archive node 09 · the lights are still on, and nobody is watching them</p>
+</footer>
+
+<script>
+<%= SCRIPT %>
+</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+#!/bin/sh
+set -eu
+if ! command -v gitleaks >/dev/null 2>&1; then
+    echo 'Gitleaks 8.30.1을 설치한 뒤 다시 커밋하세요.' >&2
+    exit 1
+fi
+if [ -x .venv/Scripts/python.exe ]; then
+    .venv/Scripts/python.exe scripts/check-secrets.py --staged
+elif [ -x .venv/bin/python ]; then
+    .venv/bin/python scripts/check-secrets.py --staged
+else
+    python scripts/check-secrets.py --staged
+fi
+gitleaks git . --pre-commit --staged --redact=100 --no-banner --ignore-gitleaks-allow

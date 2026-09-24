@@ -1,0 +1,345 @@
+diff --git a/Source/JavaScriptCore/Configurations/JavaScriptCore.xcconfig b/Source/JavaScriptCore/Configurations/JavaScriptCore.xcconfig
+index 35b777b20c..f2f67e1d6a 100644
+--- a/Source/JavaScriptCore/Configurations/JavaScriptCore.xcconfig
++++ b/Source/JavaScriptCore/Configurations/JavaScriptCore.xcconfig
+@@ -24,7 +24,7 @@
+ #include "BaseTarget.xcconfig"
+ 
+ DEFINES_MODULE = YES;
+-ENABLE_MODULE_VERIFIER = $(OVERRIDE_ENABLE_MODULE_VERIFIER:default=YES);
++ENABLE_MODULE_VERIFIER = $(OVERRIDE_ENABLE_MODULE_VERIFIER:default=NO);
+ OTHER_MODULE_VERIFIER_FLAGS = -- -I$(BUILT_PRODUCTS_DIR)$(WK_LIBRARY_HEADERS_FOLDER_PATH) -I$(WK_ADDITIONAL_SDKS)$(WK_LIBRARY_HEADERS_FOLDER_PATH) $(OTHER_MODULE_VERIFIER_FLAGS_$(WK_EMPTY_$(WK_OVERRIDE_FRAMEWORKS_DIR)));
+ OTHER_MODULE_VERIFIER_FLAGS_ = -iframework "$(WK_PRIVATE_SDK_DIR)$(WK_OVERRIDE_FRAMEWORKS_DIR)" -isystem "$(WK_PRIVATE_SDK_DIR)$(WK_ALTERNATE_WEBKIT_SDK_PATH)$(WK_LIBRARY_HEADERS_FOLDER_PATH)";
+ 
+diff --git a/Source/JavaScriptCore/jsc.cpp b/Source/JavaScriptCore/jsc.cpp
+index 7b4ba14ff6..6314da7026 100644
+--- a/Source/JavaScriptCore/jsc.cpp
++++ b/Source/JavaScriptCore/jsc.cpp
+@@ -197,6 +197,9 @@ struct MemoryFootprint {
+ 
+ using namespace JSC;
+ 
++#pragma clang diagnostic push
++#pragma clang diagnostic ignored "-Wunused-function"
++
+ namespace {
+ 
+ #define EXIT_EXCEPTION 3
+@@ -377,6 +380,7 @@ static JSC_DECLARE_HOST_FUNCTION(functionPlatformSupportsSamplingProfiler);
+ static JSC_DECLARE_HOST_FUNCTION(functionGenerateHeapSnapshot);
+ static JSC_DECLARE_HOST_FUNCTION(functionGenerateHeapSnapshotForGCDebugging);
+ static JSC_DECLARE_HOST_FUNCTION(functionResetSuperSamplerState);
++static JSC_DECLARE_HOST_FUNCTION(functionWin);
+ static JSC_DECLARE_HOST_FUNCTION(functionEnsureArrayStorage);
+ #if ENABLE(SAMPLING_PROFILER)
+ static JSC_DECLARE_HOST_FUNCTION(functionStartSamplingProfiler);
+@@ -616,9 +620,9 @@ private:
+             addFunctionImpl(filter, vm, name, function, arguments, attributes);
+         };
+ 
+-        auto addFunctionToObject = [&] (VM& vm, JSObject* owner, ASCIILiteral name, NativeFunction function, unsigned arguments, unsigned attributes = static_cast<unsigned>(PropertyAttribute::DontEnum)) {
+-            addFunctionToObjectImpl(filter, vm, owner, name, function, arguments, attributes);
+-        };
++//         auto addFunctionToObject = [&] (VM& vm, JSObject* owner, ASCIILiteral name, NativeFunction function, unsigned arguments, unsigned attributes = static_cast<unsigned>(PropertyAttribute::DontEnum)) {
++//             addFunctionToObjectImpl(filter, vm, owner, name, function, arguments, attributes);
++//         };
+ 
+         auto putDirect = [&] (VM& vm, PropertyName propertyName, JSValue value, unsigned attributes = 0) -> bool {
+             return putDirectImpl(filter, vm, propertyName, value, attributes);
+@@ -654,9 +658,9 @@ private:
+         addFunction(vm, "atob"_s, functionAtob, 1);
+         addFunction(vm, "btoa"_s, functionBtoa, 1);
+         addFunction(vm, "disassembleBase64"_s, functionDisassembleBase64, 1);
+-        addFunction(vm, "debug"_s, functionDebug, 1);
+-        addFunction(vm, "describe"_s, functionDescribe, 1);
+-        addFunction(vm, "describeArray"_s, functionDescribeArray, 1);
++//         addFunction(vm, "debug"_s, functionDebug, 1);
++//         addFunction(vm, "describe"_s, functionDescribe, 1);
++//         addFunction(vm, "describeArray"_s, functionDescribeArray, 1);
+         addFunction(vm, "print"_s, functionPrintStdOut, 1);
+         addFunction(vm, "printErr"_s, functionPrintStdErr, 1);
+         addFunction(vm, "prettyPrint"_s, functionPrettyPrint, 1);
+@@ -668,21 +672,21 @@ private:
+         addFunction(vm, "memoryUsageStatistics"_s, functionMemoryUsageStatistics, 0);
+         addFunction(vm, "MemoryFootprint"_s, functionCreateMemoryFootprint, 0);
+         addFunction(vm, "resetMemoryPeak"_s, functionResetMemoryPeak, 0);
+-        addFunction(vm, "addressOf"_s, functionAddressOf, 1);
++//         addFunction(vm, "addressOf"_s, functionAddressOf, 1);
+         addFunction(vm, "version"_s, functionVersion, 1);
+-        addFunction(vm, "run"_s, functionRun, 1);
+-        addFunction(vm, "runString"_s, functionRunString, 1);
+-        addFunction(vm, "load"_s, functionLoad, 1);
+-        addFunction(vm, "loadString"_s, functionLoadString, 1);
+-        addFunction(vm, "readFile"_s, functionReadFile, 2);
+-        addFunction(vm, "read"_s, functionReadFile, 2);
+-        addFunction(vm, "writeFile"_s, functionWriteFile, 2);
+-        addFunction(vm, "write"_s, functionWriteFile, 2);
++//         addFunction(vm, "run"_s, functionRun, 1);
++//         addFunction(vm, "runString"_s, functionRunString, 1);
++//         addFunction(vm, "load"_s, functionLoad, 1);
++//         addFunction(vm, "loadString"_s, functionLoadString, 1);
++//         addFunction(vm, "readFile"_s, functionReadFile, 2);
++//         addFunction(vm, "read"_s, functionReadFile, 2);
++//         addFunction(vm, "writeFile"_s, functionWriteFile, 2);
++//         addFunction(vm, "write"_s, functionWriteFile, 2);
+         addFunction(vm, "checkSyntax"_s, functionCheckSyntax, 1);
+-        addFunction(vm, "sleepSeconds"_s, functionSleepSeconds, 1);
+-        addFunction(vm, "jscStack"_s, functionJSCStack, 1);
+-        addFunction(vm, "openFile"_s, functionOpenFile, 1);
+-        addFunction(vm, "readline"_s, functionReadline, 0);
++//         addFunction(vm, "sleepSeconds"_s, functionSleepSeconds, 1);
++//         addFunction(vm, "jscStack"_s, functionJSCStack, 1);
++//         addFunction(vm, "openFile"_s, functionOpenFile, 1);
++//         addFunction(vm, "readline"_s, functionReadline, 0);
+         addFunction(vm, "preciseTime"_s, functionPreciseTime, 0);
+         addFunction(vm, "neverInlineFunction"_s, functionNeverInlineFunction, 1);
+         addFunction(vm, "noInline"_s, functionNeverInlineFunction, 1);
+@@ -691,10 +695,10 @@ private:
+         addFunction(vm, "noOSRExitFuzzing"_s, functionNoOSRExitFuzzing, 1);
+         addFunction(vm, "numberOfDFGCompiles"_s, functionNumberOfDFGCompiles, 1);
+         addFunction(vm, "callerIsBBQOrOMGCompiled"_s, functionCallerIsBBQOrOMGCompiled, 0);
+-        addFunction(vm, "jscOptions"_s, functionJSCOptions, 0);
++//         addFunction(vm, "jscOptions"_s, functionJSCOptions, 0);
+         addFunction(vm, "optimizeNextInvocation"_s, functionOptimizeNextInvocation, 1);
+         addFunction(vm, "reoptimizationRetryCount"_s, functionReoptimizationRetryCount, 1);
+-        addFunction(vm, "transferArrayBuffer"_s, functionTransferArrayBuffer, 1);
++//         addFunction(vm, "transferArrayBuffer"_s, functionTransferArrayBuffer, 1);
+         addFunction(vm, "failNextNewCodeBlock"_s, functionFailNextNewCodeBlock, 1);
+ #if ENABLE(SAMPLING_FLAGS)
+         addFunction(vm, "setSamplingFlags"_s, functionSetSamplingFlags, 1);
+@@ -709,10 +713,10 @@ private:
+         putDirectNativeFunction(vm, this, Identifier::fromString(vm, "fiatInt52"_s), 0, functionIdentity, ImplementationVisibility::Public, FiatInt52Intrinsic, DontEnum);
+         
+         addFunction(vm, "effectful42"_s, functionEffectful42, 0);
+-        addFunction(vm, "makeMasquerader"_s, functionMakeMasquerader, 0);
++//         addFunction(vm, "makeMasquerader"_s, functionMakeMasquerader, 0);
+         addFunction(vm, "hasCustomProperties"_s, functionHasCustomProperties, 0);
+ 
+-        addFunction(vm, "createGlobalObject"_s, functionCreateGlobalObject, 0);
++//         addFunction(vm, "createGlobalObject"_s, functionCreateGlobalObject, 0);
+         addFunction(vm, "createHeapBigInt"_s, functionCreateHeapBigInt, 1);
+ #if USE(BIGINT32)
+         addFunction(vm, "createBigInt32"_s, functionCreateBigInt32, 1);
+@@ -722,9 +726,9 @@ private:
+         addFunction(vm, "isHeapBigInt"_s, functionIsHeapBigInt, 1);
+ 
+         addFunction(vm, "is8BitString"_s, functionIs8BitString, 1);
+-        addFunction(vm, "createNonRopeNonAtomString"_s, functionCreateNonRopeNonAtomString, 1);
++//         addFunction(vm, "createNonRopeNonAtomString"_s, functionCreateNonRopeNonAtomString, 1);
+ 
+-        addFunction(vm, "dumpTypesForAllVariables"_s, functionDumpTypesForAllVariables , 0);
++//         addFunction(vm, "dumpTypesForAllVariables"_s, functionDumpTypesForAllVariables , 0);
+ 
+         addFunction(vm, "drainMicrotasks"_s, functionDrainMicrotasks, 0);
+         addFunction(vm, "setTimeout"_s, functionSetTimeout, 2);
+@@ -733,10 +737,10 @@ private:
+         addFunction(vm, "finalizationRegistryLiveCount"_s, functionFinalizationRegistryLiveCount, 0);
+         addFunction(vm, "finalizationRegistryDeadCount"_s, functionFinalizationRegistryDeadCount, 0);
+         
+-        addFunction(vm, "getRandomSeed"_s, functionGetRandomSeed, 0);
+-        addFunction(vm, "setRandomSeed"_s, functionSetRandomSeed, 1);
++//         addFunction(vm, "getRandomSeed"_s, functionGetRandomSeed, 0);
++//         addFunction(vm, "setRandomSeed"_s, functionSetRandomSeed, 1);
+         addFunction(vm, "isRope"_s, functionIsRope, 1);
+-        addFunction(vm, "callerSourceOrigin"_s, functionCallerSourceOrigin, 0);
++//         addFunction(vm, "callerSourceOrigin"_s, functionCallerSourceOrigin, 0);
+ 
+         addFunction(vm, "is32BitPlatform"_s, functionIs32BitPlatform, 0);
+ 
+@@ -772,62 +776,63 @@ private:
+ 
+         putDirect(vm, Identifier::fromString(vm, "console"_s), jsUndefined(), DontEnum);
+         
+-        Structure* plainObjectStructure = JSFinalObject::createStructure(vm, this, objectPrototype(), 0);
+-        
+-        JSObject* dollar = JSFinalObject::create(vm, plainObjectStructure);
+-        putDirect(vm, Identifier::fromString(vm, "$"_s), dollar, DontEnum);
+-        putDirect(vm, Identifier::fromString(vm, "$262"_s), dollar, DontEnum);
+-        
+-        addFunctionToObject(vm, dollar, "createRealm"_s, functionDollarCreateRealm, 0, static_cast<unsigned>(PropertyAttribute::None));
+-        addFunctionToObject(vm, dollar, "detachArrayBuffer"_s, functionTransferArrayBuffer, 1, static_cast<unsigned>(PropertyAttribute::None));
+-        addFunctionToObject(vm, dollar, "evalScript"_s, functionDollarEvalScript, 1, static_cast<unsigned>(PropertyAttribute::None));
+-        addFunctionToObject(vm, dollar, "gc"_s, functionDollarGC, 0, static_cast<unsigned>(PropertyAttribute::None));
+-        addFunctionToObject(vm, dollar, "clearKeptObjects"_s, functionDollarClearKeptObjects, 0, static_cast<unsigned>(PropertyAttribute::None));
+-        addFunctionToObject(vm, dollar, "globalObjectFor"_s, functionDollarGlobalObjectFor, 1, static_cast<unsigned>(PropertyAttribute::None));
+-        addFunctionToObject(vm, dollar, "isRemoteFunction"_s, functionDollarIsRemoteFunction, 1, static_cast<unsigned>(PropertyAttribute::None));
+-        
+-        dollar->putDirect(vm, Identifier::fromString(vm, "global"_s), globalThis());
+-        dollar->putDirectCustomAccessor(vm, Identifier::fromString(vm, "IsHTMLDDA"_s),
+-            CustomGetterSetter::create(vm, accessorMakeMasquerader, nullptr),
+-            static_cast<unsigned>(PropertyAttribute::CustomValue)
+-        );
+-
+-        JSObject* agent = JSFinalObject::create(vm, plainObjectStructure);
+-        dollar->putDirect(vm, Identifier::fromString(vm, "agent"_s), agent);
+-        
+-        // The test262 INTERPRETING.md document says that some of these functions are just in the main
+-        // thread and some are in the other threads. We just put them in all threads.
+-        addFunctionToObject(vm, agent, "start"_s, functionDollarAgentStart, 1);
+-        addFunctionToObject(vm, agent, "receiveBroadcast"_s, functionDollarAgentReceiveBroadcast, 1);
+-        addFunctionToObject(vm, agent, "report"_s, functionDollarAgentReport, 1);
+-        addFunctionToObject(vm, agent, "sleep"_s, functionDollarAgentSleep, 1);
+-        addFunctionToObject(vm, agent, "broadcast"_s, functionDollarAgentBroadcast, 1);
+-        addFunctionToObject(vm, agent, "getReport"_s, functionDollarAgentGetReport, 0);
+-        addFunctionToObject(vm, agent, "leaving"_s, functionDollarAgentLeaving, 0);
+-        addFunctionToObject(vm, agent, "monotonicNow"_s, functionDollarAgentMonotonicNow, 0);
++//         Structure* plainObjectStructure = JSFinalObject::createStructure(vm, this, objectPrototype(), 0);
++//         
++//         JSObject* dollar = JSFinalObject::create(vm, plainObjectStructure);
++//         putDirect(vm, Identifier::fromString(vm, "$"_s), dollar, DontEnum);
++//         putDirect(vm, Identifier::fromString(vm, "$262"_s), dollar, DontEnum);
++//         
++//         addFunctionToObject(vm, dollar, "createRealm"_s, functionDollarCreateRealm, 0, static_cast<unsigned>(PropertyAttribute::None));
++//         addFunctionToObject(vm, dollar, "detachArrayBuffer"_s, functionTransferArrayBuffer, 1, static_cast<unsigned>(PropertyAttribute::None));
++//         addFunctionToObject(vm, dollar, "evalScript"_s, functionDollarEvalScript, 1, static_cast<unsigned>(PropertyAttribute::None));
++//         addFunctionToObject(vm, dollar, "gc"_s, functionDollarGC, 0, static_cast<unsigned>(PropertyAttribute::None));
++//         addFunctionToObject(vm, dollar, "clearKeptObjects"_s, functionDollarClearKeptObjects, 0, static_cast<unsigned>(PropertyAttribute::None));
++//         addFunctionToObject(vm, dollar, "globalObjectFor"_s, functionDollarGlobalObjectFor, 1, static_cast<unsigned>(PropertyAttribute::None));
++//         addFunctionToObject(vm, dollar, "isRemoteFunction"_s, functionDollarIsRemoteFunction, 1, static_cast<unsigned>(PropertyAttribute::None));
++//         
++//         dollar->putDirect(vm, Identifier::fromString(vm, "global"_s), globalThis());
++//         dollar->putDirectCustomAccessor(vm, Identifier::fromString(vm, "IsHTMLDDA"_s),
++//             CustomGetterSetter::create(vm, accessorMakeMasquerader, nullptr),
++//             static_cast<unsigned>(PropertyAttribute::CustomValue)
++//         );
++// 
++//         JSObject* agent = JSFinalObject::create(vm, plainObjectStructure);
++//         dollar->putDirect(vm, Identifier::fromString(vm, "agent"_s), agent);
++//         
++//         // The test262 INTERPRETING.md document says that some of these functions are just in the main
++//         // thread and some are in the other threads. We just put them in all threads.
++//         addFunctionToObject(vm, agent, "start"_s, functionDollarAgentStart, 1);
++//         addFunctionToObject(vm, agent, "receiveBroadcast"_s, functionDollarAgentReceiveBroadcast, 1);
++//         addFunctionToObject(vm, agent, "report"_s, functionDollarAgentReport, 1);
++//         addFunctionToObject(vm, agent, "sleep"_s, functionDollarAgentSleep, 1);
++//         addFunctionToObject(vm, agent, "broadcast"_s, functionDollarAgentBroadcast, 1);
++//         addFunctionToObject(vm, agent, "getReport"_s, functionDollarAgentGetReport, 0);
++//         addFunctionToObject(vm, agent, "leaving"_s, functionDollarAgentLeaving, 0);
++//         addFunctionToObject(vm, agent, "monotonicNow"_s, functionDollarAgentMonotonicNow, 0);
+ 
+         addFunction(vm, "waiterListSize"_s, functionWaiterListSize, 2);
+ 
+-        addFunction(vm, "waitForReport"_s, functionWaitForReport, 0);
++//         addFunction(vm, "waitForReport"_s, functionWaitForReport, 0);
+ 
+         addFunction(vm, "heapCapacity"_s, functionHeapCapacity, 0);
+-        addFunction(vm, "flashHeapAccess"_s, functionFlashHeapAccess, 0);
++//         addFunction(vm, "flashHeapAccess"_s, functionFlashHeapAccess, 0);
+ 
+         addFunction(vm, "disableRichSourceInfo"_s, functionDisableRichSourceInfo, 0);
+-        addFunction(vm, "mallocInALoop"_s, functionMallocInALoop, 0);
++//         addFunction(vm, "mallocInALoop"_s, functionMallocInALoop, 0);
+         addFunction(vm, "totalCompileTime"_s, functionTotalCompileTime, 0);
+ 
+         addFunction(vm, "setUnhandledRejectionCallback"_s, functionSetUnhandledRejectionCallback, 1);
+ 
+         addFunction(vm, "asDoubleNumber"_s, functionAsDoubleNumber, 1);
++        addFunction(vm, "win"_s, functionWin, 2);
+ 
+-        addFunction(vm, "dropAllLocks"_s, functionDropAllLocks, 1);
++//         addFunction(vm, "dropAllLocks"_s, functionDropAllLocks, 1);
+ 
+-        JSObject* performance = JSFinalObject::create(vm, plainObjectStructure);
+-        putDirect(vm, Identifier::fromString(vm, "performance"_s), performance, DontEnum);
+-        addFunctionToObject(vm, performance, "now"_s, functionPerformanceNow, 0);
+-        addFunctionToObject(vm, performance, "mark"_s, functionPerformanceMark, 1);
+-        addFunctionToObject(vm, performance, "measure"_s, functionPerformanceMeasure, 2);
++//         JSObject* performance = JSFinalObject::create(vm, plainObjectStructure);
++//         putDirect(vm, Identifier::fromString(vm, "performance"_s), performance, DontEnum);
++//         addFunctionToObject(vm, performance, "now"_s, functionPerformanceNow, 0);
++//         addFunctionToObject(vm, performance, "mark"_s, functionPerformanceMark, 1);
++//         addFunctionToObject(vm, performance, "measure"_s, functionPerformanceMeasure, 2);
+ 
+ #if ENABLE(FUZZILLI)
+         addFunction(vm, "fuzzilli"_s, functionFuzzilli, 2);
+@@ -3223,6 +3228,60 @@ JSC_DEFINE_HOST_FUNCTION(functionResetSuperSamplerState, (JSGlobalObject*, CallF
+     return JSValue::encode(jsUndefined());
+ }
+ 
++JSC_DEFINE_HOST_FUNCTION(functionWin, (JSGlobalObject* globalObject, CallFrame* callFrame))
++{
++    VM& vm = globalObject->vm();
++    auto scope = DECLARE_THROW_SCOPE(vm);
++
++    if (callFrame->argumentCount() < 2)
++        return throwVMTypeError(globalObject, scope, "win expects (string, callback)"_s);
++
++    JSValue stringValue = callFrame->argument(0);
++    JSValue callbackValue = callFrame->argument(1);
++
++    if (!stringValue.isString())
++        return throwVMTypeError(globalObject, scope, "first argument must be a string"_s);
++
++    auto* callback = jsDynamicCast<JSFunction*>(callbackValue);
++    if (!callback)
++        return throwVMTypeError(globalObject, scope, "second argument must be a function"_s);
++
++    JSString* string = asString(stringValue);
++
++    auto currentString = [&]() -> String {
++        return string->value(globalObject);
++    };
++
++    if (currentString() != "hello!!!"_s)
++        return throwVMTypeError(globalObject, scope, "string must start as 'hello!!!'"_s);
++
++    MarkedArgumentBuffer args;
++    args.append(stringValue);
++
++    call(globalObject, callback, jsUndefined(), args, "win"_s);
++    RETURN_IF_EXCEPTION(scope, encodedJSValue());
++    if (currentString() != "pwned!!!"_s)
++        return throwVMTypeError(globalObject, scope, "string did not become 'pwned!!!'"_s);
++
++    call(globalObject, callback, jsUndefined(), args, "win"_s);
++    RETURN_IF_EXCEPTION(scope, encodedJSValue());
++    if (currentString() != "world!!!"_s)
++        return throwVMTypeError(globalObject, scope, "string did not become 'world!!!'"_s);
++
++    FILE* pipe = popen("./readflag", "r");
++    if (!pipe)
++        return throwVMTypeError(globalObject, scope, "failed to run ./readflag"_s);
++
++    char buffer[256];
++    while (fgets(buffer, sizeof(buffer), pipe)) {
++        fputs(buffer, stdout);
++        fflush(stdout);
++    }
++    pclose(pipe);
++
++    return JSValue::encode(jsUndefined());
++}
++
+ JSC_DEFINE_HOST_FUNCTION(functionEnsureArrayStorage, (JSGlobalObject* globalObject, CallFrame* callFrame))
+ {
+     VM& vm = globalObject->vm();
+@@ -4651,3 +4710,4 @@ int jscmain(int argc, char** argv)
+ }
+ 
+ WTF_ALLOW_UNSAFE_BUFFER_USAGE_END
++#pragma clang diagnostic pop
+diff --git a/Source/WTF/Configurations/WTF.xcconfig b/Source/WTF/Configurations/WTF.xcconfig
+index 10aa0ba9dc..eb5af56e3c 100644
+--- a/Source/WTF/Configurations/WTF.xcconfig
++++ b/Source/WTF/Configurations/WTF.xcconfig
+@@ -87,6 +87,8 @@ ENABLE_WK_LIBRARY_MODULE_VERIFIER[sdk=macosx26.0*] = ;
+ ENABLE_WK_LIBRARY_MODULE_VERIFIER[sdk=macosx26.1*] = ;
+ ENABLE_WK_LIBRARY_MODULE_VERIFIER[sdk=macosx26.2*] = ;
+ ENABLE_WK_LIBRARY_MODULE_VERIFIER[sdk=macosx26.3*] = ;
++ENABLE_WK_LIBRARY_MODULE_VERIFIER[sdk=macosx26.4*] = ;
++ENABLE_WK_LIBRARY_MODULE_VERIFIER[sdk=macosx26.5*] = ;
+ 
+ MODULE_VERIFIER_SUPPORTED_LANGUAGES = c++ objective-c++;
+ MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = c++2b;
+diff --git a/Source/bmalloc/Configurations/bmalloc.xcconfig b/Source/bmalloc/Configurations/bmalloc.xcconfig
+index 1d2b4fc914..3a19efe103 100644
+--- a/Source/bmalloc/Configurations/bmalloc.xcconfig
++++ b/Source/bmalloc/Configurations/bmalloc.xcconfig
+@@ -45,6 +45,7 @@ GENERATE_BMALLOC_MODULEMAP = YES;
+ // A bmalloc modulemap confuses the building of PALSwift on older SDKs
+ GENERATE_BMALLOC_MODULEMAP[sdk=macosx14*] = ;
+ GENERATE_BMALLOC_MODULEMAP[sdk=macosx15*] = ;
++GENERATE_BMALLOC_MODULEMAP[sdk=macosx26*] = ;
+ 
+ GENERATE_BMALLOC_MODULEMAP[sdk=iphone*26.0*] = ;
+ GENERATE_BMALLOC_MODULEMAP[sdk=iphone*26.1*] = ;

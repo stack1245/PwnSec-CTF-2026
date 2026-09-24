@@ -1,0 +1,15 @@
+{
+  "name": "neon-skies-bot",
+  "private": true,
+  "type": "module",
+  "description": "The archivist that still walks the rounds.",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.0.1",
+    "playwright": "1.63.0"
+  }
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width; initial-scale=1"/>
+<meta name="robots" content="all"/>
+<style type="text/css">
+body
+{
+	font-family: sans-serif;
+	font-size: 14px;
+	margin: 1em;
+}
+
+*:first-child
+{
+	margin-top: 0;
+}
+
+code, pre
+{
+	font-family: monospace;
+	background: #F7F7F7;
+	color: navy;
+}
+
+code
+{
+	font-size: 85%;
+	padding: 0.2em;
+}
+
+pre
+{
+	margin-left: 3em;
+	padding: 1em;
+}
+
+th
+{
+	text-align: left;
+}
+
+hr
+{
+	border: 0;
+	border-bottom: 1px solid #BBB;
+}
+</style>
+</head>
+<body>
+
+<p>=== Western Cherokee</p>
+
+<p>Cherokee is a tonal language which does not use stress.</p>
+
+<p>This is an initial attempt at supporting Cherokee “DF” phonetics. (See Cherokee English Dictionary - Feeling - 1972). It does not support Syllabary or transliterated/romanized texts, neither of which indicate tone or cadence.</p>
+
+<p>The language file is configured to use stress on all syllables to mimic having no stress by having the stress equal across all syllables.</p>
+
+<p>Generally, long vowels are twice as long as their short counterparts.</p>
+
+<p>Trying to get espeak-ng’s output to have the correct range on the various pitch contours has been difficult as documentation on how to do this is scarce.</p>
+
+<p>Note: The final “High Fall” tone generally found at the end of words doesn’t always start high enough and never falls low enough. My attempts at increasing the range of the pitch contour for final word vowels shows that specifying too large a range in a phonemes tone statement causes some sort of disconnect between what one is trying to specify and what is actually generated. (At least by analysis using the Praat software).</p>
+
+<p>I have also attempted to enforce a zero intonation sentence structure to try and prevent any built-in intonation rules from slaughtering the pitch contours of syllables because of their locations.</p>
+
+<p>In general, the pitch contours seem to come out sounding “flat” and “constricted” when compared with the pitch contours from actual human speech. I do not know how to fix this.</p>
+
+<p>This language should be considered as alpha level <em>testing</em> and is <strong>not</strong> production ready.</p>
+
+<p>TODO:</p>
+
+<ul>
+  <li>Devoice short vowels when followed by an ‘h’.</li>
+  <li>Fix where the ‘m’ and ‘n’ consonants are hard to perceive.</li>
+  <li>Add rules to handle the C.E.D. like phonetics as used by the Raven Rock Dictionary.</li>
+  <li>Add a basic Eastern Cherokee dialect to account for differences of pronuncations of ‘s vs sh’ and ‘j/ch vs ts’.</li>
+  <li>Figure out why ‘,’ is treated as part of a word and not a short pause and fix it.</li>
+</ul>
+
+</body>
+</html>

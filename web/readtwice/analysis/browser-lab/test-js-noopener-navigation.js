@@ -1,0 +1,4 @@
+const http=require('node:http'),puppeteer=require('puppeteer');let seen=[];
+const b=http.createServer((q,r)=>{seen.push({site:q.headers['sec-fetch-site'],referer:q.headers.referer});r.end('target')});
+const a=http.createServer((q,r)=>{let t=`http://localhost:${b.address().port}/target`,u=`data:text/html,<script>location=${JSON.stringify(t)}<\\/script>`;r.end(`<script>open(${JSON.stringify(u)},'_blank','noopener')</script>`)});
+(async()=>{await Promise.all([new Promise(x=>b.listen(0,'localhost',x)),new Promise(x=>a.listen(0,'127.0.0.1',x))]);let br=await puppeteer.launch({executablePath:process.env.CHROME_PATH,headless:'new'}),p=await br.newPage();await p.goto(`http://127.0.0.1:${a.address().port}/`);await new Promise(x=>setTimeout(x,1000));console.log(seen,(await br.pages()).map(x=>x.url()));await br.close();a.close();b.close()})();

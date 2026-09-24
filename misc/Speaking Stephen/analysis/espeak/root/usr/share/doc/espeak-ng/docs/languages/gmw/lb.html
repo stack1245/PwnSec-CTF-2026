@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width; initial-scale=1"/>
+<meta name="robots" content="all"/>
+<style type="text/css">
+body
+{
+	font-family: sans-serif;
+	font-size: 14px;
+	margin: 1em;
+}
+
+*:first-child
+{
+	margin-top: 0;
+}
+
+code, pre
+{
+	font-family: monospace;
+	background: #F7F7F7;
+	color: navy;
+}
+
+code
+{
+	font-size: 85%;
+	padding: 0.2em;
+}
+
+pre
+{
+	margin-left: 3em;
+	padding: 1em;
+}
+
+th
+{
+	text-align: left;
+}
+
+hr
+{
+	border: 0;
+	border-bottom: 1px solid #BBB;
+}
+</style>
+</head>
+<body>
+<h2 id="introduction">Introduction</h2>
+<p>The present fork adds <a href="https://en.wikipedia.org/wiki/Luxembourgish">Luxembourgish</a> as 127th language to the eSpeak-NG text-to-speech (TTS) synthesizer (version.1.50.1).</p>
+
+<p>The main purpose of the project is the creation of a rule based International Phonetic Alphabet (<a href="https://en.wikipedia.org/wiki/International_Phonetic_Alphabet">IPA</a>) phonemizer for transcriptions of luxembourgish audio utterances.</p>
+
+<p>The phonemized text allows to create and use luxembourgish high-quality synthetic voices, trained with deep machine learning (ML) speech models, based on neural networks.</p>
+
+<p>The speech generated with the associated eSpeak-NG sound engine is based on formant synthesis techniques and is of low quality. The related luxembourgish voice <code>Luxi</code> is intelligible, but I did no sound optimization because my focus is put on the phonemization front-end process.</p>
+
+<h2 id="luxembourgish-customization">Luxembourgish customization</h2>
+<p>Four files are needed to include Luxembourgish as additional language in the eSpeak-NG project :</p>
+
+<ul>
+  <li><a href="https://github.com/mbarnig/espeak-ng-lb/blob/lëtzebuergesch/phsource/ph_letzebuergesch">phsource/ph_luxembourgish</a></li>
+  <li><a href="https://github.com/mbarnig/espeak-ng-lb/blob/lëtzebuergesch/dictsource/lb_rules">dictsource/lb_rules</a></li>
+  <li><a href="https://github.com/mbarnig/espeak-ng-lb/blob/lëtzebuergesch/dictsource/lb_list">dictsource/lb_list</a></li>
+  <li><a href="https://github.com/mbarnig/espeak-ng-lb/blob/lëtzebuergesch/dictsource/lb_emoji">dictsource/lb_emoji</a></li>
+</ul>
+
+<p>The customization process can be splitted into two steps :</p>
+
+<ol>
+  <li>convert the characters (graphemes) of text into <a href="https://en.wikipedia.org/wiki/Luxembourgish_phonology">phonetic descriptions</a> (phoneme-ID’s)</li>
+  <li>convert the phoneme-ID’s into <a href="https://en.wikipedia.org/wiki/Help:IPA/Luxembourgish">IPA phonemes</a> and define instructions how to generate sounds for each phoneme.</li>
+</ol>
+
+<p>eSpeak-NG is an evolution of the famous speak-program for the <a href="https://en.wikipedia.org/wiki/RISC_OS">ACORN/RISC_OS</a> computers developed in 1995 by Jonathan Duddington. In 2007 the program was renamed <a href="https://en.wikipedia.org/wiki/ESpeak">eSpeak</a>. After the disappearance of the original developer early 2015, a new project eSpeak-NG (new generation) was started in December 2015 under the direction of <a href="https://github.com/rhdunn">Reece H. Dunn</a>.</p>
+
+<p>When speak was created the phoneme-ID’s were based on the text encoding ASCII, available at this time. This was never changed in the eSpeak-NG fork to avoid too much divergence from the original code. A few years ago, the support of IPA names in the output was added, but this work-around is still laborious, compared to a state-of-art solution where IPA names are used as phoneme-ID’s. The current problems with the eSpeak-NG architecture are stated in this <a href="https://github.com/espeak-ng/espeak-ng/wiki/eSpeak-NG-roadmap">roadmap</a> document.</p>
+
+<p>Let’s start to describe the <code>ph_luxembourgish</code> file which is the heart of the whole process.</p>
+
+<h3 id="phoneme-inventory">Phoneme inventory</h3>
+<p>We distinguish two types of phonemes : <a href="https://en.wikipedia.org/wiki/Vowel">vowels</a> (<a href="https://en.wikipedia.org/wiki/Monophthong">monophtongs</a> and <a href="https://en.wikipedia.org/wiki/Diphthong">diphtongs</a>) and <a href="https://en.wikipedia.org/wiki/Consonant">consonants</a>.</p>
+
+<p>I use the word <code>Auto</code> with two vowels <code>au, o</code> and one consonant <code>t</code> to explain the definition of the related phonemes in the <code>ph_luxembourgish</code> file. The code is formed by simple text strings. The minimal code for the word <code>Auto</code> has the following format :</p>
+
+<p>``` <br />
+phoneme aU
+  vwl starttype #a endtype #u
+  ipa ɑʊ
+  length 190
+  FMT(vdiph/au)
+endphoneme</p>
+
+<p>phoneme t
+  vls alv stp
+  ipa t
+  WAV(ustop/t, 90)
+endphoneme</p>
+
+<p>phoneme o:
+  vwl starttype #o endtype #o
+  ipa oː
+  length 170
+  FMT(vowel/o)
+endphoneme
+```</p>
+
+<p>The minimal phoneme definition includes 5 parts :</p>
+
+<ul>
+  <li>the term <code>phoneme</code> followed by the phoneme-ID</li>
+  <li>the description of the articulation</li>
+  <li>the IPA symbol</li>
+  <li>the parameters for the sound generation (length, FMT, WAV, etc)</li>
+  <li>the closing term <code>endphoneme</code></li>
+</ul>
+
+<p>To specify the sound generation for a phoneme, eSpeak-NG provides a whole set of specific parameters and conditions for fine-tuning. A typical more complex example is shown hereafter :</p>
+
+<p>```<br />
+phoneme t
+  vls alv stp
+  voicingswitch d
+  lengthmod 2
+  Vowelin f1=0  f2=1700 -300 300  f3=-100 80
+  Vowelout f1=0 f2=1700 -300 250  f3=-100 80  rms=20</p>
+
+<p>IF nextPh(isPause2) THEN
+    WAV(ustop/t_)
+  ELIF nextPh(r) THEN
+    WAV(ustop/t_)
+  ELIF nextPh(@-) THEN
+    WAV(ustop/t_dnt, 50)
+  ENDIF
+  WAV(ustop/t, 90)
+endphoneme
+```  <br />
+I mentionned in the introduction that my goal is not the perfect sound design. Therefore I specified the strict minimum of parameters for each phoneme. <a href="https://github.com/espeak-ng/espeak-ng/issues/1013">Interested users</a> can easely modify the code to enhance the speech quality. The official documentation provides the necessary guidance :</p>
+
+<ul>
+  <li><a href="https://github.com/espeak-ng/espeak-ng/blob/master/docs/phoneme_model.html">Phoneme Model</a></li>
+  <li><a href="https://github.com/espeak-ng/espeak-ng/blob/master/docs/phonemes.html">Phoneme features and IPA</a></li>
+  <li><a href="https://github.com/espeak-ng/espeak-ng/blob/master/docs/phontab.html">Phoneme Tables</a></li>
+</ul>
+
+<p>It is not necessary to specify all the phonemes for a language, they can be inherited from a <code>master phoneme file</code> or from another language. Most of the 126 languages supported by eSpeak-NG use this mecanism. Some languages even rely only on inherited phoneme definitions.</p>
+
+<p>To get the full control of the phonemization process and to rest independent from code changes in other languages, I prefer however to define all the used phonemes for the luxembourgish language.</p>
+
+<p>Speech models based on deep ML models are usually trained with about hundred hours of audio records and related transcriptions. To train a deep ML neural network with small datasets, which is the case for Luxembourgish, it is necessary to use a low number of different phonemes to obtain valid results. Based on my earlier experience with ML-TTS models I selected the following sets of phonemes (total : 56) for this first release of my project :</p>
+
+<p>``` <br />
+Monophtongs: (20)
+IPA phoneme symbols :    ɑ, aː, ɛː, e, æ, eː, ə,  ɐ,  i, iː, o, oː, u, uː, y, yː, ɑ̃ː, ɛ̃ː, õː, œː 
+my eSpeak phoneme-ID’s : a, a:, aE, e, E, e:, @E, eR, i, i:, o, o:, u, u:, y, y:, eA, iA, oA, OU</p>
+
+<p>Diphtongs: (9)
+IPA phoneme symbols :     æːɪ, ɑʊ, æːʊ, ɑɪ, ɜɪ, oɪ, iə, əʊ, uə
+my eSpeak phoneme-ID’s :   aI, aU,  AU, eI, OI, eU, iE, oU, uE</p>
+
+<p>Consonants: (27)
+IPA phoneme symbols      b, c, d, f, g, h, j, k, l, m, n, ŋ, p, ʀ, s, t, v, w, z, ʒ, ʁ, ʑ,  ʦ,  ʃ, dʒ, X, ɕ
+my eSpeak phoneme-ID’s : b, c, d, f, g, h, j, k, l, m, n, N, p, r, s, t, v, w, z, J, rR, Z, TS, S, dZ, x, X
+``` <br />
+To add more phonemes, if required in the future, it’s easy to modify the <code>ph_luxembourgish</code> file and to adapt the related files <code>lb_rules</code>, <code>lb_list</code> and <code>lb_emoji</code>.</p>
+
+<p>In the next chapter I will describe the process to link letters (characters, graphemes) to phoneme-ID’s.</p>
+
+<h3 id="text-to-phoneme-translation">Text to Phoneme translation</h3>
+<p>#### lb_rules
+The main file to define the translation (correspondence) between letters and phoneme-ID’s is <a href="https://github.com/mbarnig/espeak-ng-lb/blob/lëtzebuergesch/dictsource/lb_rules">lb_rules</a>. It’s a sort of large table with the following format, starting with a <code>.group</code> line :</p>
+
+<p>``` <br />
+.group <one character=""></one></p>
+
+<p>or</p>
+
+<p>.group <two characters=""></two></p>
+
+<p>then</p>
+
+<p>previous letter sequence )  current letter sequence ( next letter sequence   phoneme-ID’s sequence  // eventually comments
+```</p>
+
+<p>Let’s take again the <code>Auto</code> example to explain the text code by considering that the the word starts with the dipthtong <code>au</code>, followed by the consonant <code>t</code>. The word ends with the monophtong <code>o</code>, preceded by the consonant <code>t</code>. The consonant <code>t</code> itself is preceded by the dipthtong <code>au</code> and followed by the monophtong <code>o</code>.</p>
+
+<p>``` <br />
+.group aU
+  _) au (t aU</p>
+
+<p>.group o
+  t) o (_  o:</p>
+
+<p>.group t
+  au) t (o  t 
+```
+Again, eSpeak-NG provides a large set of specific commands and parameters to define the translation rules in a very detailed and comprehensive manner. A simple example are the capital letter A which indicates any vowel and the capital letter C which indicates any consonant. If we use A and C in the above example, we can easely define the rules to phonemize the words <code>Aula</code> and <code>Auto</code> with combined code :</p>
+
+<p>```<br />
+.group aU
+  _) au (C aU</p>
+
+<p>.group o
+  C) o (_  o:</p>
+
+<p>.group a
+  C) a (_  a:</p>
+
+<p>.group t
+  A) t (A  t</p>
+
+<p>.group l
+  A) l (A  l
+```
+Another way for coding to obtain the same result is :</p>
+
+<p>```<br />
+.group aU
+  _) au (C aU</p>
+
+<p>.group to
+  A) to (_  to:</p>
+
+<p>.group la
+  A) la (_  la:
+``` <br />
+To find the pronunciation of a word, the rules are searched and any which match the letters at the current position in the word are given a score, depending on how many letters are matched. The pronunciation from the best matching rule is chosen. The position pointer inside the word is then advanced past those consumed letters which have been matched and the process is repeated until all the letters of the word have been processed.</p>
+
+<p>There are numerous possibilities to code the phonemization rules with <code>prev</code>, <code>current</code> and <code>post</code> letter sequences (or placeholders, symbols, options, letter groups with some common features, etc).</p>
+
+<p>There are also some restrictions. The first letter of a rule-group-ID with two letters must be a 7bit-ASCII character (less than 0x80). In the case of a one-letter-group-ID extended ASCII-characters are accepted (as <code>è ö î</code> etc).</p>
+
+<p>The guide <a href="https://github.com/espeak-ng/espeak-ng/blob/master/docs/dictionary.html">Text to Phoneme Translation</a> provides all available options to set up a complete and complex translation table. I opted however for a few simple rules because I have a preference to include a luxembourgish pronunciation lexicon into the file <code>lb_list</code> described below. This way I take into account that Luxembourgish contains numerous loanwords from german, french and english, which makes the definition of global rules more difficult.</p>
+
+<p>An interested user can easely extend and adapt the rules in the <code>lb_rules</code> file to his own needs.</p>
+
+<h4 id="lblist">lb_list</h4>
+<p>Usually a text to synthesize does not only contain common words from a specific language, but also punctuations, numbers, symbols, personal names, abbreviations, loanwords and eventually <a href="https://en.wikipedia.org/wiki/Speech_Synthesis_Markup_Language">Speech Synthesis Markup Language</a> (SSML) code. These exceptions are handled in the <a href="https://github.com/mbarnig/espeak-ng-lb/blob/lëtzebuergesch/dictsource/lb_list">lb_list</a>. It’s a simple text lexicon with the following entries : <br />
+<code>   
+letter-name    phoneme-ID               or            $accent
+word           phoneme-ID sequence
+word           other similar word                     $text
+word           (stressed, unstressed, ..)             $u  // intonation 
+abbreviation   phoneme-ID sequence      or            $$abbrev
+number         phoneme-ID sequence
+symbol         phoneme-ID sequence
+</code></p>
+
+<p>Here is a small excerpt from the luxembourgish <code>lb_list</code> file to show the principles :</p>
+
+<p><code>
+// letter names
+_a a:
+_e e:
+ä    $accent  
+û    $accent  
+// intonation
+de      $u  // unstress
+den     $u
+// numbers
+_0 nul
+_1 e:nt
+_2 TSve:
+_0C honert
+_0M1 daUz@End
+// punctuations
+_. punkt
+_, koma
+// symbols
++ pluz
+&amp; an
+€ eUro
+CSV    $abbrev
+OGBL   $abbrev
+asbl   $abbrev
+ASCII azki
+// personal names
+Marco  marko:
+Barnig barniS
+Simone zimon
+</code> <br />
+The flag $accent tells the processor to say the letter name, followed by the name of the <a href="https://en.wikipedia.org/wiki/Diacritic">diacritics</a>. The flag $abbrev indicates to say the letter names in sequence. Speaking the names of punctuations works only if the flag <code>--punc</code> is specified at inference.</p>
+
+<p>Again, eSpeak-NG offers a lot of options to finetune the list entries. My <code>lb_list</code> file for the first version of this project is work in progress. I will update it progressively to comply to my needs. An interested user can do the same.</p>
+
+<p>Note: the supported SSML tags are documented in the document <a href="https://github.com/mbarnig/espeak-ng-lb/blob/lëtzebuergesch/docs/markup.html">SSML and HTML Support</a>.</p>
+
+<h4 id="lbemoji">lb_emoji</h4>
+<p>Today, graphics are gaining more and more importance in text. For this reason eSpeak-NG replaced the former file <code>language_extra</code> by a file called <code>language_emoji</code>. <a href="https://en.wikipedia.org/wiki/Emoji">Emoji’s</a> are small pictures which can be represented as encoded characters. Originating on Japanese mobile phones in 1997, emoji’s became increasingly popular worldwide in the 2010s after being added to several mobile operating systems. To assure an  interoperability between browsers, mobiles and messaging systems, the emoji’s are standardized since 2014 by the <a href="https://en.wikipedia.org/wiki/Unicode_Consortium">Unicode Consortium</a>. Every year additional emoji’s are added to the standard upon public proposals.</p>
+
+<p>The <a href="https://unicode.org/emoji/charts/full-emoji-list.html">full list of emoji’s</a> is available at the home-page of the Unicode Consortium.</p>
+
+<p>Here are two examples how to include emoji’s (graphics) in a luxembourgish sentence to submit to the eSpeak-NG phonemizer :</p>
+
+<p>An der 🕰 hunn sech den 🧭💨 an d’🌞 gestridden, wie vun hinnen zwee wuel méi 💪 wier, wéi e 🚶, deen an ee waarme 🧥 agepak war, iwwert de 🛤 koum.</p>
+
+<p>Haut sinn ☝ mat mengen Enkelkanner 🧑‍🤝‍🧑 , 👦 , 👧 , an 👩 an den 🎪 gaangen. Do hunn mer e 🦍, eng 🦒, en 🐘 an en 🦏 gesinn.</p>
+
+<p>To phonemize the above sentences I added the following entries into the <a href="https://github.com/mbarnig/espeak-ng-lb/blob/lëtzebuergesch/dictsource/lb_emoji">lb_emoji</a> file :</p>
+
+<p><code>
+&amp;#x1F570;  TSaIt
+&amp;#x1F9ED;  nort
+&amp;#x1F32C;  vant
+&amp;#x1F31E;  zon
+&amp;#x1F4AA;  Sta:rk
+&amp;#x1F6B6;  vand@EreR
+&amp;#x1F9E5;  mant@El
+&amp;#x1F6E4;  ve:
+&amp;#x261D;   eS
+&amp;#x1F9D1;&amp;#x200D;&amp;#x1F91D;&amp;#x200D;&amp;#x1F9D1; Sa:rel, toma:
+&amp;#x1F466;  asto:r
+&amp;#x1F467;  kapuzin
+&amp;#x1F469;  tessa
+&amp;#x1F3AA;  TSirkus
+&amp;#x1F98D;  gorila:
+&amp;#x1F992;  giraf
+&amp;#x1F418;  elefant
+&amp;#x1F98F;  rino:zerus
+</code>
+A more comfortable option is to insert emoji’s from the popup menu in the text-editor</p>
+
+<p>Here are the results of the phonemization :</p>
+
+<p>```<br />
+ɑn dɐ ‚ʦæ:ɪt / hun zeɕ dən ’noʀtvɑnt ɑn ‚dzon gə’ʃtʀidən / viə fun hinən ‚ʦve: vuəl ‚meɪ ʃta:ʀk viɐ / veɪ eː ‚vɑndəʀɐ / de:n ɑn eː ‚va:ʀmə ‚mɑntəl ‚a:ɡəpa:k va:ʀ / ivɐt də ‚veː kəʊm //</p>
+
+<p>haUt sin eS mat mengen enkelkaneR Sa:rel / toma: / asto:r / kapuzin an tessa an den TSirkus ga:ngen // do: hun meR e gorila: / eN giraf / en elefant an e rino:zerus gesin //
+```</p>
+
+<p>For convenience I moved the symbols from the <code>lb_list</code> file to the <code>lb_emoji</code> file.</p>
+
+<h2 id="integration">Integration</h2>
+<p>In the last step the four luxembourgish files are embedded into the source code of the eSpeak-NG project. The following source files are modified :</p>
+
+<ul>
+  <li><a href="https://github.com/mbarnig/espeak-ng-lb/blob/master/Makefile.am">Makefile.am</a></li>
+  <li><a href="https://github.com/mbarnig/espeak-ng-lb/blob/master/phsource/phonemes">phsource/phonemes</a></li>
+  <li><a href="https://github.com/mbarnig/espeak-ng-lb/blob/master/docs/languages.html">docs/languages.md</a></li>
+</ul>
+
+<p>In the <code>Makefile.am</code> file I added the following lines :</p>
+
+<p>in position 392 :
+<code>
+phsource/ph_luxembourgish \
+</code>
+in position 570 :
+<code> 
+espeak-ng-data/lb_dict \
+</code> <br />
+in position 792 :
+<code>
+lb: espeak-ng-data/lb_dict
+espeak-ng-data/lb_dict: dictsource/lb_list dictsource/lb_rules dictsource/lb_emoji
+</code> <br />
+In the <code>phsource/phonemes</code> file I added these lines at position 1763 :
+<code> 
+phonemetable lb base1
+include ph_luxembourgish
+</code><br />
+In the <code>docs/languages.md</code> file I added this line after the latin language :</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><code>gmw</code></td>
+      <td><code>lb</code></td>
+      <td>West Germanic</td>
+      <td>Lëtzebuergesch</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Two additional files must be created :
+* <a href="https://github.com/mbarnig/espeak-ng-lb/blob/lëtzebuergesch/espeak-ng-data/lang/gmw/lb">espeak-ng-data/lang/gmw/lb</a>
+* <a href="https://github.com/mbarnig/espeak-ng-lb/blob/lëtzebuergesch/espeak-ng-data/voices/!v/Luxi">espeak-ng-data/voices/!v/Luxi</a></p>
+
+<p>Both files are very simple if we include only the strict minimum.</p>
+
+<p>Here comes the content of the language file <code>lb</code> :
+<code>
+name Lëtzebuergesch
+language lb
+</code>
+Here is the voice file <code>Luxi</code> :
+<code> 
+name Luxi
+language lb
+maintainer mbarnig
+</code> <br />
+As usual, eSpeak-NG provides numerous options to customize these files. Please read the guide <a href="https://github.com/mbarnig/espeak-ng-lb/blob/lëtzebuergesch/docs/voices.html">Voice and Language files</a> to get a detailed documentation about all available features.
+folder 
+When building the project the first time, an additional file <code>lb_dict</code> is created inside the folder <a href="https://github.com/mbarnig/espeak-ng-lb/tree/l%C3%ABtzebuergesch/espeak-ng-data">espeak-ng-data</a>, which is a compressed binary combination of the three files <code>lb_rules</code>, <code>lb_list</code> and <code>lb_emoji</code>.</p>
+
+<h2 id="build-and-use-the-project">Build and use the project</h2>
+<p>Now the forked eSpeak-NG source code is ready for compilation, hopefully without problems. Compilation is easy if you have a personal computer with a well configured development environment and all required tools for C-compilation. On my Ubuntu 20.04 system this is the case and I build and install the project with 4 commands :</p>
+
+<p><code>  
+./autogen.sh
+./configure
+make
+sudo make install
+</code></p>
+
+<p>The <a href="https://github.com/mbarnig/espeak-ng-lb/blob/master/docs/building.html">building guide</a> provides detailed info how to compile and build eSpeak NG from the source on different operating systems. If you need help, please visit the <a href="https://github.com/espeak-ng/espeak-ng/issues">issues section</a> from the master eSpeak-NG project. Currently there are 333 open and 311 closed issues, so probably another user found already a solution for your problem.</p>
+
+<p>To use the project, I need only one command :</p>
+
+<p><code>espeak-ng -v lb -q --ipa -f &lt;text file&gt;</code></p>
+
+<p>The content of the text file is phonemized with luxembourgish rules (flag <code>-v lb</code>) with IPA symbols (flag <code>--ipa</code>), without producing speech (flag <code>-q</code>). All the optional configuration flags are explained in the <a href="https://github.com/mbarnig/espeak-ng-lb/blob/lëtzebuergesch/src/espeak-ng.1.html">–help document</a>.</p>
+
+<p>A more comfortable option is to use the great tool <a href="https://github.com/rhasspy/espeak-phonemizer">espeak-phonemizer</a>, created by <a href="https://www.linkedin.com/in/michael-hansen-9885b2105/">Michael Hansen</a> (alias <a href="https://synesthesiam.com">synesthesiam</a>), which transforms the output from espeak-NG in a format ready for submission as input to train a deep machine learning luxembourgish TTS model, based on neural networks.</p>
+
+<p>My favorite Github projects for my luxembourgish ML-TTS experiments are :</p>
+
+<ul>
+  <li><a href="https://github.com/rhasspy/larynx">Rhasppy/Larynx</a></li>
+  <li><a href="https://github.com/coqui-ai/TTS">Coqui-TTS</a></li>
+  <li><a href="https://github.com/keonlee9420">Implementations by Keon Lee</a></li>
+  <li><a href="https://github.com/jaywalnut310">Implementations by Jaehyeon Kim</a></li>
+</ul>
+
+<h2 id="references">References</h2>
+<ul>
+  <li><a href="https://www.web3.lu/the-best-of-two-breeds/">The best of two breeds</a>, 2021, mbarnig</li>
+  <li><a href="https://www.amazon.fr/Synthèse-parole-électrique-électronique-informatique/dp/2322238600/">Synthèse de la parole</a>, 2020, Marco Barnig</li>
+  <li><a href="https://www.web3.lu/synthese-vocale/">Synthèse vocale</a>, 2019, mbarnig</li>
+  <li><a href="https://www.web3.lu/timeline/emojis-et-unicode/">Emojis et Unicode</a>, 2018, mbarnig</li>
+  <li><a href="https://www.web3.lu/evolution-of-character-encoding/">Evolution of character encoding</a>, 2016, mbarnig</li>
+  <li><a href="https://www.web3.lu/speech-corpora-tts/">Speech Corpora for TTS</a>, 2015, mbarnig</li>
+  <li><a href="https://www.web3.lu/festival-text-speech-package/">Festival Text-to-Speech Package</a>, 2015, mbarnig</li>
+  <li><a href="https://www.web3.lu/espeak-formant-synthesizer/">eSpeak Formant Synthesizer</a>, 2014, mbarnig</li>
+  <li><a href="https://www.web3.lu/marytts-text-speech/">Mary TTS (Text To Speech)</a>, 2014, mbarnig</li>
+  <li><a href="https://www.web3.lu/languages/">Language : fr, de, en, lb, eo</a>, 2014, mbarnig</li>
+  <li><a href="https://www.web3.lu/spectrogram-speech-processing/">Spectrograms and speech processing</a>, 2014, mbarnig</li>
+  <li><a href="https://www.web3.lu/phonemes-phones-graphemes-visemes/">Phonemes, phones, graphemes and visemes</a>, 2014, mbarnig</li>
+  <li><a href="https://www.web3.lu/freetts-a-java-speech-synthesizer/">FreeTTS : a Java speech synthesizer</a>, 2005, mbarnig</li>
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,529 @@
+
+analysis/embedded.elf:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000401000 <.text>:
+  401000:	b8 67 e6 09 6a       	mov    eax,0x6a09e667
+  401005:	ba 85 ae 67 bb       	mov    edx,0xbb67ae85
+  40100a:	31 c9                	xor    ecx,ecx
+  40100c:	41 89 c0             	mov    r8d,eax
+  40100f:	41 31 c8             	xor    r8d,ecx
+  401012:	41 c1 c0 07          	rol    r8d,0x7
+  401016:	41 81 c0 b9 79 37 9e 	add    r8d,0x9e3779b9
+  40101d:	41 f6 c0 01          	test   r8b,0x1
+  401021:	74 0e                	je     0x401031
+  401023:	c1 c2 0b             	rol    edx,0xb
+  401026:	44 31 c2             	xor    edx,r8d
+  401029:	81 c2 72 f3 6e 3c    	add    edx,0x3c6ef372
+  40102f:	eb 0c                	jmp    0x40103d
+  401031:	44 01 c2             	add    edx,r8d
+  401034:	c1 c2 0d             	rol    edx,0xd
+  401037:	81 f2 3a f5 4f a5    	xor    edx,0xa54ff53a
+  40103d:	41 31 d0             	xor    r8d,edx
+  401040:	44 89 c0             	mov    eax,r8d
+  401043:	ff c1                	inc    ecx
+  401045:	81 f9 00 00 01 00    	cmp    ecx,0x10000
+  40104b:	72 bf                	jb     0x40100c
+  40104d:	31 d0                	xor    eax,edx
+  40104f:	c3                   	ret
+  401050:	41 55                	push   r13
+  401052:	41 56                	push   r14
+  401054:	4d 87 c8             	xchg   r8,r9
+  401057:	4d 87 c8             	xchg   r8,r9
+  40105a:	90                   	nop
+  40105b:	48 8d 00             	lea    rax,[rax]
+  40105e:	48 89 c0             	mov    rax,rax
+  401061:	66 45 0f ef ed       	pxor   xmm13,xmm13
+  401066:	45 0f 59 ed          	mulps  xmm13,xmm13
+  40106a:	45 0f 5e ed          	divps  xmm13,xmm13
+  40106e:	0f 28 ed             	movaps xmm5,xmm5
+  401071:	0f c6 ed 00          	shufps xmm5,xmm5,0x0
+  401075:	0f c6 ed ff          	shufps xmm5,xmm5,0xff
+  401079:	48 8d 1b             	lea    rbx,[rbx]
+  40107c:	48 89 db             	mov    rbx,rbx
+  40107f:	4d 87 da             	xchg   r10,r11
+  401082:	4d 87 da             	xchg   r10,r11
+  401085:	66 45 0f ef ff       	pxor   xmm15,xmm15
+  40108a:	45 0f 58 ff          	addps  xmm15,xmm15
+  40108e:	45 0f 5c ff          	subps  xmm15,xmm15
+  401092:	45 0f 51 ff          	sqrtps xmm15,xmm15
+  401096:	66 45 0f ef db       	pxor   xmm11,xmm11
+  40109b:	45 0f c6 db 1b       	shufps xmm11,xmm11,0x1b
+  4010a0:	45 0f c6 db 1b       	shufps xmm11,xmm11,0x1b
+  4010a5:	66 0f ef f6          	pxor   xmm6,xmm6
+  4010a9:	0f 14 f6             	unpcklps xmm6,xmm6
+  4010ac:	0f 15 f6             	unpckhps xmm6,xmm6
+  4010af:	66 0f ef f6          	pxor   xmm6,xmm6
+  4010b3:	48 8d 36             	lea    rsi,[rsi]
+  4010b6:	48 89 f6             	mov    rsi,rsi
+  4010b9:	48 87 f6             	xchg   rsi,rsi
+  4010bc:	66 0f ef ed          	pxor   xmm5,xmm5
+  4010c0:	0f 58 ed             	addps  xmm5,xmm5
+  4010c3:	0f 5c ed             	subps  xmm5,xmm5
+  4010c6:	4d 89 ff             	mov    r15,r15
+  4010c9:	4d 87 ff             	xchg   r15,r15
+  4010cc:	48 89 c9             	mov    rcx,rcx
+  4010cf:	48 8d 09             	lea    rcx,[rcx]
+  4010d2:	66 45 0f ef ff       	pxor   xmm15,xmm15
+  4010d7:	45 0f 58 ff          	addps  xmm15,xmm15
+  4010db:	45 0f 5c ff          	subps  xmm15,xmm15
+  4010df:	45 0f 51 ff          	sqrtps xmm15,xmm15
+  4010e3:	4d 87 c9             	xchg   r9,r9
+  4010e6:	66 45 0f ef c0       	pxor   xmm8,xmm8
+  4010eb:	45 0f 58 c0          	addps  xmm8,xmm8
+  4010ef:	45 0f 59 c0          	mulps  xmm8,xmm8
+  4010f3:	45 0f 5c c0          	subps  xmm8,xmm8
+  4010f7:	90                   	nop
+  4010f8:	48 8d 00             	lea    rax,[rax]
+  4010fb:	48 89 c0             	mov    rax,rax
+  4010fe:	48 8d 1b             	lea    rbx,[rbx]
+  401101:	48 89 db             	mov    rbx,rbx
+  401104:	66 0f ef f6          	pxor   xmm6,xmm6
+  401108:	0f 14 f6             	unpcklps xmm6,xmm6
+  40110b:	0f 15 f6             	unpckhps xmm6,xmm6
+  40110e:	66 0f ef f6          	pxor   xmm6,xmm6
+  401112:	4d 89 c9             	mov    r9,r9
+  401115:	45 0f 28 ed          	movaps xmm13,xmm13
+  401119:	45 0f 58 ed          	addps  xmm13,xmm13
+  40111d:	45 0f 5c ed          	subps  xmm13,xmm13
+  401121:	45 0f 57 ed          	xorps  xmm13,xmm13
+  401125:	48 8d 36             	lea    rsi,[rsi]
+  401128:	48 89 f6             	mov    rsi,rsi
+  40112b:	48 87 f6             	xchg   rsi,rsi
+  40112e:	48 89 c9             	mov    rcx,rcx
+  401131:	48 8d 09             	lea    rcx,[rcx]
+  401134:	45 0f 28 f6          	movaps xmm14,xmm14
+  401138:	45 0f 57 f6          	xorps  xmm14,xmm14
+  40113c:	45 0f 56 f6          	orps   xmm14,xmm14
+  401140:	66 0f ef f6          	pxor   xmm6,xmm6
+  401144:	0f 14 f6             	unpcklps xmm6,xmm6
+  401147:	0f 15 f6             	unpckhps xmm6,xmm6
+  40114a:	66 0f ef f6          	pxor   xmm6,xmm6
+  40114e:	66 0f ef f6          	pxor   xmm6,xmm6
+  401152:	0f 14 f6             	unpcklps xmm6,xmm6
+  401155:	0f 15 f6             	unpckhps xmm6,xmm6
+  401158:	66 0f ef f6          	pxor   xmm6,xmm6
+  40115c:	4d 8d 24 24          	lea    r12,[r12]
+  401160:	4d 8d 24 24          	lea    r12,[r12]
+  401164:	4d 89 e4             	mov    r12,r12
+  401167:	4d 89 f6             	mov    r14,r14
+  40116a:	4d 8d 36             	lea    r14,[r14]
+  40116d:	4d 87 f6             	xchg   r14,r14
+  401170:	4d 8d 24 24          	lea    r12,[r12]
+  401174:	4d 8d 24 24          	lea    r12,[r12]
+  401178:	4d 89 e4             	mov    r12,r12
+  40117b:	66 45 0f ef db       	pxor   xmm11,xmm11
+  401180:	45 0f c6 db 1b       	shufps xmm11,xmm11,0x1b
+  401185:	45 0f c6 db 1b       	shufps xmm11,xmm11,0x1b
+  40118a:	48 89 c9             	mov    rcx,rcx
+  40118d:	48 8d 09             	lea    rcx,[rcx]
+  401190:	f3 90                	pause
+  401192:	45 0f 28 f6          	movaps xmm14,xmm14
+  401196:	45 0f 57 f6          	xorps  xmm14,xmm14
+  40119a:	45 0f 56 f6          	orps   xmm14,xmm14
+  40119e:	4d 87 db             	xchg   r11,r11
+  4011a1:	4d 89 db             	mov    r11,r11
+  4011a4:	4d 8d 1b             	lea    r11,[r11]
+  4011a7:	4d 8d 00             	lea    r8,[r8]
+  4011aa:	66 45 0f ef d2       	pxor   xmm10,xmm10
+  4011af:	45 0f c6 d2 e4       	shufps xmm10,xmm10,0xe4
+  4011b4:	45 0f c6 d2 e4       	shufps xmm10,xmm10,0xe4
+  4011b9:	66 0f ef ff          	pxor   xmm7,xmm7
+  4011bd:	0f 59 ff             	mulps  xmm7,xmm7
+  4011c0:	0f 51 ff             	sqrtps xmm7,xmm7
+  4011c3:	4d 8d 12             	lea    r10,[r10]
+  4011c6:	4d 87 da             	xchg   r10,r11
+  4011c9:	4d 87 da             	xchg   r10,r11
+  4011cc:	45 0f 28 e4          	movaps xmm12,xmm12
+  4011d0:	45 0f 14 e4          	unpcklps xmm12,xmm12
+  4011d4:	45 0f 15 e4          	unpckhps xmm12,xmm12
+  4011d8:	48 89 d2             	mov    rdx,rdx
+  4011db:	48 87 d2             	xchg   rdx,rdx
+  4011de:	48 8d 36             	lea    rsi,[rsi]
+  4011e1:	48 89 f6             	mov    rsi,rsi
+  4011e4:	48 87 f6             	xchg   rsi,rsi
+  4011e7:	4d 87 db             	xchg   r11,r11
+  4011ea:	4d 89 db             	mov    r11,r11
+  4011ed:	4d 8d 1b             	lea    r11,[r11]
+  4011f0:	66 45 0f ef d2       	pxor   xmm10,xmm10
+  4011f5:	45 0f c6 d2 e4       	shufps xmm10,xmm10,0xe4
+  4011fa:	45 0f c6 d2 e4       	shufps xmm10,xmm10,0xe4
+  4011ff:	4d 87 db             	xchg   r11,r11
+  401202:	4d 89 db             	mov    r11,r11
+  401205:	4d 8d 1b             	lea    r11,[r11]
+  401208:	45 0f 28 c0          	movaps xmm8,xmm8
+  40120c:	45 0f 54 c0          	andps  xmm8,xmm8
+  401210:	45 0f 56 c0          	orps   xmm8,xmm8
+  401214:	4d 8d 24 24          	lea    r12,[r12]
+  401218:	4d 8d 24 24          	lea    r12,[r12]
+  40121c:	4d 89 e4             	mov    r12,r12
+  40121f:	48 8d 00             	lea    rax,[rax]
+  401222:	4d 87 c0             	xchg   r8,r8
+  401225:	4d 8d 00             	lea    r8,[r8]
+  401228:	4d 89 c9             	mov    r9,r9
+  40122b:	48 8d 1b             	lea    rbx,[rbx]
+  40122e:	48 89 db             	mov    rbx,rbx
+  401231:	4d 89 c0             	mov    r8,r8
+  401234:	4d 89 e4             	mov    r12,r12
+  401237:	4d 8d 24 24          	lea    r12,[r12]
+  40123b:	4d 89 c9             	mov    r9,r9
+  40123e:	4d 8d 09             	lea    r9,[r9]
+  401241:	4d 87 c8             	xchg   r8,r9
+  401244:	4d 87 c8             	xchg   r8,r9
+  401247:	0f ae e8             	lfence
+  40124a:	4d 89 c9             	mov    r9,r9
+  40124d:	0f 28 ff             	movaps xmm7,xmm7
+  401250:	0f 54 ff             	andps  xmm7,xmm7
+  401253:	0f 56 ff             	orps   xmm7,xmm7
+  401256:	0f 57 ff             	xorps  xmm7,xmm7
+  401259:	90                   	nop
+  40125a:	48 8d 00             	lea    rax,[rax]
+  40125d:	4d 89 e4             	mov    r12,r12
+  401260:	4d 8d 24 24          	lea    r12,[r12]
+  401264:	4d 89 c0             	mov    r8,r8
+  401267:	48 89 d2             	mov    rdx,rdx
+  40126a:	48 87 d2             	xchg   rdx,rdx
+  40126d:	f3 90                	pause
+  40126f:	48 8d 1b             	lea    rbx,[rbx]
+  401272:	48 89 db             	mov    rbx,rbx
+  401275:	48 8d 00             	lea    rax,[rax]
+  401278:	48 8d 00             	lea    rax,[rax]
+  40127b:	4d 87 c9             	xchg   r9,r9
+  40127e:	45 0f 28 d2          	movaps xmm10,xmm10
+  401282:	45 0f 58 d2          	addps  xmm10,xmm10
+  401286:	45 0f 5c d2          	subps  xmm10,xmm10
+  40128a:	45 0f 57 d2          	xorps  xmm10,xmm10
+  40128e:	48 8d 00             	lea    rax,[rax]
+  401291:	45 0f 28 c9          	movaps xmm9,xmm9
+  401295:	45 0f 52 c9          	rsqrtps xmm9,xmm9
+  401299:	45 0f 53 c9          	rcpps  xmm9,xmm9
+  40129d:	45 0f 57 c9          	xorps  xmm9,xmm9
+  4012a1:	4d 89 f6             	mov    r14,r14
+  4012a4:	4d 8d 36             	lea    r14,[r14]
+  4012a7:	4d 87 f6             	xchg   r14,r14
+  4012aa:	4d 8d 24 24          	lea    r12,[r12]
+  4012ae:	4d 8d 24 24          	lea    r12,[r12]
+  4012b2:	4d 89 e4             	mov    r12,r12
+  4012b5:	4d 89 c9             	mov    r9,r9
+  4012b8:	4d 8d 09             	lea    r9,[r9]
+  4012bb:	45 0f 28 e4          	movaps xmm12,xmm12
+  4012bf:	45 0f 14 e4          	unpcklps xmm12,xmm12
+  4012c3:	45 0f 15 e4          	unpckhps xmm12,xmm12
+  4012c7:	90                   	nop
+  4012c8:	4d 87 da             	xchg   r10,r11
+  4012cb:	4d 87 da             	xchg   r10,r11
+  4012ce:	4d 89 e4             	mov    r12,r12
+  4012d1:	4d 8d 24 24          	lea    r12,[r12]
+  4012d5:	66 45 0f ef ed       	pxor   xmm13,xmm13
+  4012da:	45 0f 59 ed          	mulps  xmm13,xmm13
+  4012de:	45 0f 5e ed          	divps  xmm13,xmm13
+  4012e2:	66 45 0f ef c0       	pxor   xmm8,xmm8
+  4012e7:	45 0f 58 c0          	addps  xmm8,xmm8
+  4012eb:	45 0f 59 c0          	mulps  xmm8,xmm8
+  4012ef:	45 0f 5c c0          	subps  xmm8,xmm8
+  4012f3:	4d 89 c9             	mov    r9,r9
+  4012f6:	4d 8d 09             	lea    r9,[r9]
+  4012f9:	4d 87 da             	xchg   r10,r11
+  4012fc:	4d 87 da             	xchg   r10,r11
+  4012ff:	0f 28 f6             	movaps xmm6,xmm6
+  401302:	0f 57 f6             	xorps  xmm6,xmm6
+  401305:	0f 58 f6             	addps  xmm6,xmm6
+  401308:	0f 5c f6             	subps  xmm6,xmm6
+  40130b:	4d 87 c0             	xchg   r8,r8
+  40130e:	4d 8d 00             	lea    r8,[r8]
+  401311:	0f ae e8             	lfence
+  401314:	4d 87 c8             	xchg   r8,r9
+  401317:	4d 87 c8             	xchg   r8,r9
+  40131a:	4d 87 c0             	xchg   r8,r8
+  40131d:	4d 8d 00             	lea    r8,[r8]
+  401320:	4d 89 ed             	mov    r13,r13
+  401323:	4d 8d 6d 00          	lea    r13,[r13+0x0]
+  401327:	90                   	nop
+  401328:	48 8d 00             	lea    rax,[rax]
+  40132b:	66 45 0f ef db       	pxor   xmm11,xmm11
+  401330:	45 0f c6 db 1b       	shufps xmm11,xmm11,0x1b
+  401335:	45 0f c6 db 1b       	shufps xmm11,xmm11,0x1b
+  40133a:	66 0f ef ed          	pxor   xmm5,xmm5
+  40133e:	0f 58 ed             	addps  xmm5,xmm5
+  401341:	0f 5c ed             	subps  xmm5,xmm5
+  401344:	4d 89 e4             	mov    r12,r12
+  401347:	4d 8d 24 24          	lea    r12,[r12]
+  40134b:	48 8d 1b             	lea    rbx,[rbx]
+  40134e:	4d 89 c0             	mov    r8,r8
+  401351:	4d 89 c0             	mov    r8,r8
+  401354:	4d 89 c0             	mov    r8,r8
+  401357:	48 8d 1b             	lea    rbx,[rbx]
+  40135a:	4d 87 c8             	xchg   r8,r9
+  40135d:	4d 87 c8             	xchg   r8,r9
+  401360:	48 89 c9             	mov    rcx,rcx
+  401363:	48 8d 09             	lea    rcx,[rcx]
+  401366:	4d 89 c0             	mov    r8,r8
+  401369:	4d 89 f6             	mov    r14,r14
+  40136c:	4d 8d 36             	lea    r14,[r14]
+  40136f:	4d 87 f6             	xchg   r14,r14
+  401372:	66 45 0f ef e4       	pxor   xmm12,xmm12
+  401377:	45 0f 59 e4          	mulps  xmm12,xmm12
+  40137b:	45 0f 5e e4          	divps  xmm12,xmm12
+  40137f:	45 0f 51 e4          	sqrtps xmm12,xmm12
+  401383:	48 8d 3f             	lea    rdi,[rdi]
+  401386:	48 87 ff             	xchg   rdi,rdi
+  401389:	4d 89 f6             	mov    r14,r14
+  40138c:	4d 8d 36             	lea    r14,[r14]
+  40138f:	4d 87 f6             	xchg   r14,r14
+  401392:	4d 8d 12             	lea    r10,[r10]
+  401395:	4d 87 d2             	xchg   r10,r10
+  401398:	66 45 0f ef d2       	pxor   xmm10,xmm10
+  40139d:	45 0f c6 d2 e4       	shufps xmm10,xmm10,0xe4
+  4013a2:	45 0f c6 d2 e4       	shufps xmm10,xmm10,0xe4
+  4013a7:	f3 90                	pause
+  4013a9:	4d 8d 24 24          	lea    r12,[r12]
+  4013ad:	4d 8d 24 24          	lea    r12,[r12]
+  4013b1:	4d 89 e4             	mov    r12,r12
+  4013b4:	4d 89 c0             	mov    r8,r8
+  4013b7:	66 45 0f ef e4       	pxor   xmm12,xmm12
+  4013bc:	45 0f 59 e4          	mulps  xmm12,xmm12
+  4013c0:	45 0f 5e e4          	divps  xmm12,xmm12
+  4013c4:	45 0f 51 e4          	sqrtps xmm12,xmm12
+  4013c8:	4d 8d 00             	lea    r8,[r8]
+  4013cb:	4d 89 c0             	mov    r8,r8
+  4013ce:	4d 89 ff             	mov    r15,r15
+  4013d1:	4d 87 ff             	xchg   r15,r15
+  4013d4:	90                   	nop
+  4013d5:	48 8d 00             	lea    rax,[rax]
+  4013d8:	4d 89 ed             	mov    r13,r13
+  4013db:	4d 8d 6d 00          	lea    r13,[r13+0x0]
+  4013df:	45 0f 28 f6          	movaps xmm14,xmm14
+  4013e3:	45 0f 57 f6          	xorps  xmm14,xmm14
+  4013e7:	45 0f 56 f6          	orps   xmm14,xmm14
+  4013eb:	4d 89 f6             	mov    r14,r14
+  4013ee:	4d 8d 36             	lea    r14,[r14]
+  4013f1:	4d 87 f6             	xchg   r14,r14
+  4013f4:	4d 87 c0             	xchg   r8,r8
+  4013f7:	4d 8d 00             	lea    r8,[r8]
+  4013fa:	4d 8d 24 24          	lea    r12,[r12]
+  4013fe:	4d 8d 24 24          	lea    r12,[r12]
+  401402:	4d 89 e4             	mov    r12,r12
+  401405:	4d 89 c9             	mov    r9,r9
+  401408:	4d 8d 09             	lea    r9,[r9]
+  40140b:	90                   	nop
+  40140c:	48 8d 00             	lea    rax,[rax]
+  40140f:	45 0f 28 c0          	movaps xmm8,xmm8
+  401413:	45 0f 54 c0          	andps  xmm8,xmm8
+  401417:	45 0f 56 c0          	orps   xmm8,xmm8
+  40141b:	45 0f 28 c0          	movaps xmm8,xmm8
+  40141f:	45 0f 54 c0          	andps  xmm8,xmm8
+  401423:	45 0f 56 c0          	orps   xmm8,xmm8
+  401427:	4d 89 c9             	mov    r9,r9
+  40142a:	48 8d 3f             	lea    rdi,[rdi]
+  40142d:	48 87 ff             	xchg   rdi,rdi
+  401430:	4d 8d 09             	lea    r9,[r9]
+  401433:	4d 89 c0             	mov    r8,r8
+  401436:	4d 8d 12             	lea    r10,[r10]
+  401439:	45 0f 28 e4          	movaps xmm12,xmm12
+  40143d:	45 0f 14 e4          	unpcklps xmm12,xmm12
+  401441:	45 0f 15 e4          	unpckhps xmm12,xmm12
+  401445:	90                   	nop
+  401446:	48 8d 00             	lea    rax,[rax]
+  401449:	48 89 c0             	mov    rax,rax
+  40144c:	4d 87 c0             	xchg   r8,r8
+  40144f:	48 8d 00             	lea    rax,[rax]
+  401452:	45 0f 28 c9          	movaps xmm9,xmm9
+  401456:	45 0f 52 c9          	rsqrtps xmm9,xmm9
+  40145a:	45 0f 53 c9          	rcpps  xmm9,xmm9
+  40145e:	45 0f 57 c9          	xorps  xmm9,xmm9
+  401462:	4d 8d 00             	lea    r8,[r8]
+  401465:	4d 89 c0             	mov    r8,r8
+  401468:	45 0f 28 c0          	movaps xmm8,xmm8
+  40146c:	45 0f 54 c0          	andps  xmm8,xmm8
+  401470:	45 0f 56 c0          	orps   xmm8,xmm8
+  401474:	4d 89 c0             	mov    r8,r8
+  401477:	4d 87 c0             	xchg   r8,r8
+  40147a:	4d 8d 00             	lea    r8,[r8]
+  40147d:	4d 8d 24 24          	lea    r12,[r12]
+  401481:	66 45 0f ef c0       	pxor   xmm8,xmm8
+  401486:	45 0f 58 c0          	addps  xmm8,xmm8
+  40148a:	45 0f 59 c0          	mulps  xmm8,xmm8
+  40148e:	45 0f 5c c0          	subps  xmm8,xmm8
+  401492:	45 0f 28 f6          	movaps xmm14,xmm14
+  401496:	45 0f 57 f6          	xorps  xmm14,xmm14
+  40149a:	45 0f 56 f6          	orps   xmm14,xmm14
+  40149e:	4d 87 db             	xchg   r11,r11
+  4014a1:	4d 89 db             	mov    r11,r11
+  4014a4:	4d 8d 1b             	lea    r11,[r11]
+  4014a7:	48 8d 3f             	lea    rdi,[rdi]
+  4014aa:	48 87 ff             	xchg   rdi,rdi
+  4014ad:	0f ae e8             	lfence
+  4014b0:	66 45 0f ef c0       	pxor   xmm8,xmm8
+  4014b5:	45 0f 58 c0          	addps  xmm8,xmm8
+  4014b9:	45 0f 59 c0          	mulps  xmm8,xmm8
+  4014bd:	45 0f 5c c0          	subps  xmm8,xmm8
+  4014c1:	45 0f 28 d2          	movaps xmm10,xmm10
+  4014c5:	45 0f 58 d2          	addps  xmm10,xmm10
+  4014c9:	45 0f 5c d2          	subps  xmm10,xmm10
+  4014cd:	45 0f 57 d2          	xorps  xmm10,xmm10
+  4014d1:	4d 89 f6             	mov    r14,r14
+  4014d4:	4d 8d 36             	lea    r14,[r14]
+  4014d7:	4d 87 f6             	xchg   r14,r14
+  4014da:	4d 8d 24 24          	lea    r12,[r12]
+  4014de:	4d 89 c0             	mov    r8,r8
+  4014e1:	48 8d 1b             	lea    rbx,[rbx]
+  4014e4:	48 89 db             	mov    rbx,rbx
+  4014e7:	66 45 0f ef d2       	pxor   xmm10,xmm10
+  4014ec:	45 0f c6 d2 e4       	shufps xmm10,xmm10,0xe4
+  4014f1:	45 0f c6 d2 e4       	shufps xmm10,xmm10,0xe4
+  4014f6:	45 0f 28 f6          	movaps xmm14,xmm14
+  4014fa:	45 0f 57 f6          	xorps  xmm14,xmm14
+  4014fe:	45 0f 56 f6          	orps   xmm14,xmm14
+  401502:	0f 28 ed             	movaps xmm5,xmm5
+  401505:	0f c6 ed 00          	shufps xmm5,xmm5,0x0
+  401509:	0f c6 ed ff          	shufps xmm5,xmm5,0xff
+  40150d:	4d 89 c9             	mov    r9,r9
+  401510:	66 0f ef ed          	pxor   xmm5,xmm5
+  401514:	0f 58 ed             	addps  xmm5,xmm5
+  401517:	0f 5c ed             	subps  xmm5,xmm5
+  40151a:	45 0f 28 f6          	movaps xmm14,xmm14
+  40151e:	45 0f 57 f6          	xorps  xmm14,xmm14
+  401522:	45 0f 56 f6          	orps   xmm14,xmm14
+  401526:	48 89 c9             	mov    rcx,rcx
+  401529:	48 8d 09             	lea    rcx,[rcx]
+  40152c:	48 89 d2             	mov    rdx,rdx
+  40152f:	48 87 d2             	xchg   rdx,rdx
+  401532:	90                   	nop
+  401533:	48 8d 00             	lea    rax,[rax]
+  401536:	4d 87 db             	xchg   r11,r11
+  401539:	4d 89 db             	mov    r11,r11
+  40153c:	4d 8d 1b             	lea    r11,[r11]
+  40153f:	45 0f 28 c0          	movaps xmm8,xmm8
+  401543:	45 0f 54 c0          	andps  xmm8,xmm8
+  401547:	45 0f 56 c0          	orps   xmm8,xmm8
+  40154b:	48 8d 3f             	lea    rdi,[rdi]
+  40154e:	48 87 ff             	xchg   rdi,rdi
+  401551:	66 0f ef ed          	pxor   xmm5,xmm5
+  401555:	0f 58 ed             	addps  xmm5,xmm5
+  401558:	0f 5c ed             	subps  xmm5,xmm5
+  40155b:	48 8d 00             	lea    rax,[rax]
+  40155e:	4d 8d 09             	lea    r9,[r9]
+  401561:	45 0f 28 db          	movaps xmm11,xmm11
+  401565:	45 0f 14 db          	unpcklps xmm11,xmm11
+  401569:	45 0f 15 db          	unpckhps xmm11,xmm11
+  40156d:	45 0f 54 db          	andps  xmm11,xmm11
+  401571:	66 0f ef f6          	pxor   xmm6,xmm6
+  401575:	0f 14 f6             	unpcklps xmm6,xmm6
+  401578:	0f 15 f6             	unpckhps xmm6,xmm6
+  40157b:	66 0f ef f6          	pxor   xmm6,xmm6
+  40157f:	4d 89 e4             	mov    r12,r12
+  401582:	4d 8d 24 24          	lea    r12,[r12]
+  401586:	66 45 0f ef c0       	pxor   xmm8,xmm8
+  40158b:	45 0f 58 c0          	addps  xmm8,xmm8
+  40158f:	45 0f 59 c0          	mulps  xmm8,xmm8
+  401593:	45 0f 5c c0          	subps  xmm8,xmm8
+  401597:	4d 87 c0             	xchg   r8,r8
+  40159a:	4d 8d 00             	lea    r8,[r8]
+  40159d:	45 0f 28 c0          	movaps xmm8,xmm8
+  4015a1:	45 0f 54 c0          	andps  xmm8,xmm8
+  4015a5:	45 0f 56 c0          	orps   xmm8,xmm8
+  4015a9:	4d 8d 12             	lea    r10,[r10]
+  4015ac:	0f 28 f6             	movaps xmm6,xmm6
+  4015af:	0f 57 f6             	xorps  xmm6,xmm6
+  4015b2:	0f 58 f6             	addps  xmm6,xmm6
+  4015b5:	0f 5c f6             	subps  xmm6,xmm6
+  4015b8:	49 c1 c4 0d          	rol    r12,0xd
+  4015bc:	49 c1 cc 0d          	ror    r12,0xd
+  4015c0:	4d 39 e4             	cmp    r12,r12
+  4015c3:	75 1d                	jne    0x4015e2
+  4015c5:	4c 8d 25 0e 00 00 00 	lea    r12,[rip+0xe]        # 0x4015da
+  4015cc:	4c 8b 3d 07 00 00 00 	mov    r15,QWORD PTR [rip+0x7]        # 0x4015da
+  4015d3:	4f 8d 24 3c          	lea    r12,[r12+r15*1]
+  4015d7:	41 ff e4             	jmp    r12
+  4015da:	8b 3a                	mov    edi,DWORD PTR [rdx]
+  4015dc:	0d 00 00 00 00       	or     eax,0x0
+  4015e1:	00 4c 8d 25          	add    BYTE PTR [rbp+rcx*4+0x25],cl
+  4015e5:	0e                   	(bad)
+  4015e6:	00 00                	add    BYTE PTR [rax],al
+  4015e8:	00 4c 8b 3d          	add    BYTE PTR [rbx+rcx*4+0x3d],cl
+  4015ec:	07                   	(bad)
+  4015ed:	00 00                	add    BYTE PTR [rax],al
+  4015ef:	00 4f 8d             	add    BYTE PTR [rdi-0x73],cl
+  4015f2:	24 3c                	and    al,0x3c
+  4015f4:	41 ff e4             	jmp    r12
+  4015f7:	1c 6c                	sbb    al,0x6c
+  4015f9:	06                   	(bad)
+  4015fa:	00 00                	add    BYTE PTR [rax],al
+  4015fc:	00 00                	add    BYTE PTR [rax],al
+  4015fe:	00 4d 8d             	add    BYTE PTR [rbp-0x73],cl
+  401601:	24 24                	and    al,0x24
+  401603:	4d 8d 24 24          	lea    r12,[r12]
+  401607:	4d 89 e4             	mov    r12,r12
+  40160a:	4d 89 ff             	mov    r15,r15
+  40160d:	4d 87 ff             	xchg   r15,r15
+  401610:	4d 89 e4             	mov    r12,r12
+  401613:	4d 8d 24 24          	lea    r12,[r12]
+  401617:	0f 28 ff             	movaps xmm7,xmm7
+  40161a:	0f 54 ff             	andps  xmm7,xmm7
+  40161d:	0f 56 ff             	orps   xmm7,xmm7
+  401620:	0f 57 ff             	xorps  xmm7,xmm7
+  401623:	4d 8d 12             	lea    r10,[r10]
+  401626:	48 8d 3f             	lea    rdi,[rdi]
+  401629:	48 87 ff             	xchg   rdi,rdi
+  40162c:	45 0f 28 db          	movaps xmm11,xmm11
+  401630:	45 0f 14 db          	unpcklps xmm11,xmm11
+  401634:	45 0f 15 db          	unpckhps xmm11,xmm11
+  401638:	45 0f 54 db          	andps  xmm11,xmm11
+  40163c:	4d 89 e4             	mov    r12,r12
+  40163f:	4d 8d 24 24          	lea    r12,[r12]
+  401643:	48 8d 36             	lea    rsi,[rsi]
+  401646:	48 89 f6             	mov    rsi,rsi
+  401649:	48 87 f6             	xchg   rsi,rsi
+  40164c:	48 8d 1b             	lea    rbx,[rbx]
+  40164f:	48 89 db             	mov    rbx,rbx
+  401652:	45 0f 28 e4          	movaps xmm12,xmm12
+  401656:	45 0f 14 e4          	unpcklps xmm12,xmm12
+  40165a:	45 0f 15 e4          	unpckhps xmm12,xmm12
+  40165e:	0f ae e8             	lfence
+  401661:	f3 90                	pause
+  401663:	4d 8d 00             	lea    r8,[r8]
+  401666:	4d 89 c0             	mov    r8,r8
+  401669:	4d 87 db             	xchg   r11,r11
+  40166c:	4d 89 db             	mov    r11,r11
+  40166f:	4d 8d 1b             	lea    r11,[r11]
+  401672:	48 8d 00             	lea    rax,[rax]
+  401675:	90                   	nop
+  401676:	48 8d 00             	lea    rax,[rax]
+  401679:	66 45 0f ef c0       	pxor   xmm8,xmm8
+  40167e:	45 0f 58 c0          	addps  xmm8,xmm8
+  401682:	45 0f 59 c0          	mulps  xmm8,xmm8
+  401686:	45 0f 5c c0          	subps  xmm8,xmm8
+  40168a:	66 45 0f ef db       	pxor   xmm11,xmm11
+  40168f:	45 0f c6 db 1b       	shufps xmm11,xmm11,0x1b
+  401694:	45 0f c6 db 1b       	shufps xmm11,xmm11,0x1b
+  401699:	4d 89 ff             	mov    r15,r15
+  40169c:	4d 87 ff             	xchg   r15,r15
+  40169f:	4d 8d 00             	lea    r8,[r8]
+  4016a2:	4d 89 c0             	mov    r8,r8
+  4016a5:	45 0f 28 e4          	movaps xmm12,xmm12
+  4016a9:	45 0f 14 e4          	unpcklps xmm12,xmm12
+  4016ad:	45 0f 15 e4          	unpckhps xmm12,xmm12
+  4016b1:	4d 87 c8             	xchg   r8,r9
+  4016b4:	4d 87 c8             	xchg   r8,r9
+  4016b7:	66 0f ef f6          	pxor   xmm6,xmm6
+  4016bb:	0f 14 f6             	unpcklps xmm6,xmm6
+  4016be:	0f 15 f6             	unpckhps xmm6,xmm6
+  4016c1:	66 0f ef f6          	pxor   xmm6,xmm6
+  4016c5:	45 0f 28 f6          	movaps xmm14,xmm14
+  4016c9:	45 0f 57 f6          	xorps  xmm14,xmm14
+  4016cd:	45 0f 56 f6          	orps   xmm14,xmm14
+  4016d1:	0f 28 f6             	movaps xmm6,xmm6
+  4016d4:	0f 57 f6             	xorps  xmm6,xmm6
+  4016d7:	0f 58 f6             	addps  xmm6,xmm6
+  4016da:	0f 5c f6             	subps  xmm6,xmm6
+  4016dd:	66 45 0f ef db       	pxor   xmm11,xmm11
+  4016e2:	45 0f c6 db 1b       	shufps xmm11,xmm11,0x1b
+  4016e7:	45 0f c6 db 1b       	shufps xmm11,xmm11,0x1b
+  4016ec:	45 0f 28 c9          	movaps xmm9,xmm9
+  4016f0:	45 0f 52 c9          	rsqrtps xmm9,xmm9
+  4016f4:	45 0f 53 c9          	rcpps  xmm9,xmm9
+  4016f8:	45 0f 57 c9          	xorps  xmm9,xmm9
+  4016fc:	4d 8d 12             	lea    r10,[r10]
+  4016ff:	4d               	xchg   r10,r10

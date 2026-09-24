@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Report Desk · <%= name %></title>
+<link rel="icon" href="data:,">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --ink-900:#05030c;--ink-800:#0a0716;--violet-500:#7c3aed;--violet-400:#a855f7;
+  --violet-300:#c084fc;--magenta:#e879f9;--text:#e9e4f5;--muted:#9d93bd;--faint:#6f6690;
+  --line:rgba(168,85,247,.22);--glass:rgba(16,11,34,.62);
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+}
+body{
+  margin:0;min-height:100vh;font-family:var(--sans);line-height:1.65;color:var(--text);
+  background:
+    radial-gradient(60% 45% at 20% 12%,rgba(124,58,237,.30),transparent 62%),
+    radial-gradient(50% 40% at 84% 8%,rgba(232,121,249,.14),transparent 64%),
+    linear-gradient(to bottom,#05030c,#150c33 48%,#2a1152 74%,#0a0716);
+  background-attachment:fixed;
+  display:grid;place-items:center;padding:2.5rem 1rem;
+}
+.wrap{width:min(100%,34rem)}
+.panel{position:relative;padding:1.7rem 1.5rem 1.8rem;border-radius:14px;
+  border:1px solid var(--line);background:var(--glass);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  box-shadow:0 18px 50px rgba(0,0,0,.45),inset 0 1px 0 rgba(192,132,252,.08)}
+.panel::before{content:"";position:absolute;inset:0 0 auto;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(192,132,252,.55),transparent)}
+.eyebrow{margin:0 0 .9rem;font-family:var(--mono);font-size:.66rem;
+  letter-spacing:.28em;text-transform:uppercase;color:var(--violet-400)}
+h1{margin:0 0 .7rem;font-size:1.45rem;font-weight:700;letter-spacing:-.01em}
+p.sub{margin:0 0 1.35rem;font-size:.9rem;color:var(--muted)}
+label{display:block;margin-bottom:1.1rem}
+.lab{display:block;margin-bottom:.35rem;font-family:var(--mono);font-size:.64rem;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+input[type=url]{width:100%;padding:.66rem .8rem;border-radius:9px;border:1px solid var(--line);
+  background:rgba(5,3,12,.7);color:var(--text);font-family:var(--mono);font-size:.88rem}
+input[type=url]:focus{outline:none;border-color:var(--violet-400);
+  box-shadow:0 0 0 3px rgba(124,58,237,.22)}
+input[type=url]::placeholder{color:var(--faint)}
+.btn{width:100%;display:inline-flex;align-items:center;justify-content:center;gap:.45rem;
+  padding:.66rem 1.15rem;border-radius:10px;border:1px solid transparent;
+  font-family:var(--sans);font-size:.88rem;font-weight:600;letter-spacing:.04em;
+  color:#f6f1ff;cursor:pointer;
+  background:linear-gradient(140deg,#4c1d95,var(--violet-500));
+  box-shadow:0 0 0 1px rgba(192,132,252,.35),0 8px 26px rgba(124,58,237,.36);
+  transition:box-shadow .16s ease,transform .16s ease}
+.btn:hover{box-shadow:0 0 0 1px rgba(192,132,252,.6),0 10px 34px rgba(168,85,247,.55)}
+.btn:active{transform:translateY(1px)}
+.btn[disabled]{opacity:.6;cursor:progress}
+.note{margin:1.15rem 0 0;font-family:var(--mono);font-size:.68rem;
+  letter-spacing:.08em;color:var(--faint);overflow-wrap:anywhere}
+.alert,.ok{margin:0 0 1.15rem;padding:.62rem .8rem;border-radius:9px;font-size:.84rem;
+  overflow-wrap:anywhere}
+.alert{border:1px solid rgba(232,121,249,.35);background:rgba(232,121,249,.09);color:#f7d7fb}
+.ok{border:1px solid rgba(110,231,183,.3);background:rgba(110,231,183,.08);color:#c9f5e4}
+code{padding:.1rem .35rem;border-radius:5px;font-family:var(--mono);font-size:.82em;
+  color:var(--violet-300);background:rgba(124,58,237,.14);
+  border:1px solid rgba(168,85,247,.18)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <form class="panel" method="post" action="/report" autocomplete="off">
+    <p class="eyebrow">report desk · round filed in silence</p>
+    <h1>Report a signal</h1>
+    <p class="sub">
+      The archivist still walks the rounds. Leave an address and it will be
+      visited, looked at for <%= dwellSeconds %> seconds, and filed away.
+    </p>
+
+    <% if (typeof error !== "undefined" && error) { %>
+      <p class="alert" role="alert"><%= error %></p>
+    <% } %>
+    <% if (typeof notice !== "undefined" && notice) { %>
+      <p class="ok" role="status"><%= notice %></p>
+    <% } %>
+
+    <label>
+      <span class="lab">URL</span>
+      <input type="url" name="url" id="url" required
+             placeholder="<%= appUrl %>/somewhere"
+             value="<%= typeof value !== "undefined" ? value : "" %>">
+    </label>
+
+    <button class="btn" type="submit" id="submit">Send the archivist</button>
+
+    <p class="note">
+      <code>http</code> and <code>https</code> only ·
+      <%= rateLimit %> reports per minute ·
+      the archivist signs in as <code>archivist</code> before each round, so it
+      carries the vault clearance with it. Target <code><%= appUrl %></code>.
+    </p>
+  </form>
+</div>
+
+<script>
+(function () {
+  var form = document.querySelector("form.panel");
+  var btn = document.getElementById("submit");
+  form.addEventListener("submit", function () {
+    btn.disabled = true;
+    btn.textContent = "Walking the round…";
+    setTimeout(function () {
+      btn.disabled = false;
+      btn.textContent = "Send the archivist";
+    }, 45000);
+  });
+})();
+</script>
+</body>
+</html>

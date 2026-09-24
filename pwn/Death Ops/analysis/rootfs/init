@@ -1,0 +1,64 @@
+#!/bin/sh
+
+mount -t proc none /proc
+mount -t sysfs none /sys
+mount -t devtmpfs devtmpfs /dev 2>/dev/null || true
+mount -t tmpfs tmpfs /tmp
+
+stty raw -echo 2>/dev/null || true
+
+# Minimal passwd/group database so uid 1000 resolves to "ctf" in the shell.
+mkdir -p /etc /home/ctf
+cat > /etc/passwd <<'EOF'
+root:x:0:0:root:/root:/bin/sh
+ctf:x:1000:1000:ctf:/home/ctf:/bin/sh
+EOF
+cat > /etc/group <<'EOF'
+root:x:0:
+ctf:x:1000:
+EOF
+chown 1000:1000 /home/ctf 2>/dev/null || true
+
+FLAG_NAME="flag-$(head -c 4 /dev/urandom | od -A n -t x | tr -d ' ').txt"
+if [ -f /flag ]; then
+    cat /flag > "/$FLAG_NAME"
+    rm -f /flag
+else
+    echo "flag{test_flag_for_ctf_challenge}" > "/$FLAG_NAME"
+fi
+chmod 600 "/$FLAG_NAME"
+
+echo "=== DEBUG SYMBOLS ==="
+/bin/busybox grep -E ' (sys_call_table|commit_creds|prepare_kernel_cred|init_cred|SyS_read|SyS_write|SyS_open|SyS_getdents64|SyS_execve|do_execve|kernel_read|kernel_write|call_usermodehelper|run_cmd|argv_split|argv_free|orderly_poweroff|__orderly_poweroff|poweroff_cmd|security_file_permission|security_ops|memcpy|_copy_from_user|copy_from_user|strncpy_from_user|msleep|do_exit|schedule|file_ns_capable|core_pattern|modprobe_path)$' /proc/kallsyms
+echo "=== END DEBUG SYMBOLS ==="
+
+if ! insmod /shadowops.ko 2>/dev/null; then
+    echo "[!] SHADOWOPS MODULE LOAD FAILED"
+fi
+echo "=== DEBUG MODULE ==="
+/bin/busybox cat /proc/modules
+for section in .text .data .bss; do
+    echo "$section $(/bin/busybox cat "/sys/module/shadowops/sections/$section")"
+done
+echo "=== END DEBUG MODULE ==="
+/bin/busybox poweroff -f
+sleep 2
+if [ ! -e /dev/shadowops ]; then
+    while read minor name; do
+        if [ "$name" = "shadowops" ]; then
+            mknod /dev/shadowops c 10 "$minor" 2>/dev/null || true
+            break
+        fi
+    done < /proc/misc
+fi
+
+if [ -e /dev/shadowops ]; then
+    chmod 222 /dev/shadowops
+else
+    echo "[!] SHADOWOPS DEVICE NOT FOUND"
+fi
+
+# Run the challenge as the unprivileged ctf user (uid 1000). blackops has no
+# setuid() of its own, so run it through BusyBox su; otherwise any shell obtained
+# via the exploit would already be root and the challenge would be trivial.
+exec su -s /bin/sh -c '/blackops' ctf

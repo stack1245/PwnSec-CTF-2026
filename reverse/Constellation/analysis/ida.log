@@ -1,0 +1,63 @@
+Possible file format: MS-DOS executable (EXE) (C:\Program Files\IDA Professional 9.4\loaders\dos.dll)
+Possible file format: Portable executable for AMD64 (PE) (C:\Program Files\IDA Professional 9.4\loaders\pe.dll)
+
+  bytes   pages size description
+--------- ----- ---- --------------------------------------------
+134217728 16384 8192 allocating memory for b-tree...
+268435456 32768 8192 allocating memory for virtual array...
+   262144    32 8192 allocating memory for name pointers...
+-----------------------------------------------------------------
+402915328            total memory allocated
+
+Loading file 'D:\.dev\.competitions\.ctf\PwnSec CTF 2026\reverse\Constellation\challenge\main.exe' into database...
+Detected file format: Portable executable for AMD64 (PE)
+Loading processor module C:\Program Files\IDA Professional 9.4\procs\pc.dll for metapc...OK
+Autoanalysis subsystem has been initialized.
+  0. Creating a new segment  (0000000140001000-0000000140061000) ... ... OK
+  1. Creating a new segment  (0000000140061000-000000014007A000) ... ... OK
+  2. Creating a new segment  (000000014007A000-000000014007D000) ... ... OK
+  3. Creating a new segment  (000000014007D000-0000000140082000) ... ... OK
+  4. Creating a new segment  (0000000140082000-0000000140083000) ... ... OK
+Reading imports directory...
+Reading exception directory (.pdata)...
+Applying fixups...
+  5. Creating a new segment  (0000000140061420-000000014007A000) ... ... OK
+Plan  FLIRT signature: Microsoft VisualC v14 64bit runtime
+Plan  FLIRT signature: Microsoft VisualC 64bit universal runtime
+main() function at 1400057D0, named "WinMain"
+Type library 'mssdk64_win7' loaded. Applying types...
+Types applied to 129 names.
+Plan  FLIRT signature: SEH for vc64 7-14
+Marking typical code sequences...
+Flushing buffers, please wait...ok
+File 'D:\.dev\.competitions\.ctf\PwnSec CTF 2026\reverse\Constellation\challenge\main.exe' has been successfully loaded into the database.
+Flushing buffers, please wait...ok
+Hex-Rays Decompiler plugin has been loaded (v9.4.0.260714)
+  License: 14-0000-FFFF-88  (1 user)
+  The hotkeys are F5: decompile, Ctrl-F5: decompile all.
+
+  Please check the Edit/Plugins menu for more information.
+Hex-rays version 9.4.0.260714 has been detected, gooMBA plugin ready to use
+Using type parser: legacy
+IDA is analysing the input file...
+You may start to explore the input file right now.
+Using FLIRT signature: Microsoft VisualC v14 64bit runtime
+Using FLIRT signature: Microsoft VisualC 64bit universal runtime
+Using FLIRT signature: SEH for vc64 7-14
+Propagating type information...
+14003A1A4: propagate_stkargs: function is already typed
+Function argument information has been propagated
+The initial autoanalysis has been finished.
+D:\.dev\.competitions\.ctf\PwnSec CTF 2026\reverse\Constellation\analysis\ida_extract.py:33: DeprecationWarning: get_func() is deprecated, use get_func_start or get_func_entry_info()
+  fn = ida_funcs.get_func(xref.frm)
+The decompiler assumes that the segment '.rdata' is read-only because of its NAME.
+All data references to the segment will be replaced by constant values.
+This may lead to drastic changes in the decompiler output.
+If the segment is not read-only, please change the segment NAME.
+
+In general, the decompiler checks the segment permissions, class, and name
+to determine if it is read-only.
+ -> OK
+Wrote D:\.dev\.competitions\.ctf\PwnSec CTF 2026\reverse\Constellation\analysis\ida_report.txt
+Flushing buffers, please wait...ok
+Unloading IDP module C:\Program Files\IDA Professional 9.4\procs\pc.dll...

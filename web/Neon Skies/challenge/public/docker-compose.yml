@@ -1,0 +1,45 @@
+name: neon-skies
+
+services:
+  middleware:
+    build: ./middleware
+    restart: unless-stopped
+    init: true
+    ports:
+      - "8000:8000"
+    depends_on:
+      neon_skies:
+        condition: service_started
+      bot:
+        condition: service_started
+
+  neon_skies:
+    build: ./web
+    restart: unless-stopped
+    init: true
+    ports:
+      - "3000:3000"
+    environment:
+      HOST: "0.0.0.0"
+      PORT: "3000"
+      ADMIN_USERNAME_SHA256: "599e04375b0e3b7eb3c81a1d7fdb3dfb4cbf1a2a085f9998193a6d91327bb26e"
+      ADMIN_PASSWORD_SHA256: "6d79d2702eb79ac5111f623fb8fbaef89973b86aff8ee07d5a82f30bd4b0dec4"
+
+  bot:
+    build: ./bot
+    restart: unless-stopped
+    init: true
+    ports:
+      - "3001:3001"
+    environment:
+      PORT: "3001"
+      APP_URL: "http://middleware:8000" # external url
+      FLAG: "pwnsec{real_flag_on_remote}"
+      ADMIN_USERNAME: "archivist"
+      ADMIN_PASSWORD: "local_pass_def_not_the_same_on_remote_trust_me"
+      RATE_LIMIT: "6"
+      DWELL_MS: "8000"
+      NAV_TIMEOUT_MS: "10000"
+    depends_on:
+      neon_skies:
+        condition: service_started

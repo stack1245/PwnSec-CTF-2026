@@ -1,0 +1,24 @@
+Local instrumented validation (Chrome headless, BackForwardCache enabled)
+2026-09-13 Asia/Seoul
+
+Observed chain:
+1. /reports/check first visit: visited=false, Sec-Fetch-Site=none, Sec-Fetch-Dest=document
+2. /api/flag populated currentReview.flag
+3. callback /start opened internal /review in a popup
+4. sandbox payload pagehide message caused /complete to set approved=true
+5. a callback service worker synthesized 40 fully loaded session-history documents
+6. the terminal step used sessionStorage and location.replace() to enter the internal sandbox once
+7. history.go(2-history.length) revisited the evicted original check URL as a network request
+8. /reports/check second visit: approved=true, prepared=true, policy passed, raw note rendered
+9. stored script synchronously fetched /api/flag and sent its JSON to the callback
+
+Solver stdout in the local test environment:
+pwnsec{real_flag_on_remote}
+
+The local value is the source's placeholder, not the competition flag. The completed solver produced it twice consecutively with exit code 0 and empty stderr.
+
+Remote validation:
+- endpoint: https://eb2735d8a9a959a2.chal.ctf.ae
+- solver exit code: 0
+- stdout: pwnsec{917872750f693769} (24 bytes, no trailing newline)
+- the exact solver stdout was piped into write_flag.py and stored in ../flag

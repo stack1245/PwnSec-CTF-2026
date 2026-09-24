@@ -1,0 +1,4 @@
+const http=require('node:http'),puppeteer=require('puppeteer');let results=[];
+const a=http.createServer((q,r)=>{r.setHeader('Content-Security-Policy','sandbox allow-scripts');r.end(`<iframe id=f src=http://localhost:${b.address().port}/secret></iframe><script>setTimeout(()=>{f.focus();document.title=['secret', 'nope'].map(x=>x+':'+find(x)).join(',')},300)</script>`)});
+const b=http.createServer((q,r)=>{r.setHeader('content-type','application/json');r.end('{"flag":"secret_value"}')});
+(async()=>{await new Promise(x=>b.listen(0,'localhost',x));await new Promise(x=>a.listen(0,'127.0.0.1',x));let br=await puppeteer.launch({executablePath:process.env.CHROME_PATH,headless:'new'}),p=await br.newPage();await p.goto(`http://127.0.0.1:${a.address().port}/`);await new Promise(x=>setTimeout(x,700));console.log(await p.title());await br.close();a.close();b.close()})();

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width; initial-scale=1"/>
+<meta name="robots" content="all"/>
+<style type="text/css">
+body
+{
+	font-family: sans-serif;
+	font-size: 14px;
+	margin: 1em;
+}
+
+*:first-child
+{
+	margin-top: 0;
+}
+
+code, pre
+{
+	font-family: monospace;
+	background: #F7F7F7;
+	color: navy;
+}
+
+code
+{
+	font-size: 85%;
+	padding: 0.2em;
+}
+
+pre
+{
+	margin-left: 3em;
+	padding: 1em;
+}
+
+th
+{
+	text-align: left;
+}
+
+hr
+{
+	border: 0;
+	border-bottom: 1px solid #BBB;
+}
+</style>
+</head>
+<body>
+<h1 id="ssml-and-html-support">SSML and HTML Support</h1>
+
+<ul>
+  <li><a href="#ssml-speech-synthesis-markup-language">SSML (Speech Synthesis Markup Language)</a>
+    <ul>
+      <li><a href="#speak">speak</a></li>
+      <li><a href="#voice">voice</a></li>
+      <li><a href="#prosody">prosody</a></li>
+      <li><a href="#say-as">say-as</a></li>
+      <li><a href="#mark">mark</a></li>
+      <li><a href="#s">s</a></li>
+      <li><a href="#p">p</a></li>
+      <li><a href="#sub">sub</a></li>
+      <li><a href="#ttsstyle">tts:style</a></li>
+      <li><a href="#audio">audio</a></li>
+      <li><a href="#emphasis">emphasis</a></li>
+      <li><a href="#break">break</a></li>
+    </ul>
+  </li>
+  <li><a href="#html">HTML</a></li>
+  <li><a href="#references">References</a>
+    <ul>
+      <li><a href="#ssml">SSML</a></li>
+      <li><a href="#html-1">HTML</a></li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="ssml-speech-synthesis-markup-language">SSML (Speech Synthesis Markup Language)</h2>
+
+<p>SSML consists of XML-like tags, for example: <code>Did you mean the &lt;emphasis level="strong"&gt;&lt;prosody pitch="75"&gt;green&lt;/prosody&gt;&lt;/emphasis&gt; beans?</code></p>
+
+<p>The following markup tags and attributes are recognised:</p>
+
+<h3 id="speak">speak</h3>
+
+<ul>
+  <li>xml:base   (the value is just passed back as a parameter with the UriCallback() function)</li>
+  <li>xml:lang</li>
+</ul>
+
+<h3 id="voice">voice</h3>
+
+<ul>
+  <li>xml:lang</li>
+  <li>name</li>
+  <li>age</li>
+  <li>variant</li>
+  <li>gender</li>
+</ul>
+
+<h3 id="prosody">prosody</h3>
+
+<ul>
+  <li>rate (<code>x-slow</code>, <code>slow</code>, <code>medium</code>, <code>fast</code>, <code>x-fast</code> or a percentage such as <code>125%</code>)</li>
+  <li>volume (<code>silent</code>, <code>x-soft</code>, <code>soft</code>, <code>medium</code>, <code>loud</code>, <code>x-loud</code>, <code>+1dB</code> or <code>-1dB</code>)</li>
+  <li>pitch (a number, for example “75”)</li>
+  <li>range (<code>default</code>, <code>x-low</code>, <code>low</code>, <code>medium</code>, <code>high</code>, <code>x-high</code>)</li>
+</ul>
+
+<h3 id="say-as">say-as</h3>
+
+<ul>
+  <li>interpret-as=”characters”</li>
+  <li>interpret-as=”characters”  format=”glyphs”</li>
+  <li>interpret-as=”tts:key”</li>
+  <li>interpret-as=”tts:char”</li>
+  <li>interpret-as=”tts:digits”</li>
+</ul>
+
+<h3 id="mark">mark</h3>
+
+<ul>
+  <li>name</li>
+</ul>
+
+<h3 id="s">s</h3>
+
+<ul>
+  <li>xml:lang</li>
+</ul>
+
+<h3 id="p">p</h3>
+
+<ul>
+  <li>xml:lang</li>
+</ul>
+
+<h3 id="sub">sub</h3>
+
+<ul>
+  <li>alias</li>
+</ul>
+
+<h3 id="ttsstyle">tts:style</h3>
+
+<ul>
+  <li>field=”punctuation”   mode=none,all,some</li>
+  <li>field=”capital_letters”   mode=no,spelling,icon,pitch</li>
+</ul>
+
+<h3 id="audio">audio</h3>
+
+<ul>
+  <li>src</li>
+</ul>
+
+<h3 id="emphasis">emphasis</h3>
+
+<ul>
+  <li>level (<code>none</code>, <code>reduced</code>, <code>moderate</code>, <code>strong</code> or <code>x-strong</code>)</li>
+</ul>
+
+<h3 id="break">break</h3>
+
+<ul>
+  <li>strength</li>
+  <li>time</li>
+</ul>
+
+<h2 id="html">HTML</h2>
+
+<p>eSpeak can speak HTML text directly, or text containing both SSML and HTML markup.<br />
+Any unrecognised tags are ignored.</p>
+
+<p>The following tags cause a sentence break:</p>
+
+<ul>
+  <li><code>br</code></li>
+  <li><code>dd</code></li>
+  <li><code>li</code></li>
+  <li><code>img</code></li>
+  <li><code>td</code></li>
+</ul>
+
+<p>The following tags cause a paragraph break:</p>
+
+<ul>
+  <li><code>h1</code></li>
+  <li><code>h2</code></li>
+  <li><code>h3</code></li>
+  <li><code>h4</code></li>
+  <li><code>hr</code></li>
+</ul>
+
+<p>Text between the following tags is ignored:</p>
+
+<ul>
+  <li><code>script</code></li>
+  <li><code>style</code></li>
+</ul>
+
+<h2 id="references">References</h2>
+
+<h3 id="ssml">SSML</h3>
+
+<ol>
+  <li><a href="https://www.w3.org/TR/2009/REC-speech-synthesis-20090303/">Speech Synthesis Markup Language (SSML) Version 1.0</a>.
+W3C Recommendation, 3 March 2009. W3C.</li>
+  <li><a href="http://www.w3.org/TR/2010/REC-speech-synthesis11-20100907/">Speech Synthesis Markup Language (SSML) Version 1.1</a>.
+W3C Recommendation, 7 September 2010. W3C.</li>
+  <li><a href="http://www.w3.org/TR/2005/NOTE-ssml-sayas-20050526">SSML 1.0 say-as attribute values</a>.
+W3C NOTE, 26 May 2005. W3C.</li>
+</ol>
+
+<h3 id="html-1">HTML</h3>
+
+<ol>
+  <li><a href="https://www.w3.org/TR/2017/REC-html52-20171214/">HTML 5.2</a>.
+W3C Recommendation, 14 December 2017. W3C.</li>
+  <li><a href="https://html.spec.whatwg.org/multipage/">HTML Living Standard</a>.
+Continually updated. WHATWG.</li>
+</ol>
+
+</body>
+</html>

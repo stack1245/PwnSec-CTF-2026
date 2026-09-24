@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width; initial-scale=1"/>
+<meta name="robots" content="all"/>
+<style type="text/css">
+body
+{
+	font-family: sans-serif;
+	font-size: 14px;
+	margin: 1em;
+}
+
+*:first-child
+{
+	margin-top: 0;
+}
+
+code, pre
+{
+	font-family: monospace;
+	background: #F7F7F7;
+	color: navy;
+}
+
+code
+{
+	font-size: 85%;
+	padding: 0.2em;
+}
+
+pre
+{
+	margin-left: 3em;
+	padding: 1em;
+}
+
+th
+{
+	text-align: left;
+}
+
+hr
+{
+	border: 0;
+	border-bottom: 1px solid #BBB;
+}
+</style>
+</head>
+<body>
+<h1 id="phoneme-model">Phoneme Model</h1>
+
+<ul>
+  <li><a href="#manner-of-articulation">Manner of Articulation</a>
+    <ul>
+      <li><a href="#air-flow">Air Flow</a></li>
+      <li><a href="#initiator">Initiator</a></li>
+      <li><a href="#target">Target</a>
+        <ul>
+          <li><a href="#co-articulation">Co-articulation</a></li>
+        </ul>
+      </li>
+      <li><a href="#manner">Manner</a></li>
+    </ul>
+  </li>
+  <li><a href="#place-of-articulation">Place of Articulation</a>
+    <ul>
+      <li><a href="#active-articulators">Active Articulators</a></li>
+      <li><a href="#passive-articulators">Passive Articulators</a></li>
+      <li><a href="#co-articulation-1">Co-articulation</a></li>
+    </ul>
+  </li>
+  <li><a href="#phonation">Phonation</a>
+    <ul>
+      <li><a href="#voice">Voice</a></li>
+    </ul>
+  </li>
+  <li><a href="#vowel-height">Vowel Height</a></li>
+  <li><a href="#vowel-backness">Vowel Backness</a></li>
+  <li><a href="#rounding-and-labialization">Rounding and Labialization</a>
+    <ul>
+      <li><a href="#vowel-rounding">Vowel Rounding</a></li>
+    </ul>
+  </li>
+  <li><a href="#syllabicity">Syllabicity</a></li>
+  <li><a href="#consonant-release">Consonant Release</a></li>
+  <li><a href="#tongue-root">Tongue Root</a></li>
+  <li><a href="#fortis-and-lenis">Fortis and Lenis</a></li>
+  <li><a href="#stress">Stress</a></li>
+  <li><a href="#length">Length</a></li>
+  <li><a href="#rhythm">Rhythm</a></li>
+  <li><a href="#intonation">Intonation</a></li>
+  <li><a href="#tone-stepping">Tone Stepping</a></li>
+  <li><a href="#tones">Tones</a></li>
+  <li><a href="#references">References</a></li>
+</ul>
+
+<hr />
+
+<p>Evan Kirshenbaum’s feature set used in his ASCII transcription of the
+International Phonetic Alphabet (IPA)<sup>[<a href="#ref1">1</a>],
+[<a href="#ref2">2</a>]</sup> describes the phonemes in a way consistent with
+how the phonemes are organised in the IPA code chart. That is the approach used
+in the <a href="phonemes.html">Phonemes</a> document to describe the phonemes in a phoneme
+definition file.</p>
+
+<p>Those phoneme features often represent the action of more than one articulatory
+mechanism used to produce speech, or affect the same area. Internally, espeak-ng
+makes use of the articulatory model, not the IPA descriptions. This document
+describes how the feature-based IPA model is mapped to the articulatory model.</p>
+
+<p>People working on adding new voices or languages do not need to read this
+document, but should instead read the <a href="phonemes.html">Phonemes</a> document. This is
+intended for people working on the espeak-ng codebase, or people interested in
+how espeak-ng works internally.</p>
+
+<p><strong>NOTE:</strong> This model is in the process of being implemented. As such, the
+current implementation does not reflect this document.</p>
+
+<h2 id="manner-of-articulation">Manner of Articulation</h2>
+
+<p>The manner of articulation is described in terms of several distinct feature
+types. The possible manners of articulation are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Manner of Articulation</th>
+      <th>Feature</th>
+      <th>Phoneme Model</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>nasal</td>
+      <td><code>nas</code></td>
+      <td><code>pmc egs nsl occ</code></td>
+    </tr>
+    <tr>
+      <td>plosive (stop)</td>
+      <td><code>stp</code></td>
+      <td><code>pmc egs orl occ</code></td>
+    </tr>
+    <tr>
+      <td>affricate</td>
+      <td><code>afr</code></td>
+      <td><code>pmc egs orl occ frr</code></td>
+    </tr>
+    <tr>
+      <td>fricative</td>
+      <td><code>frc</code></td>
+      <td><code>pmc egs orl frv</code></td>
+    </tr>
+    <tr>
+      <td>tap/flap</td>
+      <td><code>flp</code></td>
+      <td><code>pmc egs orl fla</code></td>
+    </tr>
+    <tr>
+      <td>trill</td>
+      <td><code>trl</code></td>
+      <td><code>pmc egs orl tri</code></td>
+    </tr>
+    <tr>
+      <td>approximant</td>
+      <td><code>apr</code></td>
+      <td><code>pmc egs orl app</code></td>
+    </tr>
+    <tr>
+      <td>click</td>
+      <td><code>clk</code></td>
+      <td><code>vlc igs orl</code></td>
+    </tr>
+    <tr>
+      <td>ejective</td>
+      <td><code>ejc</code></td>
+      <td><code>vlc igs orl occ</code></td>
+    </tr>
+    <tr>
+      <td>implosive</td>
+      <td><code>imp</code></td>
+      <td><code>gtc igs</code></td>
+    </tr>
+    <tr>
+      <td>vowel</td>
+      <td><code>vwl</code></td>
+      <td><code>pmc egs orl vow</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For <code>imp</code> consonants, they use the features of the base phoneme except for
+the <code>pmc</code> and <code>egs</code> features. Thus, a <code>nas imp</code> is a <code>gtc igs nsl occ</code>.</p>
+
+<p>The <code>vwl</code> phonemes are described using vowel height and backness features,
+while consonants (the other manners of articulation) are described using
+place of articulation features.</p>
+
+<p>Additionally, the manner of articulation can be refined using the following
+features:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>lat</code></td>
+      <td>lateral</td>
+      <td>The air flow is directed along the sides of the tongue.</td>
+    </tr>
+    <tr>
+      <td><code>sib</code></td>
+      <td>sibilant</td>
+      <td>The air flow is directed through the teeth with the tongue.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="air-flow">Air Flow</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>egs</code></td>
+      <td>egressive</td>
+      <td>The air flow is moving outwards from the initiator to the target.</td>
+    </tr>
+    <tr>
+      <td><code>igs</code></td>
+      <td>ingressive</td>
+      <td>The air flow is moving inwards from the target to the initiator.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="initiator">Initiator</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>pmc</code></td>
+      <td>pulmonic</td>
+      <td>The diaphragm and lungs are used to generate the airstream.</td>
+    </tr>
+    <tr>
+      <td><code>gtc</code></td>
+      <td>glottalic</td>
+      <td>The glottis is used to generate the airstream.</td>
+    </tr>
+    <tr>
+      <td><code>vlc</code></td>
+      <td>velaric</td>
+      <td>The velum is closed and the tongue is used to generate the airstream.</td>
+    </tr>
+    <tr>
+      <td><code>pcv</code></td>
+      <td>percussive</td>
+      <td>There is no airstream used to produce this sound.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="target">Target</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>nsl</code></td>
+      <td>nasal</td>
+      <td>The air flows through the nose.</td>
+    </tr>
+    <tr>
+      <td><code>orl</code></td>
+      <td>oral</td>
+      <td>The air flows through the mouth.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="co-articulation">Co-articulation</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Name</th>
+      <th>Target</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>nzd</code></td>
+      <td>nasalized</td>
+      <td><code>nsl</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="manner">Manner</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>occ</code></td>
+      <td>occlusive</td>
+      <td>The air flow is blocked within the vocal tract.</td>
+    </tr>
+    <tr>
+      <td><code>frv</code></td>
+      <td>fricative</td>
+      <td>The air flow is constricted, causing turbulence.</td>
+    </tr>
+    <tr>
+      <td><code>fla</code></td>
+      <td>flap</td>
+      <td>A single tap of the tongue against the secondary articulator.</td>
+    </tr>
+    <tr>
+      <td><code>tri</code></td>
+      <td>trill</td>
+      <td>A rapid vibration of the primary articulator against the secondary articulator.</td>
+    </tr>
+    <tr>
+      <td><code>app</code></td>
+      <td>approximant</td>
+      <td>The vocal tract is narrowed at the place of articulation without being turbulant.</td>
+    </tr>
+    <tr>
+      <td><code>vow</code></td>
+      <td>vowel</td>
+      <td>The phoneme is articulated as a vowel instead of a consonant.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="place-of-articulation">Place of Articulation</h2>
+
+<p>The place of articulation is described in terms of an active articulator and
+one or more passive articulators<sup>[<a href="#ref9">9</a>]</sup>. The
+possible places of articulation are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Place of Articulation</th>
+      <th>Feature</th>
+      <th>Active</th>
+      <th>Lips</th>
+      <th>Teeth</th>
+      <th>Passive</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>bilabial</td>
+      <td><code>blb</code></td>
+      <td><code>lbl</code></td>
+      <td><code>ulp</code></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>linguolabial</td>
+      <td><code>lgl</code></td>
+      <td><code>lmn</code></td>
+      <td><code>ulp</code></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>labiodental</td>
+      <td><code>lbd</code></td>
+      <td><code>lbl</code></td>
+      <td> </td>
+      <td><code>utt</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>bilabial-labiodental</td>
+      <td><code>bld</code></td>
+      <td><code>bld</code></td>
+      <td><code>ulp</code></td>
+      <td><code>utt</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>interdental</td>
+      <td><code>idt</code></td>
+      <td><code>lmn</code></td>
+      <td> </td>
+      <td><code>utt</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>dental</td>
+      <td><code>dnt</code></td>
+      <td><code>apc</code></td>
+      <td> </td>
+      <td><code>utt</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>denti-alveolar</td>
+      <td><code>dta</code></td>
+      <td><code>lmn</code></td>
+      <td> </td>
+      <td><code>utt</code></td>
+      <td><code>alf</code></td>
+    </tr>
+    <tr>
+      <td>alveolar</td>
+      <td><code>alv</code></td>
+      <td><code>lmn</code></td>
+      <td> </td>
+      <td> </td>
+      <td><code>alf</code></td>
+    </tr>
+    <tr>
+      <td>apico-alveolar</td>
+      <td><code>apa</code></td>
+      <td><code>apc</code></td>
+      <td> </td>
+      <td> </td>
+      <td><code>alf</code></td>
+    </tr>
+    <tr>
+      <td>palato-alveolar</td>
+      <td><code>pla</code></td>
+      <td><code>lmn</code></td>
+      <td> </td>
+      <td> </td>
+      <td><code>alb</code></td>
+    </tr>
+    <tr>
+      <td>apical retroflex</td>
+      <td><code>arf</code></td>
+      <td><code>sac</code></td>
+      <td> </td>
+      <td> </td>
+      <td><code>alb</code></td>
+    </tr>
+    <tr>
+      <td>retroflex</td>
+      <td><code>rfx</code></td>
+      <td><code>apc</code></td>
+      <td> </td>
+      <td> </td>
+      <td><code>hpl</code></td>
+    </tr>
+    <tr>
+      <td>alveolo-palatal</td>
+      <td><code>alp</code></td>
+      <td><code>dsl</code></td>
+      <td> </td>
+      <td> </td>
+      <td><code>alb</code></td>
+    </tr>
+    <tr>
+      <td>palatal</td>
+      <td><code>pal</code></td>
+      <td><code>dsl</code></td>
+      <td> </td>
+      <td> </td>
+      <td><code>hpl</code></td>
+    </tr>
+    <tr>
+      <td>velar</td>
+      <td><code>vel</code></td>
+      <td><code>dsl</code></td>
+      <td> </td>
+      <td> </td>
+      <td><code>spl</code></td>
+    </tr>
+    <tr>
+      <td>labio-velar</td>
+      <td><code>lbv</code></td>
+      <td><code>dsl</code></td>
+      <td><code>ulp</code></td>
+      <td> </td>
+      <td><code>spl</code></td>
+    </tr>
+    <tr>
+      <td>uvular</td>
+      <td><code>uvl</code></td>
+      <td><code>dsl</code></td>
+      <td> </td>
+      <td> </td>
+      <td><code>uvu</code></td>
+    </tr>
+    <tr>
+      <td>pharyngeal</td>
+      <td><code>phr</code></td>
+      <td><code>rdl</code></td>
+      <td> </td>
+      <td> </td>
+      <td><code>prx</code></td>
+    </tr>
+    <tr>
+      <td>epiglotto-pharyngeal</td>
+      <td><code>epp</code></td>
+      <td><code>lyx</code></td>
+      <td> </td>
+      <td> </td>
+      <td><code>prx</code></td>
+    </tr>
+    <tr>
+      <td>(ary-)epiglottal</td>
+      <td><code>epg</code></td>
+      <td><code>lyx</code></td>
+      <td> </td>
+      <td> </td>
+      <td><code>egs</code></td>
+    </tr>
+    <tr>
+      <td>glottal</td>
+      <td><code>glt</code></td>
+      <td><code>lyx</code></td>
+      <td> </td>
+      <td> </td>
+      <td><code>gts</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="active-articulators">Active Articulators</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Name</th>
+      <th>Articulator</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>lbl</code></td>
+      <td>labial</td>
+      <td>lower lip</td>
+    </tr>
+    <tr>
+      <td><code>lmn</code></td>
+      <td>laminal</td>
+      <td>tongue blade</td>
+    </tr>
+    <tr>
+      <td><code>apc</code></td>
+      <td>apical</td>
+      <td>tongue tip</td>
+    </tr>
+    <tr>
+      <td><code>sac</code></td>
+      <td>subapical</td>
+      <td>underside of the tongue</td>
+    </tr>
+    <tr>
+      <td><code>dsl</code></td>
+      <td>dorsal</td>
+      <td>tongue body</td>
+    </tr>
+    <tr>
+      <td><code>rdl</code></td>
+      <td>radical</td>
+      <td>tongue root</td>
+    </tr>
+    <tr>
+      <td><code>lyx</code></td>
+      <td>laryngeal</td>
+      <td>larynx</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="passive-articulators">Passive Articulators</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Articulator</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>ulp</code></td>
+      <td>upper lip</td>
+    </tr>
+    <tr>
+      <td><code>utt</code></td>
+      <td>upper teeth</td>
+    </tr>
+    <tr>
+      <td><code>alf</code></td>
+      <td>alveolar ridge (front)</td>
+    </tr>
+    <tr>
+      <td><code>alb</code></td>
+      <td>alveolar ridge (back)</td>
+    </tr>
+    <tr>
+      <td><code>hpl</code></td>
+      <td>hard palate</td>
+    </tr>
+    <tr>
+      <td><code>spl</code></td>
+      <td>soft palate (velum)</td>
+    </tr>
+    <tr>
+      <td><code>uvu</code></td>
+      <td>uvular</td>
+    </tr>
+    <tr>
+      <td><code>prx</code></td>
+      <td>pharynx</td>
+    </tr>
+    <tr>
+      <td><code>egs</code></td>
+      <td>epiglottis</td>
+    </tr>
+    <tr>
+      <td><code>gts</code></td>
+      <td>glottis</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="co-articulation-1">Co-articulation</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Name</th>
+      <th>Articulator</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>pzd</code></td>
+      <td>palatalized</td>
+      <td><code>hpl</code></td>
+    </tr>
+    <tr>
+      <td><code>vzd</code></td>
+      <td>velarized</td>
+      <td><code>spl</code></td>
+    </tr>
+    <tr>
+      <td><code>fzd</code></td>
+      <td>pharyngealized</td>
+      <td><code>prx</code></td>
+    </tr>
+    <tr>
+      <td><code>nzd</code></td>
+      <td>nasalized</td>
+      <td><code>nsl</code></td>
+    </tr>
+    <tr>
+      <td><code>rzd</code></td>
+      <td>rhoticized</td>
+      <td><code>apc hpl</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="phonation">Phonation</h2>
+
+<p>The phonation features describe the degree to which the glottis (vocal chords) are open or closed.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>vls</code></td>
+      <td>voiceless</td>
+      <td>The glottis is fully open, such that the vocal chords do not vibrate.</td>
+    </tr>
+    <tr>
+      <td><code>brv</code></td>
+      <td>breathy voice</td>
+      <td>The glottis is closed slightly, to produce a whispered or murmured sound.</td>
+    </tr>
+    <tr>
+      <td><code>slv</code></td>
+      <td>slack voice</td>
+      <td>The glottis is opened wider than <code>mdv</code>, but not enough to be <code>brv</code>.</td>
+    </tr>
+    <tr>
+      <td><code>mdv</code></td>
+      <td>modal voice</td>
+      <td>The glottis is opened to provide the optimal vibration of the vocal chords.</td>
+    </tr>
+    <tr>
+      <td><code>stv</code></td>
+      <td>stiff voice</td>
+      <td>The glottis is closed narrower than <code>mdv</code>, but not enough to be <code>crv</code>.</td>
+    </tr>
+    <tr>
+      <td><code>crv</code></td>
+      <td>creaky voice</td>
+      <td>The glottis is closed to produce a vocal or glottal fry.</td>
+    </tr>
+    <tr>
+      <td><code>glc</code></td>
+      <td>glottal closure</td>
+      <td>The glottis is fully closed.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="voice">Voice</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Voice</th>
+      <th>Feature</th>
+      <th>Phoneme Model</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>voiceless</td>
+      <td><code>vls</code></td>
+      <td><code>vls</code></td>
+    </tr>
+    <tr>
+      <td>voiced</td>
+      <td><code>vcd</code></td>
+      <td><code>mdv</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="vowel-height">Vowel Height</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>hgh</code></td>
+      <td>close (high)</td>
+    </tr>
+    <tr>
+      <td><code>smh</code></td>
+      <td>near-close (semi-high)</td>
+    </tr>
+    <tr>
+      <td><code>umd</code></td>
+      <td>close-mid (upper-mid)</td>
+    </tr>
+    <tr>
+      <td><code>mid</code></td>
+      <td>mid</td>
+    </tr>
+    <tr>
+      <td><code>lmd</code></td>
+      <td>open-mid (lower-mid)</td>
+    </tr>
+    <tr>
+      <td><code>sml</code></td>
+      <td>near-open (semi-low)</td>
+    </tr>
+    <tr>
+      <td><code>low</code></td>
+      <td>open (low)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="vowel-backness">Vowel Backness</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>fnt</code></td>
+      <td>front</td>
+    </tr>
+    <tr>
+      <td><code>cnt</code></td>
+      <td>center</td>
+    </tr>
+    <tr>
+      <td><code>bck</code></td>
+      <td>back</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="rounding-and-labialization">Rounding and Labialization</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Name</th>
+      <th>Rounded</th>
+      <th>Position</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>unr</code></td>
+      <td>unrounded</td>
+      <td>No</td>
+      <td>Close to the jaw.</td>
+    </tr>
+    <tr>
+      <td><code>ptr</code></td>
+      <td>protruded</td>
+      <td>Yes</td>
+      <td>Protrude outward from the jaw.</td>
+    </tr>
+    <tr>
+      <td><code>cmp</code></td>
+      <td>compressed</td>
+      <td>Yes</td>
+      <td>Close to the jaw.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The degree of rounding/labialization is specified using the following features:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>mrd</code></td>
+      <td>more rounded</td>
+    </tr>
+    <tr>
+      <td><code>lrd</code></td>
+      <td>less rounded</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="vowel-rounding">Vowel Rounding</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Rounding</th>
+      <th>Feature</th>
+      <th>Phoneme Model</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>unrounded</td>
+      <td><code>unr</code></td>
+      <td><code>unr</code></td>
+    </tr>
+    <tr>
+      <td>rounded</td>
+      <td><code>rnd</code></td>
+      <td><code>ptr</code> if <code>bck</code> or <code>cnt</code>; <code>cmp</code> if <code>fnt</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="syllabicity">Syllabicity</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>syl</code></td>
+      <td>syllabic</td>
+    </tr>
+    <tr>
+      <td><code>nsy</code></td>
+      <td>non-syllabic</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="consonant-release">Consonant Release</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>frr</code></td>
+      <td>fricative release</td>
+    </tr>
+    <tr>
+      <td><code>asp</code></td>
+      <td>aspirated</td>
+    </tr>
+    <tr>
+      <td><code>nrs</code></td>
+      <td>nasal release</td>
+    </tr>
+    <tr>
+      <td><code>lrs</code></td>
+      <td>lateral release</td>
+    </tr>
+    <tr>
+      <td><code>unx</code></td>
+      <td>no audible release (unexploded)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="tongue-root">Tongue Root</h2>
+
+<p>The tongue root position can be specified using the following features:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Symbol</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>atr</code></td>
+      <td>◌̘</td>
+      <td>advanced tongue root</td>
+    </tr>
+    <tr>
+      <td><code>rtr</code></td>
+      <td>◌̙</td>
+      <td>retracted tongue root</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="fortis-and-lenis">Fortis and Lenis</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>fts</code></td>
+      <td>fortis</td>
+    </tr>
+    <tr>
+      <td><code>lns</code></td>
+      <td>lenis</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="stress">Stress</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>st1</code></td>
+      <td>primary stress</td>
+    </tr>
+    <tr>
+      <td><code>st2</code></td>
+      <td>secondary stress</td>
+    </tr>
+    <tr>
+      <td><code>st3</code></td>
+      <td>extra stress</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="length">Length</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>est</code></td>
+      <td>extra short</td>
+    </tr>
+    <tr>
+      <td><code>hlg</code></td>
+      <td>half-long</td>
+    </tr>
+    <tr>
+      <td><code>lng</code></td>
+      <td>long</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="rhythm">Rhythm</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>sbr</code></td>
+      <td>syllable break</td>
+    </tr>
+    <tr>
+      <td><code>lnk</code></td>
+      <td>linked (no break)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="intonation">Intonation</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>fbr</code></td>
+      <td>minor (foot) break</td>
+    </tr>
+    <tr>
+      <td><code>ibr</code></td>
+      <td>major (intonation) break</td>
+    </tr>
+    <tr>
+      <td><code>glr</code></td>
+      <td>global rise</td>
+    </tr>
+    <tr>
+      <td><code>glf</code></td>
+      <td>global fall</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="tone-stepping">Tone Stepping</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>ust</code></td>
+      <td>upstep</td>
+    </tr>
+    <tr>
+      <td><code>dst</code></td>
+      <td>downstep</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="tones">Tones</h2>
+
+<p>Tones are defined using the following 3 properties:</p>
+
+<pre><code>tone_start  &lt;value&gt;
+tone_middle &lt;value&gt;
+tone_end    &lt;value&gt;
+</code></pre>
+
+<p>The <code>&lt;value&gt;</code> field for these properties is a number with one of the following
+values:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Tone</th>
+      <th><code>&lt;value&gt;</code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>extra high (top)</td>
+      <td><code>5</code></td>
+    </tr>
+    <tr>
+      <td>high</td>
+      <td><code>4</code></td>
+    </tr>
+    <tr>
+      <td>mid</td>
+      <td><code>3</code></td>
+    </tr>
+    <tr>
+      <td>low</td>
+      <td><code>2</code></td>
+    </tr>
+    <tr>
+      <td>extra low (bottom)</td>
+      <td><code>1</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A <em>level</em> tone can be specified by just using the <code>tone_start</code> value. A <em>raising</em>
+or <em>falling</em> tone can be specified using the <code>tone_start</code> and <code>tone_end</code> values.
+A <em>raising-falling</em> (<em>peaking</em>) or <em>falling-raising</em> (<em>dipping</em>) tone can be
+specified using all three values.</p>
+
+<h2 id="references">References</h2>
+
+<ol>
+  <li>
+    <p><a name="ref1"></a> Kirshenbaum, Evan,
+<a href="https://web.archive.org/web/20160419125856/http://www.kirshenbaum.net/IPA/faq.html">Representing IPA phonetics in ASCII</a> (HTML). 1993.</p>
+  </li>
+  <li>
+    <p><a name="ref2"></a> Kirshenbaum, Evan,
+<a href="https://web.archive.org/web/20160419125856/http://www.kirshenbaum.net/IPA/ascii-ipa.pdf">Representing IPA phonetics in ASCII</a> (PDF). 2001.</p>
+  </li>
+  <li>
+    <p><a name="ref3"></a> International Phonetic Association,
+<a href="https://www.internationalphoneticassociation.org/content/ipa-chart">The International Phonetic Alphabet and the IPA Chart</a>. 2015.
+Creative Commons Attribution-Sharealike 3.0 Unported License (CC-BY-SA).</p>
+  </li>
+  <li>
+    <p><a name="ref4"></a> Wikipedia.
+<a href="https://en.wikipedia.org/wiki/International_Phonetic_Alphabet">International Phonetic Alphabet</a>. 2017.
+Creative Commons Attribution-Sharealike 3.0 Unported License (CC-BY-SA).</p>
+  </li>
+  <li>
+    <p><a name="ref5"></a> Dunn, R. H.,
+<a href="https://raw.githubusercontent.com/rhdunn/cainteoir-engine/master/src/libcainteoir/phoneme/phoneme.cpp">Cainteoir Text-to-Speech Phoneme Features</a>. 2013-2015.</p>
+  </li>
+  <li>
+    <p><a name="ref6"></a> Wikipedia.
+<a href="https://en.wikipedia.org/wiki/Voiced_glottal_fricative">Voiced glottal fricative</a>. 2017,
+Creative Commons Attribution-Sharealike 3.0 Unported License (CC-BY-SA).</p>
+  </li>
+  <li>
+    <p><a name="ref7"></a> Wikipedia.
+<a href="https://en.wikipedia.org/wiki/Extensions_to_the_International_Phonetic_Alphabet">Extensions to the International Phonetic Alphabet</a>. 2017,
+Creative Commons Attribution-Sharealike 3.0 Unported License (CC-BY-SA).</p>
+  </li>
+  <li>
+    <p><a name="ref8"></a> Wikipedia.
+<a href="https://en.wikipedia.org/wiki/Fortis_and_lenis">Fortis and lenis</a>. 2017,
+Creative Commons Attribution-Sharealike 3.0 Unported License (CC-BY-SA).</p>
+  </li>
+  <li>
+    <p><a name="ref9"></a> Wikipedia.
+<a href="https://en.wikipedia.org/wiki/Place_of_articulation">Place of articulation</a>. 2017,
+Creative Commons Attribution-Sharealike 3.0 Unported License (CC-BY-SA).</p>
+  </li>
+</ol>
+
+</body>
+</html>

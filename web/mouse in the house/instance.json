@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "endpoints": [
+    {
+      "name": "app",
+      "protocol": "https",
+      "url": "https://e5ab60d8c5c85a6f.chal.ctf.ae"
+    },
+    {
+      "name": "bot",
+      "protocol": "https",
+      "url": "https://bot-e5ab60d8c5c85a6f.chal.ctf.ae"
+    },
+    {
+      "name": "internal-app",
+      "protocol": "http",
+      "url": "http://127.0.0.1:3000"
+    },
+    {
+      "name": "loader",
+      "protocol": "http",
+      "url": "http://httpbin.org/base64/"
+    },
+    {
+      "name": "callback",
+      "protocol": "https",
+      "url": "https://webhook.site"
+    }
+  ]
+}

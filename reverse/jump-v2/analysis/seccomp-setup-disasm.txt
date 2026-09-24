@@ -1,0 +1,55 @@
+
+analysis/embedded.elf:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+00000000004bcd61 <.text+0xbbd61>:
+  4bcd61:	b8 9d 00 00 00       	mov    eax,0x9d
+  4bcd66:	bf 26 00 00 00       	mov    edi,0x26
+  4bcd6b:	be 01 00 00 00       	mov    esi,0x1
+  4bcd70:	31 d2                	xor    edx,edx
+  4bcd72:	45 31 d2             	xor    r10d,r10d
+  4bcd75:	45 31 c0             	xor    r8d,r8d
+  4bcd78:	0f 05                	syscall
+  4bcd7a:	48 85 c0             	test   rax,rax
+  4bcd7d:	0f 88 17 8e 00 00    	js     0x4c5b9a
+  4bcd83:	4c 8d 2d f6 97 08 00 	lea    r13,[rip+0x897f6]        # 0x546580
+  4bcd8a:	4c 8d 35 d7 96 08 00 	lea    r14,[rip+0x896d7]        # 0x546468
+  4bcd91:	bb 0e 00 00 00       	mov    ebx,0xe
+  4bcd96:	41 8b 06             	mov    eax,DWORD PTR [r14]
+  4bcd99:	33 05 b9 96 08 00    	xor    eax,DWORD PTR [rip+0x896b9]        # 0x546458
+  4bcd9f:	33 05 de 82 08 00    	xor    eax,DWORD PTR [rip+0x882de]        # 0x545083
+  4bcda5:	41 89 45 0c          	mov    DWORD PTR [r13+0xc],eax
+  4bcda9:	41 8b 46 04          	mov    eax,DWORD PTR [r14+0x4]
+  4bcdad:	33 05 a5 96 08 00    	xor    eax,DWORD PTR [rip+0x896a5]        # 0x546458
+  4bcdb3:	33 05 ce 82 08 00    	xor    eax,DWORD PTR [rip+0x882ce]        # 0x545087
+  4bcdb9:	41 89 45 1c          	mov    DWORD PTR [r13+0x1c],eax
+  4bcdbd:	41 8b 46 08          	mov    eax,DWORD PTR [r14+0x8]
+  4bcdc1:	33 05 91 96 08 00    	xor    eax,DWORD PTR [rip+0x89691]        # 0x546458
+  4bcdc7:	33 05 be 82 08 00    	xor    eax,DWORD PTR [rip+0x882be]        # 0x54508b
+  4bcdcd:	41 89 45 24          	mov    DWORD PTR [r13+0x24],eax
+  4bcdd1:	41 8b 46 0c          	mov    eax,DWORD PTR [r14+0xc]
+  4bcdd5:	33 05 7d 96 08 00    	xor    eax,DWORD PTR [rip+0x8967d]        # 0x546458
+  4bcddb:	33 05 ae 82 08 00    	xor    eax,DWORD PTR [rip+0x882ae]        # 0x54508f
+  4bcde1:	41 89 45 2c          	mov    DWORD PTR [r13+0x2c],eax
+  4bcde5:	41 8b 46 10          	mov    eax,DWORD PTR [r14+0x10]
+  4bcde9:	33 05 69 96 08 00    	xor    eax,DWORD PTR [rip+0x89669]        # 0x546458
+  4bcdef:	33 05 9e 82 08 00    	xor    eax,DWORD PTR [rip+0x8829e]        # 0x545093
+  4bcdf5:	41 89 45 34          	mov    DWORD PTR [r13+0x34],eax
+  4bcdf9:	48 83 ec 10          	sub    rsp,0x10
+  4bcdfd:	66 c7 04 24 09 00    	mov    WORD PTR [rsp],0x9
+  4bce03:	4c 89 6c 24 08       	mov    QWORD PTR [rsp+0x8],r13
+  4bce08:	b8 9d 00 00 00       	mov    eax,0x9d
+  4bce0d:	bf 16 00 00 00       	mov    edi,0x16
+  4bce12:	be 02 00 00 00       	mov    esi,0x2
+  4bce17:	48 89 e2             	mov    rdx,rsp
+  4bce1a:	0f 05                	syscall
+  4bce1c:	48 83 c4 10          	add    rsp,0x10
+  4bce20:	48 85 c0             	test   rax,rax
+  4bce23:	0f 88 71 8d 00 00    	js     0x4c5b9a
+  4bce29:	49 83 c5 48          	add    r13,0x48
+  4bce2d:	49 83 c6 14          	add    r14,0x14
+  4bce31:	ff cb                	dec    ebx
+  4bce33:	0f 85 5d ff ff ff    	jne    0x4bcd96
+  4bce39:	c3                   	ret

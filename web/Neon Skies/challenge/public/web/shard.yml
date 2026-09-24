@@ -1,0 +1,13 @@
+name: neon_skies
+version: 1.0.0
+
+authors:
+  - ANAS
+
+crystal: ">= 1.18.0"
+
+license: MIT
+
+targets:
+  neon_skies:
+    main: src/neon_skies.cr

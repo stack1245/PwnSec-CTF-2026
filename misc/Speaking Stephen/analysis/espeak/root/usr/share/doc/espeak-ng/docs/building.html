@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width; initial-scale=1"/>
+<meta name="robots" content="all"/>
+<style type="text/css">
+body
+{
+	font-family: sans-serif;
+	font-size: 14px;
+	margin: 1em;
+}
+
+*:first-child
+{
+	margin-top: 0;
+}
+
+code, pre
+{
+	font-family: monospace;
+	background: #F7F7F7;
+	color: navy;
+}
+
+code
+{
+	font-size: 85%;
+	padding: 0.2em;
+}
+
+pre
+{
+	margin-left: 3em;
+	padding: 1em;
+}
+
+th
+{
+	text-align: left;
+}
+
+hr
+{
+	border: 0;
+	border-bottom: 1px solid #BBB;
+}
+</style>
+</head>
+<body>
+<h1 id="building-espeak-ng">Building eSpeak NG</h1>
+
+<ul>
+  <li><a href="#windows">Windows</a>
+    <ul>
+      <li><a href="#dependencies">Dependencies</a></li>
+      <li><a href="#building">Building</a></li>
+    </ul>
+  </li>
+  <li><a href="#linux-mac-bsd">Linux, Mac, BSD</a>
+    <ul>
+      <li><a href="#dependencies-1">Dependencies</a></li>
+      <li><a href="#building-1">Building</a>
+        <ul>
+          <li><a href="#cross-compilation">Cross Compilation</a></li>
+          <li><a href="#sanitizer-flag-configuration">Sanitizer Flag Configuration</a></li>
+          <li><a href="#llvm-fuzzer-support">LLVM Fuzzer Support</a></li>
+          <li><a href="#espeak-ng-feature-configuration">eSpeak NG Feature Configuration</a></li>
+          <li><a href="#extended-dictionary-configuration">Extended Dictionary Configuration</a></li>
+        </ul>
+      </li>
+      <li><a href="#testing">Testing</a></li>
+      <li><a href="#installing">Installing</a></li>
+    </ul>
+  </li>
+  <li><a href="#android">Android</a>
+    <ul>
+      <li><a href="#dependencies-1">Dependencies</a></li>
+      <li><a href="#building-with-gradle">Building with Gradle</a></li>
+      <li><a href="#signing-the-apk">Signing the APK</a></li>
+      <li><a href="#opening-project-in-android-studio">Opening project in Android Studio</a></li>
+      <li><a href="#installing-1">Installing</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="windows">Windows</h2>
+
+<h3 id="dependencies">Dependencies</h3>
+
+<p>To build eSpeak NG on Windows, you will need:</p>
+
+<ol>
+  <li>a copy of <a href="https://www.microsoft.com/en-us/download/details.aspx?id=48145">Visual C++ Redistributable for Visual Studio 2015</a> or later, such as the Community Edition;</li>
+  <li>the Windows 8.1 SDK;</li>
+  <li>the <a href="http://wixtoolset.org">WiX installer</a> plugin;</li>
+  <li>the <a href="https://github.com/espeak-ng/pcaudiolib">pcaudiolib</a> project checked out to
+<code>src</code> (as <code>src/pcaudiolib</code>).</li>
+</ol>
+
+<p>Optionally, you need:</p>
+
+<ol>
+  <li>sox (http://sox.sourceforge.net/) to enable audio output for SSML <audio> tag</audio></li>
+</ol>
+
+<p><strong>NOTE:</strong> SAPI 5 voices are not currently available in this release of eSpeak NG.
+There is an <a href="https://github.com/espeak-ng/espeak-ng/issues/7">issue</a> to track
+support for this feature.</p>
+
+<h3 id="building">Building</h3>
+
+<p>You can then open and build the <code>src/windows/espeak-ng.sln</code> solution in Visual
+Studio.</p>
+
+<p>You can also use the Visual Studio tools to build espeak-ng with <code>msbuild</code> from
+the <code>src/windows</code> directory:</p>
+
+<pre><code>msbuild espeak-ng.sln
+</code></pre>
+
+<p>To build with a specific version of Visual Studio, you need to use:</p>
+
+<pre><code>msbuild /p:PlatformToolset=v120 espeak-ng.sln
+</code></pre>
+
+<p>replacing <code>v120</code> with the appropriate value for the target Visual Studio version:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>PlatformToolset</th>
+      <th>Visual Studio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>v120</td>
+      <td>2013</td>
+    </tr>
+    <tr>
+      <td>v140</td>
+      <td>2015</td>
+    </tr>
+    <tr>
+      <td>v141 (default)</td>
+      <td>2017</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="linux-mac-bsd">Linux, Mac, BSD</h2>
+
+<h3 id="dependencies-1">Dependencies</h3>
+
+<p>In order to build eSpeak NG, you need:</p>
+
+<ol>
+  <li>a functional autotools system (<code>make</code>, <code>autoconf</code>, <code>automake</code>, <code>libtool</code>
+and <code>pkg-config</code>);</li>
+  <li>a functional c compiler that supports C99 (e.g. gcc or clang). Note: if building with speechPlayer, a C++ compiler is required.</li>
+</ol>
+
+<p>Optionally, you need:</p>
+
+<ol>
+  <li>the <a href="https://github.com/espeak-ng/pcaudiolib">pcaudiolib</a> development library
+to enable audio output;</li>
+  <li>the speechPlayer development library to
+enable the speechPlayer Klatt implementation;</li>
+  <li>the <a href="https://github.com/espeak-ng/sonic">sonic</a> development library to
+enable sonic audio speed up support;</li>
+  <li>the <code>ronn</code> man-page markdown processor to build the man pages.</li>
+  <li>sox (http://sox.sourceforge.net/) to enable audio output for SSML <audio> tag</audio></li>
+</ol>
+
+<p>To build the documentation, you need:</p>
+
+<ol>
+  <li>the <code>kramdown</code> markdown processor.</li>
+</ol>
+
+<p>On Debian-based systems such as Debian, Ubuntu and Mint, these dependencies can
+be installed using the following commands:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dependency</th>
+      <th>Install</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>autotools</td>
+      <td><code>sudo apt-get install make autoconf automake libtool pkg-config</code></td>
+    </tr>
+    <tr>
+      <td>c99 compiler</td>
+      <td><code>sudo apt-get install gcc</code></td>
+    </tr>
+    <tr>
+      <td>sonic</td>
+      <td><code>sudo apt-get install libsonic-dev</code></td>
+    </tr>
+    <tr>
+      <td>ronn</td>
+      <td><code>sudo apt-get install ronn</code></td>
+    </tr>
+    <tr>
+      <td>kramdown</td>
+      <td><code>sudo apt-get install kramdown</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For recent Debian or Ubuntu &gt;= 18.04 you should also install:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dependency</th>
+      <th>Install</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>pcaudiolib</td>
+      <td><code>sudo apt-get install libpcaudio-dev</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="building-1">Building</h3>
+
+<p>The first time you build eSpeak NG, or when you want to change how to build
+eSpeak NG, you need to run the following standard autotools commands:</p>
+
+<pre><code>./autogen.sh
+./configure --prefix=/usr
+</code></pre>
+
+<p><strong>NOTE:</strong> The <code>--prefix</code> option above will install the files to the <code>/usr</code>
+directory, instead of the default <code>/usr/local</code> location. You can use other
+standard <code>configure</code> options to control the output. For more information,
+you can run:</p>
+
+<pre><code>./configure --help
+</code></pre>
+
+<p>To use a different compiler, or compiler flags, you can specify these before
+the <code>configure</code> command. For example:</p>
+
+<pre><code>CC=clang CFLAGS=-Wextra ./configure --prefix=/usr
+</code></pre>
+
+<p>The <code>espeak-ng</code> and <code>speak-ng</code> programs, along with the espeak-ng voices, can
+then be built with:</p>
+
+<pre><code>make
+</code></pre>
+
+<p><strong>NOTE:</strong> Building the voice data does not work when using the <code>-jN</code> option.
+If you want to use that option, you can run:</p>
+
+<pre><code>make -j8 src/espeak-ng src/speak-ng
+make
+</code></pre>
+
+<p>The documentation can be built by running:</p>
+
+<pre><code>make docs
+</code></pre>
+
+<p>Specific languages can be compiled by running:</p>
+
+<pre><code>make LANG
+</code></pre>
+
+<p>where <code>LANG</code> is the language code of the given language. More information can
+be found in the <a href="add_language.html">Adding or Improving a Language</a>
+documentation.</p>
+
+<p>If project settings are changed, you may need to force rebuilding all project,
+including already built files. To do this execute command:</p>
+
+<pre><code>make -B
+</code></pre>
+
+<h4 id="cross-compilation">Cross Compilation</h4>
+
+<p>Because the eSpeak NG build process uses the built program to compile the
+language and voice data, you need to build it locally first. Once you have
+built it locally you can perform the cross compilation using:</p>
+
+<pre><code>./configure --build=... --host=... --target=...
+make -B src/espeak-ng src/speak-ng
+</code></pre>
+
+<h4 id="sanitizer-flag-configuration">Sanitizer Flag Configuration</h4>
+
+<p>It is possible to build eSpeak NG with the gcc or clang sanitizer by passing
+the appropriate <code>CFLAGS</code> and <code>LDFLAGS</code> options to <code>configure</code>. For example:</p>
+
+<pre><code>CFLAGS="-fsanitize=address,undefined -g" \
+	LDFLAGS="-fsanitize=address,undefined" \
+	CC=clang ./configure
+make
+make check
+</code></pre>
+
+<p><strong>NOTE:</strong> The <code>-fsanitize=fuzzer</code> option does not work when using the above
+configuration method. This is because <code>clang</code> will use the <code>libFuzzer</code> library
+which defines its own <code>main</code> and requires <code>LLVMFuzzerTestOneInput</code> to be
+defined. This breaks the autoconf check to see if the C compiler works.</p>
+
+<h4 id="llvm-fuzzer-support">LLVM Fuzzer Support</h4>
+
+<p>To enable libFuzzer support you need clang 6.0 or later. It is enabled with
+the following:</p>
+
+<pre><code>CC=clang ./configure --with-libfuzzer=yes
+make
+make check
+</code></pre>
+
+<h4 id="espeak-ng-feature-configuration">eSpeak NG Feature Configuration</h4>
+
+<p>The following <code>configure</code> options control which eSpeak NG features are enabled:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>--with-klatt</code></td>
+      <td>Enable Klatt formant synthesis.</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td><code>--with-speechplayer</code></td>
+      <td>Enable the speechPlayer Klatt implementation.</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td><code>--with-mbrola</code></td>
+      <td>Enable MBROLA voice support.</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td><code>--with-sonic</code></td>
+      <td>Use the sonic library to support higher WPM.</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td><code>--with-async</code></td>
+      <td>Enable asynchronous commands.</td>
+      <td>yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>NOTE:</strong> The <code>--with-sonic</code> option requires that the sonic library and header
+is accessible on the system.</p>
+
+<h4 id="extended-dictionary-configuration">Extended Dictionary Configuration</h4>
+
+<p>The following <code>configure</code> options control which of the extended dictionary files
+to build:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Extended Dictionary</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>--with-extdict-ru</code></td>
+      <td>Russian</td>
+      <td>no</td>
+    </tr>
+    <tr>
+      <td><code>--with-extdict-cmn</code></td>
+      <td>Mandarin Chinese</td>
+      <td>no</td>
+    </tr>
+    <tr>
+      <td><code>--with-extdict-yue</code></td>
+      <td>Cantonese</td>
+      <td>no</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The extended dictionaries are taken from
+<a href="http://espeak.sourceforge.net/data/">http://espeak.sourceforge.net/data/</a> and
+provide better coverage for those languages, while increasing the resulting
+dictionary size.</p>
+
+<h3 id="testing">Testing</h3>
+
+<p>Before installing, you can test the built espeak-ng using the following command
+from the top-level directory of this project:</p>
+
+<pre><code>ESPEAK_DATA_PATH=`pwd` LD_LIBRARY_PATH=src:${LD_LIBRARY_PATH} src/espeak-ng ...
+</code></pre>
+
+<p>The <code>ESPEAK_DATA_PATH</code> variable needs to be set to use the espeak-ng data from
+the source tree. Otherwise, espeak-ng will look in <code>$(HOME)</code> or
+<code>/usr/share/espeak-ng-data</code>.</p>
+
+<p>The <code>LD_LIBRARY_PATH</code> is set as <code>espeak</code> uses the <code>libespeak-ng.so</code> shared
+library. This ensures that <code>espeak</code> uses the built shared library in the
+<code>src</code> directory and not the one on the system (which could be an older
+version).</p>
+
+<h3 id="installing">Installing</h3>
+
+<p>You can install eSpeak NG by running the following command:</p>
+
+<pre><code>sudo make LIBDIR=/usr/lib/x86_64-linux-gnu install
+</code></pre>
+
+<p><strong>NOTE:</strong> The <code>LIBDIR</code> path may be different to the one on your system (the
+above is for 64-bit Debian/Ubuntu releases that use the multi-arch package
+structure – that is, Debian Wheezy or later).</p>
+
+<p>You can find out where espeak-ng is installed to on your system if you
+already have an espeak-ng install by running:</p>
+
+<pre><code>find /usr/lib | grep libespeak-ng
+</code></pre>
+
+<h2 id="android">Android</h2>
+
+<div align="right"><a href="https://play.google.com/store/apps/details?id=com.reecedunn.espeak" title="eSpeak for Android on Google Play">Android App on Google play</a></div>
+
+<p>The espeak-ng sources contain the code for the Android™ port of the application.
+This is published as the <a href="http://reecedunn.co.uk/espeak-for-android">eSpeak for Android</a>
+program on the Google Play store. It is based on the eyes-free port of eSpeak
+to the Android platform. This code was originally maintained in a separate
+branch when the repository tracked eSpeak releases.</p>
+
+<h3 id="dependencies-2">Dependencies</h3>
+
+<p>In order to build the Android APK file, you need:</p>
+
+<ol>
+  <li>the <a href="https://developer.android.com/studio/">Android Studio</a> with API 26 support;</li>
+  <li>the <a href="http://developer.android.com/tools/sdk/ndk/index.html">Android NDK</a>;</li>
+  <li>Gradle 5.6.4</li>
+</ol>
+
+<h3 id="building-with-gradle">Building with Gradle</h3>
+
+<ol>
+  <li>
+    <p>Set the location of the Android SDK:</p>
+
+    <pre><code>$ export ANDROID_HOME=&lt;path-to-the-android-sdk&gt; (where `&lt;path-to-the-android-sdk&gt;` is your actual path of SDK folder e.g. `/home/user/Android/Sdk`)
+</code></pre>
+  </li>
+  <li>
+    <p>Add location of NDK to the PATH variable:</p>
+
+    <pre><code>$ export PATH=$PATH:&lt;path-to-the-android-ndk&gt; (where `&lt;path-to-the-android-ndk&gt;` is your actual path of NDK folder, e.g. `/home/user/Android/Ndk`)
+</code></pre>
+  </li>
+  <li>
+    <p>Configure the project:</p>
+
+    <pre><code> $ ./autogen.sh
+ $ ./configure --with-gradle=&lt;path-to-gradle&gt;
+</code></pre>
+  </li>
+</ol>
+
+<p>Check that log shows following lines:</p>
+
+<pre><code>    ...
+    gradle (Android):              gradle
+    ndk-build (Android):           yes
+    ... `&lt;path-to-gradle&gt;` may be just `gradle` if it is found in your path by simple name.
+</code></pre>
+
+<ol>
+  <li>
+    <p>Build the project:</p>
+
+    <pre><code> $ make apk-release
+</code></pre>
+  </li>
+</ol>
+
+<p>This will create an <code>android/build/outputs/apk/espeak-release-unsigned.apk</code> file.</p>
+
+<h3 id="signing-the-apk">Signing the APK</h3>
+
+<p>In order to install the built APK you need to self-sign the package. You can do
+this by:</p>
+
+<ol>
+  <li>
+    <p>Creating a certificate, if you do not already have one:</p>
+
+    <pre><code>$ keytool -genkey -keystore [YOUR_CERTIFICATE] -alias [ALIAS] -keyalg RSA -storetype PKCS12
+</code></pre>
+  </li>
+  <li>
+    <p>Sign the package using your certificate:</p>
+
+    <pre><code> $ jarsigner -sigalg MD5withRSA -digestalg SHA1 \
+   -keystore [YOUR_CERTIFICATE] \
+   android/build/outputs/apk/release/espeak-release-unsigned.apk [ALIAS]
+</code></pre>
+  </li>
+  <li>
+    <p>Align the apk using the zipalign tool.</p>
+
+    <pre><code> $ zipalign 4 android/build/outputs/apk/release/espeak-release-unsigned.apk \
+   android/build/outputs/apk/release/espeak-release-signed.apk
+</code></pre>
+  </li>
+</ol>
+
+<h3 id="opening-project-in-android-studio">Opening project in Android Studio</h3>
+
+<p>To open project in <strong>Android Studio</strong> select <strong>Import project (Gradle, Eclipse ADT, etc)</strong>
+and  select <code>android</code> folder of the <code>espeak-ng</code> project.</p>
+
+<p>Then select menu <strong>File — Project Structure…</strong>, tab <strong>SDK Location</strong>, field <strong>Android NDK location</strong>
+and set your location of NDK, e.g. <code>/home/user/Android/Ndk</code>.</p>
+
+<h3 id="installing-1">Installing</h3>
+
+<p>Now, you can install the APK using the <code>adb</code> tool:</p>
+
+<pre><code>$ adb install -r android/build/outputs/apk/release/espeak-release-signed.apk
+</code></pre>
+
+<p>After running, <code>eSpeakActivity</code> will extract the <code>espeakdata.zip</code> file into its
+own data directory to set up the available voices.</p>
+
+<p>To enable eSpeak, you need to:</p>
+
+<ol>
+  <li>go into the Android <code>Text-to-Speech settings</code> UI;</li>
+  <li>enable <code>eSpeak TTS</code> in the <code>Engines</code> section;</li>
+  <li>select <code>eSpeak TTS</code> as the default engine;</li>
+  <li>use the <code>Listen to an example</code> option to check if everything is working.</li>
+</ol>
+
+
+</body>
+</html>

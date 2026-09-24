@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width; initial-scale=1"/>
+<meta name="robots" content="all"/>
+<style type="text/css">
+body
+{
+	font-family: sans-serif;
+	font-size: 14px;
+	margin: 1em;
+}
+
+*:first-child
+{
+	margin-top: 0;
+}
+
+code, pre
+{
+	font-family: monospace;
+	background: #F7F7F7;
+	color: navy;
+}
+
+code
+{
+	font-size: 85%;
+	padding: 0.2em;
+}
+
+pre
+{
+	margin-left: 3em;
+	padding: 1em;
+}
+
+th
+{
+	text-align: left;
+}
+
+hr
+{
+	border: 0;
+	border-bottom: 1px solid #BBB;
+}
+</style>
+</head>
+<body>
+<h1 id="english">English</h1>
+
+<ul>
+  <li><a href="#vowels">Vowels</a>
+    <ul>
+      <li><a href="#short-vowels">Short Vowels</a></li>
+      <li><a href="#long-vowels">Long Vowels</a></li>
+      <li><a href="#rhotic-vowels">Rhotic Vowels</a></li>
+      <li><a href="#reduced-vowels">Reduced Vowels</a></li>
+      <li><a href="#diphthongs">Diphthongs</a></li>
+    </ul>
+  </li>
+  <li><a href="#references">References</a></li>
+</ul>
+
+<hr />
+
+<p>The following English accents are supported by eSpeak NG and are referenced in
+this document:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>BCP47</th>
+      <th>Abbreviation</th>
+      <th>Accent Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>en</td>
+      <td>BrE</td>
+      <td>British English</td>
+    </tr>
+    <tr>
+      <td>en-029</td>
+      <td>JaE</td>
+      <td>Caribbean</td>
+    </tr>
+    <tr>
+      <td>en-GB-scotland</td>
+      <td>ScE</td>
+      <td>Scottish English</td>
+    </tr>
+    <tr>
+      <td>en-GB-x-gbclan</td>
+      <td> </td>
+      <td>Lancastrian</td>
+    </tr>
+    <tr>
+      <td>en-GB-x-gbcwmd</td>
+      <td> </td>
+      <td>West Midlands</td>
+    </tr>
+    <tr>
+      <td>en-GB-x-rp</td>
+      <td>RP</td>
+      <td>Received Pronunciation</td>
+    </tr>
+    <tr>
+      <td>en-US</td>
+      <td>GenAm</td>
+      <td>General American</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The BCP47 name is the standard language identifier for the accent, used as the
+espeak language name. The Abbreviation is used in the tables below for the IPA
+transcriptions of that accent, and the BCP47 names are used for the eSpeak NG
+phoneme names.</p>
+
+<h2 id="vowels">Vowels</h2>
+
+<p>The English language support uses a vowel system based on John Wells’ Lexical
+Sets<sup>[<a href="#ref1">1</a>]</sup>. These were created by Wells in 1982
+by comparing the Received Pronunciation British (RP) and General American
+(GenAm) accents in use at that time.</p>
+
+<h3 id="short-vowels">Short Vowels</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Lexical Set</th>
+      <th>en</th>
+      <th>RP</th>
+      <th>GenAm</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>KIT</td>
+      <td><code>I</code></td>
+      <td>ɪ</td>
+      <td>ɪ</td>
+    </tr>
+    <tr>
+      <td>DRESS</td>
+      <td><code>E</code></td>
+      <td>e</td>
+      <td>ɛ</td>
+    </tr>
+    <tr>
+      <td>TRAP</td>
+      <td><code>a</code></td>
+      <td>æ</td>
+      <td>æ</td>
+    </tr>
+    <tr>
+      <td>LOT</td>
+      <td><code>0</code></td>
+      <td>ɒ</td>
+      <td>ɑ</td>
+    </tr>
+    <tr>
+      <td>STRUT</td>
+      <td><code>V</code></td>
+      <td>ʌ</td>
+      <td>ʌ</td>
+    </tr>
+    <tr>
+      <td>FOOT</td>
+      <td><code>U</code></td>
+      <td>ʊ</td>
+      <td>ʊ</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Additionally, Wells defines the following lexical sets to describe vowels that
+are different in both RP and GenAm:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Lexical Set</th>
+      <th>en</th>
+      <th>RP</th>
+      <th>GenAm</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>BATH</td>
+      <td><code>aa</code></td>
+      <td>ɑː</td>
+      <td>æ</td>
+    </tr>
+    <tr>
+      <td>CLOTH</td>
+      <td><code>O2</code></td>
+      <td>ɒ</td>
+      <td>ɔ</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="long-vowels">Long Vowels</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Lexical Set</th>
+      <th>en</th>
+      <th>RP</th>
+      <th>GenAm</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>FLEECE</td>
+      <td><code>i:</code></td>
+      <td>iː</td>
+      <td>i</td>
+    </tr>
+    <tr>
+      <td>PALM</td>
+      <td><code>A:</code></td>
+      <td>ɑː</td>
+      <td>ɑ</td>
+    </tr>
+    <tr>
+      <td>THOUGHT</td>
+      <td><code>O:</code></td>
+      <td>ɔː</td>
+      <td>ɔ</td>
+    </tr>
+    <tr>
+      <td>GOOSE</td>
+      <td><code>u:</code></td>
+      <td>uː</td>
+      <td>u</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="rhotic-vowels">Rhotic Vowels</h3>
+
+<p>These are vowels that are followed by an <code>r</code> that is not part of the next syllable
+when considering the root form of the word containing that vowel.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Lexical Set</th>
+      <th>en</th>
+      <th>en-GB-scotland</th>
+      <th>RP</th>
+      <th>GenAm</th>
+      <th>ScE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>NURSE</td>
+      <td><code>3:</code></td>
+      <td><code>VR</code></td>
+      <td>ɜː</td>
+      <td>ɝ</td>
+      <td>ʌɾ</td>
+    </tr>
+    <tr>
+      <td>START</td>
+      <td><code>A@</code></td>
+      <td><code>A@</code></td>
+      <td>ɑː</td>
+      <td>ɑɹ</td>
+      <td>ɐ̟ɾ</td>
+    </tr>
+    <tr>
+      <td>NORTH</td>
+      <td><code>O@</code></td>
+      <td><code>O@</code></td>
+      <td>ɔː</td>
+      <td>ɔɹ</td>
+      <td>ɔɾ</td>
+    </tr>
+    <tr>
+      <td>FORCE</td>
+      <td><code>o@</code></td>
+      <td><code>o@</code></td>
+      <td>ɔː</td>
+      <td>oɹ</td>
+      <td>oɾ</td>
+    </tr>
+    <tr>
+      <td>CURE</td>
+      <td><code>U@</code></td>
+      <td><code>U@</code></td>
+      <td>ʊə̯</td>
+      <td>ʊɹ</td>
+      <td>ʉɾ</td>
+    </tr>
+    <tr>
+      <td>NEAR</td>
+      <td><code>i@3</code></td>
+      <td><code>i@3</code></td>
+      <td>ɪə̯</td>
+      <td>ɪɹ</td>
+      <td>iɾ</td>
+    </tr>
+    <tr>
+      <td>SQUARE</td>
+      <td><code>e@</code></td>
+      <td><code>e@</code></td>
+      <td>eə̯</td>
+      <td>ɛɹ</td>
+      <td>eɾ</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>NOTE:</strong> <code>/i@3/</code> is used for the NEAR lexical set to differentiate it from
+<code>/i@/</code> used in words like <code>million</code>.</p>
+
+<p>Additionally, espeak-ng has the following phonemes for different accents:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Lexical Set</th>
+      <th>en</th>
+      <th>en-GB-scotland</th>
+      <th>RP</th>
+      <th>GenAm</th>
+      <th>ScE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>TERM</td>
+      <td><code>3:</code></td>
+      <td><code>3:</code></td>
+      <td>ɜː</td>
+      <td>ɝ</td>
+      <td>ɛɾ</td>
+    </tr>
+    <tr>
+      <td>BIRD</td>
+      <td><code>3:</code></td>
+      <td><code>IR</code></td>
+      <td>ɜː</td>
+      <td>ɝ</td>
+      <td>ɪɾ</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="reduced-vowels">Reduced Vowels</h3>
+
+<p>These are unstressed vowels that differ from the vowels in the main lexical sets.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Lexical Set</th>
+      <th>en</th>
+      <th>RP</th>
+      <th>GenAm</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>HAPPY</td>
+      <td><code>i</code></td>
+      <td>ɪ</td>
+      <td>i</td>
+    </tr>
+    <tr>
+      <td>COMMA</td>
+      <td><code>@</code></td>
+      <td>ə</td>
+      <td>ə</td>
+    </tr>
+    <tr>
+      <td>LETTER</td>
+      <td><code>3</code></td>
+      <td>ə</td>
+      <td>ɚ</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Additionally, espeak-ng has the following phonemes for unstressed vowels.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Lexical Set</th>
+      <th>en</th>
+      <th>BrE</th>
+      <th>RP</th>
+      <th>GenAm</th>
+      <th>JaE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>EXPLORE</td>
+      <td><code>e#</code></td>
+      <td>ɛ</td>
+      <td>ɪ</td>
+      <td>ɛ</td>
+      <td>ɛ</td>
+    </tr>
+    <tr>
+      <td>ROSES</td>
+      <td><code>I#</code></td>
+      <td>ɪ</td>
+      <td>ɪ</td>
+      <td>ᵻ</td>
+      <td>ɪ</td>
+    </tr>
+    <tr>
+      <td>BLESSED</td>
+      <td><code>I2#</code></td>
+      <td>ɪ</td>
+      <td>ɪ</td>
+      <td>ᵻ</td>
+      <td>ɛ</td>
+    </tr>
+    <tr>
+      <td>RABBIT</td>
+      <td><code>I2</code></td>
+      <td>ɪ</td>
+      <td>ɪ</td>
+      <td>ɪ</td>
+      <td>ɪ</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The EXPLORE lexical set is used to support unstressed KIT vowels that have split
+from the KIT vowel and merged with the DRESS vowel in some accents. This includes
+<code>ex-</code> words.</p>
+
+<p>The ROSES lexical set is used for words that are KIT in some accents and COMMA
+in others. The degree to which this occurs varies between accents and speakers.</p>
+
+<p>The BLESSED lexical set is used for -ed based adjectives. These tend to preserve
+the KIT vowel in accents.</p>
+
+<p>The RABBIT lexical set is used for unstressed KIT vowels. Some American accents
+have merged this with the COMMA lexical set, such that <code>rabbit</code> and <code>abbot</code>
+rhyme.</p>
+
+<h3 id="diphthongs">Diphthongs</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Lexical Set</th>
+      <th>en</th>
+      <th>RP</th>
+      <th>GenAm</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>FACE</td>
+      <td><code>eI</code></td>
+      <td>eɪ̯</td>
+      <td>eɪ̯</td>
+    </tr>
+    <tr>
+      <td>PRICE</td>
+      <td><code>aI</code></td>
+      <td>aɪ̯</td>
+      <td>aɪ̯</td>
+    </tr>
+    <tr>
+      <td>CHOICE</td>
+      <td><code>OI</code></td>
+      <td>ɔɪ̯</td>
+      <td>ɔɪ̯</td>
+    </tr>
+    <tr>
+      <td>GOAT</td>
+      <td><code>oU</code></td>
+      <td>əʊ̯</td>
+      <td>oʊ̯</td>
+    </tr>
+    <tr>
+      <td>MOUTH</td>
+      <td><code>aU</code></td>
+      <td>aʊ̯</td>
+      <td>aʊ̯</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="references">References</h2>
+
+<ol>
+  <li>
+    <p><a name="ref1"></a> Wikipedia.
+<a href="https://en.wikipedia.org/wiki/Lexical_set">Lexical set</a>. 2017.
+Creative Commons Attribution-Sharealike 3.0 Unported License (CC-BY-SA).</p>
+  </li>
+  <li>
+    <p><a name="ref2"></a> Wikipedia.
+<a href="https://en.wikipedia.org/wiki/International_Phonetic_Alphabet_chart_for_English_dialects">IPA chart for English dialects</a>. 2018.
+Creative Commons Attribution-Sharealike 3.0 Unported License (CC-BY-SA).</p>
+  </li>
+</ol>
+
+</body>
+</html>

@@ -1,0 +1,121 @@
+478   execve("/usr/bin/timeout", ["timeout", "5s", "/mnt/d/.dev/.competitions/.ctf/PwnSec CTF 2026/reverse/Zigerions/challenge/Pickle_Riiiiick"], 0x7ffff034ad98 /* 24 vars */) = 0
+478   access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+478   openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+478   openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+478   openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+478   openat(AT_FDCWD, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC) = 3
+478   openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_IDENTIFICATION", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+478   openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_IDENTIFICATION", O_RDONLY|O_CLOEXEC) = 3
+478   openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY|O_CLOEXEC) = 3
+478   openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MEASUREMENT", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+478   openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MEASUREMENT", O_RDONLY|O_CLOEXEC) = 3
+478   openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_TELEPHONE", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+478   openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_TELEPHONE", O_RDONLY|O_CLOEXEC) = 3
+478   openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_ADDRESS", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+478   openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_ADDRESS", O_RDONLY|O_CLOEXEC) = 3
+478   openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_NAME", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+478   openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_NAME", O_RDONLY|O_CLOEXEC) = 3
+478   openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_PAPER", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+478   openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_PAPER", O_RDONLY|O_CLOEXEC) = 3
+478   openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MESSAGES", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+478   openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MESSAGES", O_RDONLY|O_CLOEXEC) = 3
+478   openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MESSAGES/SYS_LC_MESSAGES", O_RDONLY|O_CLOEXEC) = 3
+478   openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MONETARY", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+478   openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MONETARY", O_RDONLY|O_CLOEXEC) = 3
+478   openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_COLLATE", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+478   openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_COLLATE", O_RDONLY|O_CLOEXEC) = 3
+478   openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_TIME", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+478   openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_TIME", O_RDONLY|O_CLOEXEC) = 3
+478   openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_NUMERIC", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+478   openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_NUMERIC", O_RDONLY|O_CLOEXEC) = 3
+478   openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_CTYPE", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+478   openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_CTYPE", O_RDONLY|O_CLOEXEC) = 3
+478   clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7eee1a2f6a10) = 479
+479   execve("/mnt/d/.dev/.competitions/.ctf/PwnSec CTF 2026/reverse/Zigerions/challenge/Pickle_Riiiiick", ["/mnt/d/.dev/.competitions/.ctf/PwnSec CTF 2026/reverse/Zigerions/challenge/Pickle_Riiiiick"], 0x7ffcce345ff8 /* 24 vars */ <unfinished ...>
+478   wait4(479, 0x7ffcce345d38, WNOHANG, NULL) = 0
+479   <... execve resumed>)             = 0
+479   readlinkat(AT_FDCWD, "/proc/self/exe", "/mnt/d/.dev/.competitions/.ctf/PwnSec CTF 2026/reverse/Zigerions/challenge/Pickle_Riiiiick", 4096) = 90
+479   clone3({flags=CLONE_VM|CLONE_VFORK|CLONE_CLEAR_SIGHAND, exit_signal=SIGCHLD, stack=0x77a7c403d000, stack_size=0x9000}, 88 <unfinished ...>
+480   execve("/bin/sh", ["sh", "-c", "--", "mkdir -p \"/home/user/.cache/.icons/.hidden\""], 0x7fffedf75d68 /* 24 vars */ <unfinished ...>
+479   <... clone3 resumed>)             = 480
+480   <... execve resumed>)             = 0
+479   wait4(480,  <unfinished ...>
+480   access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+480   openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+480   openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+480   newfstatat(AT_FDCWD, "/mnt/d/.dev/.competitions/.ctf/PwnSec CTF 2026", {st_mode=S_IFDIR|0777, st_size=512, ...}, 0) = 0
+480   newfstatat(AT_FDCWD, ".", {st_mode=S_IFDIR|0777, st_size=512, ...}, 0) = 0
+480   newfstatat(AT_FDCWD, "/usr/local/sbin/mkdir", 0x7ffe17eece60, 0) = -1 ENOENT (No such file or directory)
+480   newfstatat(AT_FDCWD, "/usr/local/bin/mkdir", 0x7ffe17eece60, 0) = -1 ENOENT (No such file or directory)
+480   newfstatat(AT_FDCWD, "/usr/sbin/mkdir", 0x7ffe17eece60, 0) = -1 ENOENT (No such file or directory)
+480   newfstatat(AT_FDCWD, "/usr/bin/mkdir", {st_mode=S_IFREG|0755, st_size=76296, ...}, 0) = 0
+480   vfork( <unfinished ...>
+481   execve("/usr/bin/mkdir", ["mkdir", "-p", "/home/user/.cache/.icons/.hidden"], 0x5896ae492938 /* 24 vars */ <unfinished ...>
+480   <... vfork resumed>)              = 481
+481   <... execve resumed>)             = 0
+480   wait4(-1,  <unfinished ...>
+481   access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+481   openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+481   openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libselinux.so.1", O_RDONLY|O_CLOEXEC) = 3
+481   openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+481   openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpcre2-8.so.0", O_RDONLY|O_CLOEXEC) = 3
+481   statfs("/sys/fs/selinux", {f_type=SYSFS_MAGIC, f_bsize=4096, f_blocks=0, f_bfree=0, f_bavail=0, f_files=0, f_ffree=0, f_fsid={val=[0xac310b98, 0x3e842fe6]}, f_namelen=255, f_frsize=4096, f_flags=ST_VALID|ST_NOSUID|ST_NODEV|ST_NOEXEC|ST_NOATIME}) = 0
+481   statfs("/selinux", 0x7ffe3a893e10) = -1 ENOENT (No such file or directory)
+481   openat(AT_FDCWD, "/proc/filesystems", O_RDONLY|O_CLOEXEC) = 3
+481   openat(AT_FDCWD, "/proc/mounts", O_RDONLY|O_CLOEXEC) = 3
+481   access("/etc/selinux/config", F_OK) = -1 ENOENT (No such file or directory)
+481   openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+481   openat(AT_FDCWD, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC) = 3
+481   openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_IDENTIFICATION", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+481   openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_IDENTIFICATION", O_RDONLY|O_CLOEXEC) = 3
+481   openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY|O_CLOEXEC) = 3
+481   openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MEASUREMENT", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+481   openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MEASUREMENT", O_RDONLY|O_CLOEXEC) = 3
+481   openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_TELEPHONE", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+481   openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_TELEPHONE", O_RDONLY|O_CLOEXEC) = 3
+481   openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_ADDRESS", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+481   openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_ADDRESS", O_RDONLY|O_CLOEXEC) = 3
+481   openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_NAME", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+481   openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_NAME", O_RDONLY|O_CLOEXEC) = 3
+481   openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_PAPER", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+481   openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_PAPER", O_RDONLY|O_CLOEXEC) = 3
+481   openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MESSAGES", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+481   openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MESSAGES", O_RDONLY|O_CLOEXEC) = 3
+481   openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MESSAGES/SYS_LC_MESSAGES", O_RDONLY|O_CLOEXEC) = 3
+481   openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MONETARY", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+481   openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MONETARY", O_RDONLY|O_CLOEXEC) = 3
+481   openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_COLLATE", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+481   openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_COLLATE", O_RDONLY|O_CLOEXEC) = 3
+481   openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_TIME", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+481   openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_TIME", O_RDONLY|O_CLOEXEC) = 3
+481   openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_NUMERIC", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+481   openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_NUMERIC", O_RDONLY|O_CLOEXEC) = 3
+481   openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_CTYPE", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+481   openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_CTYPE", O_RDONLY|O_CLOEXEC) = 3
+481   mkdir("/home", 0777)              = -1 EEXIST (File exists)
+481   chdir("/home")                    = 0
+481   mkdir("user", 0777)               = -1 EEXIST (File exists)
+481   chdir("user")                     = 0
+481   mkdir(".cache", 0777)             = -1 EEXIST (File exists)
+481   chdir(".cache")                   = 0
+481   mkdir(".icons", 0777)             = -1 EEXIST (File exists)
+481   chdir(".icons")                   = 0
+481   mkdir(".hidden", 0777)            = -1 EEXIST (File exists)
+481   newfstatat(AT_FDCWD, ".hidden", {st_mode=S_IFDIR|0755, st_size=4096, ...}, 0) = 0
+481   exit_group(0)                     = ?
+481   +++ exited with 0 +++
+480   <... wait4 resumed>[{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 481
+480   --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=481, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+480   wait4(-1, 0x7ffe17eecdbc, WNOHANG, NULL) = -1 ECHILD (No child processes)
+480   exit_group(0)                     = ?
+480   +++ exited with 0 +++
+479   <... wait4 resumed>[{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 480
+479   --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=480, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+479   openat(AT_FDCWD, "/home/user/.cache/.icons/.hidden/update.exe", O_WRONLY|O_CREAT|O_TRUNC, 0666) = 3
+479   chmod("/home/user/.cache/.icons/.hidden/update.exe", 0755) = 0
+479   exit_group(0)                     = ?
+479   +++ exited with 0 +++
+478   --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=479, si_uid=1000, si_status=0, si_utime=0, si_stime=10 /* 0.10 s */} ---
+478   wait4(479, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], WNOHANG, NULL) = 479
+478   exit_group(0)                     = ?
+478   +++ exited with 0 +++

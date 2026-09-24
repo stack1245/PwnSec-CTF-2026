@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width; initial-scale=1"/>
+<meta name="robots" content="all"/>
+<style type="text/css">
+body
+{
+	font-family: sans-serif;
+	font-size: 14px;
+	margin: 1em;
+}
+
+*:first-child
+{
+	margin-top: 0;
+}
+
+code, pre
+{
+	font-family: monospace;
+	background: #F7F7F7;
+	color: navy;
+}
+
+code
+{
+	font-size: 85%;
+	padding: 0.2em;
+}
+
+pre
+{
+	margin-left: 3em;
+	padding: 1em;
+}
+
+th
+{
+	text-align: left;
+}
+
+hr
+{
+	border: 0;
+	border-bottom: 1px solid #BBB;
+}
+</style>
+</head>
+<body>
+<h1 id="phoneme-tables">Phoneme Tables</h1>
+
+<ul>
+  <li><a href="#phoneme-files">Phoneme files</a></li>
+  <li><a href="#phoneme-definitions">Phoneme Definitions</a></li>
+  <li><a href="#phoneme-properties">Phoneme Properties</a>
+    <ul>
+      <li><a href="#type">Type</a></li>
+      <li><a href="#properties">Properties</a></li>
+      <li><a href="#starttype">starttype</a></li>
+      <li><a href="#endtype">endtype</a></li>
+      <li><a href="#lengthmod">lengthmod</a></li>
+      <li><a href="#voicingswitch">voicingswitch</a></li>
+    </ul>
+  </li>
+  <li><a href="#phoneme-instructions">Phoneme Instructions</a>
+    <ul>
+      <li><a href="#length">length</a></li>
+      <li><a href="#ipa">ipa</a></li>
+      <li><a href="#wav">WAV</a></li>
+      <li><a href="#fmt">FMT</a></li>
+      <li><a href="#vowelstart">VowelStart</a></li>
+      <li><a href="#vowelending">VowelEnding</a></li>
+      <li><a href="#vowelin">Vowelin</a></li>
+      <li><a href="#vowelout">Vowelout</a></li>
+      <li><a href="#changephoneme">ChangePhoneme</a></li>
+      <li><a href="#changeifdiminished">ChangeIfDiminished</a></li>
+      <li><a href="#changeifunstressed">ChangeIfUnstressed</a></li>
+      <li><a href="#changeifnotstressed">ChangeIfNotStressed</a></li>
+      <li><a href="#changeifstressed">ChangeIfStressed</a></li>
+      <li><a href="#ifnextvowelappend">IfNextVowelAppend</a></li>
+      <li><a href="#return">RETURN</a></li>
+      <li><a href="#call">CALL</a></li>
+    </ul>
+  </li>
+  <li><a href="#conditional-statements">Conditional Statements</a>
+    <ul>
+      <li><a href="#conditions">Conditions</a></li>
+      <li><a href="#attributes">Attributes</a></li>
+    </ul>
+  </li>
+  <li><a href="#sound-specifications">Sound Specifications</a></li>
+  <li><a href="#vowel-transitions">Vowel Transitions</a></li>
+  <li><a href="#customization-of-sound-source-files">Customization of sound source files</a></li>
+</ul>
+
+<hr />
+
+<p>A phoneme table defines all the phonemes which are used by a language,
+together with their properties and the data for their production as
+sounds.</p>
+
+<p>Generally each language has its own phoneme table, although additional
+phoneme tables can be used for different voices within the language.
+These alternatives are referenced from Voice files.</p>
+
+<p>A phoneme table does not need to define all the phonemes used by a
+language. It can inherit the phonemes from a previously defined phoneme
+table. For example, a phoneme table may redefine (or add) some of the
+vowels that it uses, but inherit most of its consonants from a standard
+set.</p>
+
+<p>The source files for the phoneme data are in the “phsource” directory.
+“Vowel files”, which are referenced in <code>FMT()</code>, <code>VowelStart()</code>, and <code>VowelEnding()</code>
+instructions are made using the <code>espeakedit</code> program which is not part of this project.
+See more in <a href="#customization-of-sound-source-files">Customization of sound source files</a>.</p>
+
+<h2 id="phoneme-files">Phoneme Files</h2>
+
+<p>The phoneme tables are defined in a master phoneme file, named
+<code>phonemes</code>. This starts with the <code>base</code> phoneme table followed by
+phoneme tables for other languages and voices. These inherit phonemes
+from the <code>base</code> table or previously defined tables.</p>
+
+<p>In addition to phoneme definitions, the phoneme file can contain the
+following:</p>
+
+<pre><code>include &lt;filename&gt;
+</code></pre>
+
+<p>Includes the text of the specified file at this point. This allows
+different phoneme tables to be kept in different text files, for
+convenience. &lt;filename&gt; is a relative path. The included file can
+itself contain <code>include</code> statements.</p>
+
+<pre><code>phonemetable &lt;name&gt; &lt;parent&gt;
+</code></pre>
+
+<p>Starts a new phoneme table, and ends the previous table.</p>
+
+<p>&lt;name&gt; Is the name of this phoneme table. This name is used in Voice files.</p>
+
+<p>&lt;parent&gt; Is the name of a previously defined phoneme table whose phoneme
+definitions are inherited by this one. The name <code>base</code> indicates the first
+(base) phoneme table. The name <code>_</code> indicates no parent phoneme table.</p>
+
+<h2 id="phoneme-definitions">Phoneme Definitions</h2>
+
+<p>A phoneme table contains a list of phoneme definitions. Each starts with
+the keyword <code>phoneme</code> and the phoneme name (this is the name used in
+the pronunciation rules in a language’s *_rules and *_list files),
+and ends with the keyword <code>endphoneme</code>.</p>
+
+<p>For example:</p>
+
+<pre><code>phoneme aI
+  vwl
+  starttype #a endtype #i
+  length 230
+  FMT(vowels/ai)
+endphoneme
+
+phoneme s
+  vls alv sib frc
+  voicingswitch z
+  lengthmod 3
+  Vowelin  f1=0  f2=1700 -300 300  f3=-100 80
+  Vowelout f1=0  f2=1700 -300 250  f3=-100 80  rms=20
+
+  IF nextPh(isPause) THEN
+    WAV(ufric/s_)
+  ELIF nextPh(p) OR nextPh(t) OR nextPh(k) THEN
+    WAV(ufric/s!)
+  ENDIF
+  WAV(ufric/s)
+endphoneme
+</code></pre>
+
+<p>A phoneme definition contains both static properties and executed
+instructions. The instructions may contain conditional statements, so
+that the effect of the phoneme may be different depending on adjacent
+phonemes, whether the syllable is stressed, etc.</p>
+
+<p>The instructions of a phoneme are interpreted in two different phases.
+In the first phase, the instructions may change the phoneme and replace
+it by a different phoneme. In the second phase, instructions are used to
+produce the sound for the phoneme.</p>
+
+<p>The <code>import_phoneme</code> statement can be used to copy a previously
+defined phoneme from a specified phoneme table. For example:</p>
+
+<pre><code>phoneme t
+  import_phoneme base/t[
+endphoneme
+</code></pre>
+
+<p>means: <code>phoneme t</code> in this phoneme table is a copy of<code>phoneme t[</code> from phoneme
+table <code>base</code>. A <code>length</code> instruction can be used after <code>import\_phoneme</code> to
+vary the length from the original.</p>
+
+<h2 id="phoneme-properties">Phoneme Properties</h2>
+
+<p>The phoneme features are described in the <a href="phonemes.html">Phonemes</a> document. These
+should be included within the <code>phoneme</code> to fully describe that phoneme.</p>
+
+<p>Within the phoneme definition the following lines may also occur: (<code>(V)</code> indicates
+only for vowels, <code>(C)</code> only for consonants).</p>
+
+<h3 id="type">Type</h3>
+
+<p>One of these or a manner of articulation from the <a href="phonemes.html">Phonemes</a> document
+must be present.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>liquid</code></td>
+      <td>semi-vowels, such as:  <code>r</code>, <code>l</code>, <code>j</code>, <code>w</code></td>
+    </tr>
+    <tr>
+      <td><code>pause</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>stress</code></td>
+      <td>Used for stress symbols, eg: <code>'</code> <code>,</code> <code>=</code> <code>%</code></td>
+    </tr>
+    <tr>
+      <td><code>virtual</code></td>
+      <td>Used to represent a class of phonemes.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="properties">Properties</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>rhotic</code></td>
+      <td>(C)</td>
+      <td>An <code>r</code> type consonant.</td>
+    </tr>
+    <tr>
+      <td><code>unstressed</code></td>
+      <td>(V)</td>
+      <td>This vowel is always unstressed, unless explicitly marked otherwise.</td>
+    </tr>
+    <tr>
+      <td><code>nolink</code></td>
+      <td> </td>
+      <td>Prevent any linking from the previous phoneme.</td>
+    </tr>
+    <tr>
+      <td><code>nopause</code></td>
+      <td> </td>
+      <td>Used in a <code>liquid</code> or <code>nasal</code> phoneme to prevent eSpeak NG inserting a short pause if a word starts with this phoneme and the previous word ends with a vowel.</td>
+    </tr>
+    <tr>
+      <td><code>trill</code></td>
+      <td>(C)</td>
+      <td>Apply trill to the voicing.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="starttype">starttype</h3>
+
+<pre><code>starttype &lt;phoneme&gt;
+</code></pre>
+
+<p>Allocates this phoneme to a group so that conditions such as <code>nextPh(#e)</code> can
+test for any of a group of phonemes. Pre-defined groups for use for vowels are:
+<code>#@</code> <code>#a</code> <code>#e</code> <code>#i</code> <code>#o</code> <code>#u</code>. Additional groups can be defined as phonemes
+with type <code>virtual</code>.</p>
+
+<h3 id="endtype">endtype</h3>
+
+<pre><code>endtype &lt;phoneme&gt;
+</code></pre>
+
+<p>Allocates this phoneme to a group so that conditions such as <code>prevPh(#e)</code> can
+test for any of a group of phonemes. Pre-defined groups for use for vowels are:
+<code>#@</code> <code>#a</code> <code>#e</code> <code>#i</code> <code>#o</code> <code>#u</code>. Additional groups can be defined as phonemes
+with type <code>virtual</code>.</p>
+
+<h3 id="lengthmod">lengthmod</h3>
+
+<pre><code>lengthmod &lt;integer&gt;
+</code></pre>
+
+<p>(C) Determines how this consonant affects the length of the previous vowel.</p>
+
+<p>This value is used as index into the <code>length_mods</code> table in the <code>CalcLengths()</code>
+function in the eSpeak NG program.</p>
+
+<h3 id="voicingswitch">voicingswitch</h3>
+
+<pre><code>voicingswitch &lt;phoneme&gt;
+</code></pre>
+
+<p>This is used for some languages to change between voiced and unvoiced phonemes.</p>
+
+<h2 id="phoneme-instructions">Phoneme Instructions</h2>
+
+<p>Phoneme Instructions may be included within conditional statements.</p>
+
+<p>During the first phase of phoneme interpretation, an instruction which
+causes a change to a different phoneme will terminate the instructions.
+During the second phase, <code>FMT()</code> and <code>WAV()</code> instructions will terminate the
+instructions.</p>
+
+<h3 id="length">length</h3>
+
+<pre><code>length &lt;length&gt;
+</code></pre>
+
+<p>The relative length of the phoneme in milliseconds. Typical values are about 
+140 for a short vowel and from 200 to 300 for a long vowel or a diphthong. 
+A <code>length()</code> instruction is needed for vowels. It is optional for consonants.</p>
+
+<h3 id="ipa">ipa</h3>
+
+<pre><code>ipa &lt;ipa string&gt;
+</code></pre>
+
+<p>In many cases, eSpeak NG makes IPA (International Phonetic Alphabet) phoneme
+names automatically from eSpeak NG phoneme names. If this is not correct, then
+the phoneme definition can include an <code>ipa</code> instruction to specify the correct
+IPA name. IPA strings may include non-ascii characters. They may also include
+characters specified by their character codes in the form <code>U+</code> followed by 4
+hexadecimal digits. For example a string: <code>aU+0303</code> indicates ‘a’ with a
+‘combining tilde’.</p>
+
+<h3 id="wav">WAV</h3>
+
+<pre><code>WAV(&lt;wav file&gt;, &lt;amplitude&gt;)
+</code></pre>
+
+<p>&lt;wav file&gt; is a path to a WAV file (22 kHz, 16 bits, mono) within <code>phsource/</code>
+which will be played to produce the sound. This method is used for unvoiced
+consonants. &lt;wavefile&gt; does not include a .WAV filename extension, although
+the file to which it refers may or may not have one.</p>
+
+<p>&lt;amplitude&gt; is optional. It is a percentage change to the amplitude of the
+WAV file. So, <code>WAV(ufric/s, 50)</code> means: play file ‘ufric/s.wav’ at 50% amplitude.
+Default value is 100.</p>
+
+<h3 id="fmt">FMT</h3>
+
+<pre><code>FMT(&lt;vowel file&gt;, &lt;amplitude&gt;)
+</code></pre>
+
+<p>&lt;vowel file&gt; is a path to a file (within <code>phsource/</code>) which defines how to
+generate the sound (a vowel or voiced consonant) from a sequence of formant
+values. Vowel files are made using the <code>espeakedit</code> program which is not part
+of this project.</p>
+
+<p>&lt;amplitude&gt; is optional. It is a percentage change to the amplitude of the
+sound which is synthesized from the <code>FMT()</code> instruction. Default value is 100.</p>
+
+<pre><code>FMT(&lt;vowel file&gt;, &lt;amplitude&gt;) addWav(&lt;wav file&gt;, &lt;amplitude&gt;)
+</code></pre>
+
+<p>For voiced consonants, a <code>FMT()</code> instruction may be followed by an <code>addWav()</code>
+instruction. <code>addWav()</code> has the same format as a <code>WAV()</code> instruction, but the
+WAV file is mixed with the sound which is synthesized from the <code>FMT()</code> instruction.</p>
+
+<h3 id="vowelstart">VowelStart</h3>
+
+<pre><code>VowelStart(&lt;vowel file&gt;, &lt;length adjust&gt;)
+</code></pre>
+
+<p>This is used to modify the start of a vowel when it follows after a sonorant consonant
+(such as <code>[l]</code> or <code>[j]</code>). It replaces the first frame of the &lt;vowel file&gt; which
+is specified in a <code>FMT()</code> instruction by this &lt;vowel file&gt;, and adjusts the
+length of the original by a signed value &lt;length adjust&gt;. The <code>VowelStart()</code>
+instruction may be specified either in the phoneme definition of the vowel, or
+in the phoneme definition of the sonorant consonant which precedes the vowel.
+The former takes precedence.</p>
+
+<h3 id="vowelending">VowelEnding</h3>
+
+<pre><code>VowelEnding(&lt;vowel file&gt;, &lt;length adjust&gt;)
+</code></pre>
+
+<p>This is used to modify the end of a vowel when it is followed by a sonorant
+consonant (such as <code>[l]</code> or <code>[j]</code>). It is appended to the &lt;vowel file&gt; which
+is specified in a <code>FMT()</code> instruction by this &lt;vowel file&gt;, and adjusts the
+length of the original by a signed value &lt;length adjust&gt;. The <code>VowelEnding()</code>
+instruction may be specified either in the phoneme definition of the vowel, or
+in the phoneme definition of the sonorant consonant which follows the vowel.
+The former takes precedence.</p>
+
+<h3 id="vowelin">Vowelin</h3>
+
+<pre><code>Vowelin &lt;vowel transition data&gt;
+</code></pre>
+
+<p>(C) Specifies the effects of this consonant on the formants of a following
+vowel. See <a href="#vowel-transitions">vowel transitions</a>.</p>
+
+<h3 id="vowelout">Vowelout</h3>
+
+<pre><code>Vowelout &lt;vowel transition data&gt;
+</code></pre>
+
+<p>(C) Specifies the effects of this consonant on the formants of a preceding
+vowel. See <a href="#vowel-transitions">vowel transitions</a>.</p>
+
+<h3 id="changephoneme">ChangePhoneme</h3>
+
+<pre><code>ChangePhoneme(&lt;phoneme&gt;)
+</code></pre>
+
+<p>Change to the specified phoneme.</p>
+
+<h3 id="changeifdiminished">ChangeIfDiminished</h3>
+
+<pre><code>ChangeIfDiminished(&lt;phoneme&gt;)
+</code></pre>
+
+<p>Change to the specified phoneme (such as schwa, <code>@</code>) if this syllable has
+“diminished” stress.</p>
+
+<h3 id="changeifunstressed">ChangeIfUnstressed</h3>
+
+<pre><code>ChangeIfUnstressed(&lt;phoneme&gt;)
+</code></pre>
+
+<p>Change to the specified phoneme if this syllable has “diminished” or
+“unstressed” stress.</p>
+
+<h3 id="changeifnotstressed">ChangeIfNotStressed</h3>
+
+<pre><code>ChangeIfNotStressed(&lt;phoneme&gt;)
+</code></pre>
+
+<p>Change to the specified phoneme if this syllable does not have “primary” stress.</p>
+
+<h3 id="changeifstressed">ChangeIfStressed</h3>
+
+<pre><code>ChangeIfStressed(&lt;phoneme&gt;)
+</code></pre>
+
+<p>Change to the specified phoneme if this syllable has “primary” stress.</p>
+
+<h3 id="ifnextvowelappend">IfNextVowelAppend</h3>
+
+<pre><code>IfNextVowelAppend(&lt;phoneme&gt;)
+</code></pre>
+
+<p>If the following phoneme is a vowel then this additional phoneme will be
+inserted before it. Usually it is short pause to distinguish two vowels from
+diphthongs.</p>
+
+<h3 id="return">RETURN</h3>
+
+<p>Ends executions of instructions.</p>
+
+<h3 id="call">CALL</h3>
+
+<pre><code>CALL &lt;phoneme table&gt;/&lt;phoneme&gt;
+</code></pre>
+
+<p>Executes the instructions of the specified phoneme.</p>
+
+<h2 id="conditional-statements">Conditional Statements</h2>
+
+<p>Phoneme definitions can contain conditional statements such as:</p>
+
+<pre><code>IF &lt;condition&gt; THEN
+    &lt;statements&gt;
+ENDIF
+</code></pre>
+
+<p>or more generally:</p>
+
+<pre><code>IF &lt;condition&gt; THEN
+    &lt;statements&gt;
+ELIF &lt;condition&gt; THEN
+    &lt;statements&gt;
+...
+ELSE
+    &lt;statements&gt;
+ENDIF
+</code></pre>
+
+<p>where the <code>ELSE</code> and multiple <code>ELSE</code> parts are optional.</p>
+
+<p>Multiple conditions may be joined with <code>AND</code> or <code>OR</code>, but not a mixture of
+<code>AND</code>s and <code>OR</code>s.</p>
+
+<p>A condition may be preceded by <code>NOT</code>. For example:</p>
+
+<pre><code>IF &lt;condition&gt; AND NOT &lt;condition&gt; THEN
+    &lt;statements&gt;
+ENDIF
+</code></pre>
+
+<h3 id="conditions">Conditions</h3>
+
+<p>Conditions can be:</p>
+
+<pre><code>thisPh(&lt;attribute&gt;)
+</code></pre>
+
+<p>Test this current phoneme</p>
+
+<pre><code>prevPh(&lt;attribute&gt;)
+</code></pre>
+
+<p>Test the previous phoneme</p>
+
+<pre><code>prevPhW(&lt;attribute&gt;)
+</code></pre>
+
+<p>Test the previous phoneme, but only within the same word. Returns false if
+there is no previous phoneme in the word.</p>
+
+<pre><code>prev2PhW(&lt;attribute&gt;)
+</code></pre>
+
+<p>Test the phoneme before the previous phoneme, but only within the same word.
+Returns false if it is not in this word.</p>
+
+<pre><code>nextPh(&lt;attribute&gt;)
+</code></pre>
+
+<p>Test the following phoneme</p>
+
+<pre><code>next2Ph(&lt;attribute&gt;)
+</code></pre>
+
+<p>Test the phoneme after the next phoneme.</p>
+
+<pre><code>nextPhW(&lt;attribute&gt;)
+</code></pre>
+
+<p>Test the next phoneme, but only within the same word. Returns false if there
+is no following phoneme in the word.</p>
+
+<pre><code>next2PhW(&lt;attribute&gt;)
+</code></pre>
+
+<p>Test the phoneme after the next phoneme, but only within the same word. Returns
+false if not found before the word end.</p>
+
+<pre><code>next3PhW(&lt;attribute&gt;)
+</code></pre>
+
+<p>Test the third phoneme after the current phoneme, but only within the same word.
+Returns false if not found before the word end.</p>
+
+<pre><code>nextVowel(&lt;attribute&gt;)
+</code></pre>
+
+<p>Test the next vowel after the current phoneme, but only within the same word.
+Returns false if there is none.</p>
+
+<pre><code>prevVowel(&lt;attribute&gt;)
+</code></pre>
+
+<p>Test the previous vowel before the current phoneme, but only within the same
+word. Returns false if there is none.</p>
+
+<pre><code>PreVoicing()
+</code></pre>
+
+<p>This is used as part of the instructions for voiced stop consonants (e.g. <code>[d]</code>
+and <code>[g]</code>). If true then produce a voiced murmur before the stop.</p>
+
+<pre><code>KlattSynth()
+</code></pre>
+
+<p>Returns true if the voice is using the Klatt synthesizer rather than the eSpeak synthesizer.</p>
+
+<h3 id="attributes">Attributes</h3>
+
+<pre><code>&lt;phoneme name&gt;
+</code></pre>
+
+<p>True if the phoneme has this phoneme name.</p>
+
+<pre><code>&lt;phoneme group&gt;
+</code></pre>
+
+<p>True if the phoneme has this <code>starttype</code> (or if it has this <code>endtype</code> if it is
+used in <code>prevPh()</code>). The pre-defined phoneme groups are <code>#@</code>, <code>#a</code>, <code>#e</code>, <code>#i</code>,
+<code>#o</code>, <code>#u</code>.</p>
+
+<pre><code>isPause
+</code></pre>
+
+<p>True if the phoneme is a pause.</p>
+
+<pre><code>isPause2
+</code></pre>
+
+<p><code>nextPh(isPause2)</code> is used to test whether the next phoneme is not a vowel or
+liquid consonant within the same word.</p>
+
+<pre><code>isVowel
+isNotVowel
+isLiquid
+isNasal
+isVFricative
+</code></pre>
+
+<p>These test the phoneme type.</p>
+
+<pre><code>isPalatal
+isRhotic
+</code></pre>
+
+<p>These test whether the phoneme has this property.</p>
+
+<pre><code>isWordStart
+notWordStart
+</code></pre>
+
+<p>These text whether this is the first phoneme in a word.</p>
+
+<pre><code>isWordEnd
+</code></pre>
+
+<p>True if this is the final phoneme in a word.</p>
+
+<pre><code>isFirstVowel
+isSecondVowel
+isFinalVowel
+</code></pre>
+
+<p>True if this is the First, Second, or Last vowel in a word.</p>
+
+<pre><code>isAfterStress
+</code></pre>
+
+<p>True if this phoneme is after the stressed vowel in a word.</p>
+
+<pre><code>isVoiced
+</code></pre>
+
+<p>True if this phoneme is a vowel or a voiced consonant.</p>
+
+<pre><code>isDiminished
+</code></pre>
+
+<p>True if the syllable stress is “diminished”</p>
+
+<pre><code>isUnstressed
+</code></pre>
+
+<p>True if the syllable stress is “diminished” or “unstressed”</p>
+
+<pre><code>isNotStressed
+</code></pre>
+
+<p>True if the syllable stress is not “primary stress”.</p>
+
+<pre><code>isStressed
+</code></pre>
+
+<p>True if the syllable stress is “primary stress”.</p>
+
+<pre><code>isMaxStress
+</code></pre>
+
+<p>True if this is the highest stressed syllable in the word.</p>
+
+<h2 id="sound-specifications">Sound Specifications</h2>
+
+<p>There are three ways to produce sounds:</p>
+
+<ul>
+  <li>Playing a WAV file, by using a <code>WAV()</code> instruction. This is used for unvoiced
+consonants such as <code>[p]</code>, <code>[t]</code> and <code>[s]</code>.</li>
+  <li>Generating a wave from a sequence of formant parameters, by using a <code>FMT()</code>
+instruction. This is used for vowels and also for sonorants such as <code>[l]</code>,
+<code>[j]</code> and <code>[n]</code>.</li>
+  <li>A mixture of these. A stored <code>WAV</code> file is mixed with a wave generated from
+formant parameters. Use a <code>FMT()</code> instruction followed by <code>addWav()</code>. This is
+used for voiced stops and fricatives such as <code>[b]</code>, <code>[g]</code>, <code>[v]</code> and <code>[z]</code>.</li>
+</ul>
+
+<h2 id="vowel-transitions">Vowel Transitions</h2>
+
+<p>These specify how a consonant affects an adjacent vowel. A consonant may
+cause a transition in the vowel’s formants as the mouth changes shape
+between the consonant and the vowel. The following attributes may be
+specified. Note that the maximum rate of change of formant frequencies
+is limited by the program.</p>
+
+<pre><code>len=&lt;integer&gt;
+</code></pre>
+
+<p>Nominal length of the transition in milliseconds. If omitted a default value is used.</p>
+
+<pre><code>rms=&lt;integer&gt;
+</code></pre>
+
+<p>Adjusts the amplitude of the vowel at the end of the transition. If omitted
+a default value is used.</p>
+
+<pre><code>f1=&lt;integer&gt;
+</code></pre>
+
+<p>0: f1 formant frequency unchanged.</p>
+
+<p>1: f1 formant frequency decreases.</p>
+
+<p>2: f1 formant frequency decreases more.</p>
+
+<pre><code>f2=&lt;freq&gt; &lt;min&gt; &lt;max&gt;
+</code></pre>
+
+<p>&lt;freq&gt;: The frequency towards which the f2 formant moves (Hz).</p>
+
+<p>&lt;min&gt;: Signed integer (Hz).  The minimum f2 frequency change.</p>
+
+<p>&lt;max&gt;: Signed integer (Hz).  The maximum f2 frequency change.</p>
+
+<pre><code>f3=&lt;change&gt; &lt;amplitude&gt;
+</code></pre>
+
+<p>&lt;change&gt;: Signed integer (Hz).  Frequency change of f3, f4, and f5 formants.</p>
+
+<p>&lt;amplitude&gt;: Amplitude of the f3, f4, and f5 formants at the end of the
+transition. 100 = no change.</p>
+
+<pre><code>brk
+</code></pre>
+
+<p>Break. Do not merge the synthesized wave of the consonant into the vowel. This
+will produce a discontinuity in the formants.</p>
+
+<pre><code>rate
+</code></pre>
+
+<p>Allow a greater maximum rate of change of formant frequencies.</p>
+
+<pre><code>glstop
+</code></pre>
+
+<p>Indicates a glottal stop.</p>
+
+<h2 id="customization-of-sound-source-files">Customization of sound source files</h2>
+
+<ul>
+  <li>You need <a href="http://espeak.sourceforge.net/editor.html">Espeakedit</a> to change sound parameters of vowel definition files.</li>
+</ul>
+
+<p>On Debian/Ubuntu based systems you can install it with command:</p>
+
+<p><code>
+sudo apt-get install espeakedit
+</code></p>
+
+<p>If your 64-bit Linux system doesn’t have this package, you can download just compiled binary file from
+<a href="https://github.com/valdisvi/espeak-ng-espeakedit/blob/master/bin/espeakedit?raw=true">here</a>.</p>
+
+<p>To edit *.wav files for sonorant/consonant phonemes you may also need:</p>
+
+<ul>
+  <li><a href="https://www.audacityteam.org/">Audacity</a> can be used as sound editor for consonant sounds (*.wav) files.
+Audacity may be also used to analyse <a href="https://manual.audacityteam.org/man/spectrogram_view.html">sound spectrum</a>
+(use maximum window size to see harmonics clearly).</li>
+</ul>
+
+<p>On Debian/Ubuntu based systems you can install it with command:</p>
+
+<p><code>
+sudo apt-get install audacity
+</code></p>
+
+<ul>
+  <li><a href="http://www.fon.hum.uva.nl/praat/">Praat</a> can be used to do more detailed analysis of recorded voice files.</li>
+</ul>
+
+<p>On Debian/Ubuntu based systems you can install it with command:</p>
+
+<p><code>
+sudo apt-get install praat
+</code></p>
+
+<p><code>Praat</code> can also provide initial settings for vowel definitions to <code>espeakedit</code>.</p>
+
+
+</body>
+</html>

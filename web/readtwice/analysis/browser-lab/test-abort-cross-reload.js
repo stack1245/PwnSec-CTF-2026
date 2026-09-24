@@ -1,0 +1,4 @@
+const http=require('node:http'),puppeteer=require('puppeteer');let seen=[];
+const b=http.createServer((q,r)=>{seen.push({site:q.headers['sec-fetch-site'],referer:q.headers.referer});setTimeout(()=>r.end('target'),100)});
+const a=http.createServer((q,r)=>r.end(`<script>location='http://localhost:${b.address().port}/target';setTimeout(()=>{stop();document.title=location.href;setTimeout(()=>location.reload(),200)},0)</script>`));
+(async()=>{await Promise.all([new Promise(x=>b.listen(0,'localhost',x)),new Promise(x=>a.listen(0,'127.0.0.1',x))]);let br=await puppeteer.launch({executablePath:process.env.CHROME_PATH,headless:'new'}),p=await br.newPage();await p.goto(`http://127.0.0.1:${a.address().port}/`);await new Promise(x=>setTimeout(x,1500));console.log({seen,url:p.url(),title:await p.title()});await br.close();a.close();b.close()})();

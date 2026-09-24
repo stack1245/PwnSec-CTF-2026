@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width; initial-scale=1"/>
+<meta name="robots" content="all"/>
+<style type="text/css">
+body
+{
+	font-family: sans-serif;
+	font-size: 14px;
+	margin: 1em;
+}
+
+*:first-child
+{
+	margin-top: 0;
+}
+
+code, pre
+{
+	font-family: monospace;
+	background: #F7F7F7;
+	color: navy;
+}
+
+code
+{
+	font-size: 85%;
+	padding: 0.2em;
+}
+
+pre
+{
+	margin-left: 3em;
+	padding: 1em;
+}
+
+th
+{
+	text-align: left;
+}
+
+hr
+{
+	border: 0;
+	border-bottom: 1px solid #BBB;
+}
+</style>
+</head>
+<body>
+<h1 id="kirshenbaum-ascii-ipa-transcription-scheme">Kirshenbaum (ASCII-IPA) Transcription Scheme</h1>
+
+<ul>
+  <li><a href="#phoneme-transcription-schemes">Phoneme Transcription Schemes</a></li>
+  <li><a href="#consonants">Consonants</a>
+    <ul>
+      <li><a href="#other-symbols">Other Symbols</a></li>
+    </ul>
+  </li>
+  <li><a href="#vowels">Vowels</a>
+    <ul>
+      <li><a href="#other-symbols-1">Other Symbols</a></li>
+    </ul>
+  </li>
+  <li><a href="#diacritics">Diacritics</a></li>
+  <li><a href="#suprasegmentals">Suprasegmentals</a>
+    <ul>
+      <li><a href="#stress">Stress</a></li>
+      <li><a href="#length">Length</a></li>
+    </ul>
+  </li>
+  <li><a href="#references">References</a></li>
+</ul>
+
+<hr />
+
+<p>The Kirshenbaum (ASCII-IPA) transcription scheme was created by Evan
+Kirshenbaum and others between 1991 and 1993 for use in Usenet and e-mail.
+Since then, the support for Unicode has greatly improved. An ASCII encoding
+of IPA is still useful as it is often easier to type.</p>
+
+<p>The Kirshenbaum transcription scheme defines a set of phoneme features that are
+described in eSpeak NG in the <a href="phonemes.html">phonemes</a> document. The <code>cainteoir</code>
+and <code>espeak-ng</code> phoneme features defined in that document are not useable in
+transcriptions using the Kirshenbaum transcription scheme. They are used here
+where relevant to define the Kirshenbaum phonemes in a consistent way across
+the different transcription schemes.</p>
+
+<p>Broad (phonemic) transcriptions are enclosed in <code>/</code> characters (<code>/p/</code>), while
+narrow (phonetic) transcriptions are wrapped in <code>[</code> and <code>]</code> characters (<code>[p]</code>).</p>
+
+<p>A phoneme can be transcribed as a named phoneme (<code>p</code>), or as a set of features
+wrapped in <code>{</code> and <code>}</code> characters (<code>{vls,blb,stp}</code>). A feature (typically a
+diacritic) of a phoneme can be added or modified by wrapping the feature in <code>&lt;</code>
+and <code>&gt;</code> characters after the base phoneme (<code>p&lt;dnt&gt;</code>).</p>
+
+<h2 id="phoneme-transcription-schemes">Phoneme Transcription Schemes</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>BCP47 Subtag</th>
+      <th>Abbreviation</th>
+      <th>Transcription Scheme</th>
+      <th>Encoding</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="../phonemes.html"><code>fonipa</code></a></td>
+      <td>IPA</td>
+      <td>International Phonetic Alphabet</td>
+      <td>Unicode</td>
+    </tr>
+    <tr>
+      <td><a href="xsampa.html"><code>fonxsamp</code></a></td>
+      <td>X-SAMPA</td>
+      <td>Extended Speech Assessment Methods Phonetic Alphabet</td>
+      <td>ASCII</td>
+    </tr>
+    <tr>
+      <td><a href="cxs.html"><code>x-foncxs</code></a></td>
+      <td>CXS</td>
+      <td>Conlang X-SAMPA</td>
+      <td>ASCII</td>
+    </tr>
+    <tr>
+      <td><code>x-fonkirsh</code></td>
+      <td> </td>
+      <td>Kirshenbaum (ASCII-IPA)</td>
+      <td>ASCII</td>
+    </tr>
+  </tbody>
+</table>
+
+<ol>
+  <li><code>foncxs</code> and <code>fonkirsh</code> are private use extensions defined in
+the <a href="https://raw.githubusercontent.com/espeak-ng/bcp47-data/master/bcp47-extensions">bcp47-extensions</a>
+file, so have the <code>x-</code> private use specifier before their subtag names.</li>
+</ol>
+
+<h2 id="consonants">Consonants</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th><code>blb</code></th>
+      <th> </th>
+      <th><code>lbd</code></th>
+      <th> </th>
+      <th><code>dnt</code></th>
+      <th> </th>
+      <th><code>alv</code></th>
+      <th> </th>
+      <th><code>pla</code></th>
+      <th> </th>
+      <th><code>rfx</code></th>
+      <th> </th>
+      <th><code>alp</code></th>
+      <th> </th>
+      <th><code>pal</code></th>
+      <th> </th>
+      <th><code>vel</code></th>
+      <th> </th>
+      <th><code>uvl</code></th>
+      <th> </th>
+      <th><code>phr</code></th>
+      <th> </th>
+      <th><code>glt</code></th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+    </tr>
+    <tr>
+      <td><code>nas</code></td>
+      <td> </td>
+      <td><code>m</code></td>
+      <td> </td>
+      <td><code>M</code></td>
+      <td> </td>
+      <td><code>n[</code></td>
+      <td> </td>
+      <td><code>n</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>n.</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>n^</code></td>
+      <td> </td>
+      <td><code>N</code></td>
+      <td> </td>
+      <td><code>n"</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>stp</code></td>
+      <td><code>p</code></td>
+      <td><code>b</code></td>
+      <td> </td>
+      <td> </td>
+      <td><code>t[</code></td>
+      <td><code>d[</code></td>
+      <td><code>t</code></td>
+      <td><code>d</code></td>
+      <td> </td>
+      <td> </td>
+      <td><code>t.</code></td>
+      <td><code>d.</code></td>
+      <td> </td>
+      <td> </td>
+      <td><code>c</code></td>
+      <td><code>J</code></td>
+      <td><code>k</code></td>
+      <td><code>g</code></td>
+      <td><code>q</code></td>
+      <td><code>G</code></td>
+      <td> </td>
+      <td> </td>
+      <td><code>?</code></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>sib</code> <code>afr</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>afr</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>lat</code> <code>afr</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>sib</code> <code>frc</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>s</code></td>
+      <td><code>z</code></td>
+      <td><code>S</code></td>
+      <td><code>Z</code></td>
+      <td><code>s.</code></td>
+      <td><code>z.</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>frc</code></td>
+      <td><code>P</code></td>
+      <td><code>B</code></td>
+      <td><code>f</code></td>
+      <td><code>v</code></td>
+      <td><code>T</code></td>
+      <td><code>D</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>C</code></td>
+      <td><code>C&lt;vcd&gt;</code></td>
+      <td><code>x</code></td>
+      <td><code>Q</code></td>
+      <td><code>X</code></td>
+      <td><code>g"</code></td>
+      <td><code>H</code></td>
+      <td><code>H&lt;vcd&gt;</code></td>
+      <td><code>h</code></td>
+      <td><code>h&lt;?&gt;</code></td>
+    </tr>
+    <tr>
+      <td><code>lat</code> <code>frc</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>s&lt;lat&gt;</code></td>
+      <td><code>z&lt;lat&gt;</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>apr</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>r&lt;lbd&gt;</code></td>
+      <td> </td>
+      <td><code>r[</code></td>
+      <td> </td>
+      <td><code>r</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>r.</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>j</code></td>
+      <td> </td>
+      <td><code>j&lt;vel&gt;</code></td>
+      <td> </td>
+      <td><code>g"</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>lat</code> <code>apr</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>l[</code></td>
+      <td> </td>
+      <td><code>l</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>l.</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>l^</code></td>
+      <td> </td>
+      <td><code>L</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>flp</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>*</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>*.</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>lat</code> <code>flp</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>*&lt;lat&gt;</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>trl</code></td>
+      <td> </td>
+      <td><code>b&lt;trl&gt;</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>r&lt;trl&gt;</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>r"</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>clk</code></td>
+      <td><code>p!</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>t!</code></td>
+      <td> </td>
+      <td><code>c!</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>c!</code></td>
+      <td> </td>
+      <td><code>k!</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>lat</code> <code>clk</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>l!</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>imp</code></td>
+      <td> </td>
+      <td><code>b`</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>d`</code></td>
+      <td> </td>
+      <td><code>d`</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>J`</code></td>
+      <td> </td>
+      <td><code>g`</code></td>
+      <td> </td>
+      <td><code>G`</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>ejc</code></td>
+      <td><code>p`</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>t[`</code></td>
+      <td> </td>
+      <td><code>t`</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>c`</code></td>
+      <td> </td>
+      <td><code>k`</code></td>
+      <td> </td>
+      <td><code>q`</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>ejc</code> <code>frc</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>lat</code> <code>ejc</code> <code>frc</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<ol>
+  <li>
+    <p><code>h</code> is transcribed as <code>{glt,apr}</code> in ASCII-IPA. It is transcribed as
+<code>{glt,frc}</code> in this document to match the assignment used in the
+Wikipedia IPA table, and the placement in other documents in eSpeak NG.
+The IPA chart places them as being <code>{frc}</code> or <code>{apr}</code>, as does the main
+Wikipedia page for the <code>[h]</code> phoneme.</p>
+  </li>
+  <li>
+    <p>The <code>q`</code> phoneme is incorrectly placed in the segment table (Appendix D)
+of the ASCII-IPA document. According to the diacritics list (Appendix C),
+the <code>`</code> character denotes an <code>{ejc}</code> phoneme for a <code>{vls}</code> base
+phoneme, not <code>{imp}</code> which is used for <code>{vcd}</code> base phonemes. The table
+above uses the correct assignment.</p>
+  </li>
+  <li>
+    <p>The <code>L</code> phoneme has an alternate meaning in ASCII-IPA. This document only
+describes the variant preferred by Evan Kirshenbaum.</p>
+  </li>
+</ol>
+
+<h3 id="other-symbols">Other Symbols</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th><code>bld</code></th>
+      <th> </th>
+      <th><code>alv</code></th>
+      <th> </th>
+      <th><code>pla</code></th>
+      <th> </th>
+      <th><code>pal</code></th>
+      <th> </th>
+      <th><code>lbv</code></th>
+      <th> </th>
+      <th><code>vel</code></th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+      <td><code>vls</code></td>
+      <td><code>vcd</code></td>
+    </tr>
+    <tr>
+      <td><code>nas</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>n&lt;lbv&gt;</code></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>stp</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>t&lt;lbv&gt;</code></td>
+      <td><code>d&lt;lbv&gt;</code></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>afr</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>vzd</code> <code>frc</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>ptr</code> <code>apr</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>w&lt;vls&gt;</code></td>
+      <td><code>w</code></td>
+    </tr>
+    <tr>
+      <td><code>fzd</code> <code>lat</code> <code>apr</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<ol>
+  <li>The <code>w</code> phoneme is transcribed as being <code>{vcd,lbv,frc}</code> or <code>{lbv,apr}</code>, and
+<code>w&lt;vls&gt;</code> as <code>{vls,lbv,frc}</code> in ASCII-IPA. They are transcribed as
+<code>{ptr,vel,apr}</code> in this document to match their definition as labialized
+velar approximants in the IPA chart.</li>
+</ol>
+
+<h2 id="vowels">Vowels</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th><code>fnt</code></th>
+      <th> </th>
+      <th><code>cnt</code></th>
+      <th> </th>
+      <th><code>bck</code></th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td><code>unr</code></td>
+      <td><code>rnd</code></td>
+      <td><code>unr</code></td>
+      <td><code>rnd</code></td>
+      <td><code>unr</code></td>
+      <td><code>rnd</code></td>
+    </tr>
+    <tr>
+      <td><code>hgh</code></td>
+      <td><code>i</code></td>
+      <td><code>y</code></td>
+      <td><code>i"</code></td>
+      <td><code>u"</code></td>
+      <td><code>u-</code></td>
+      <td><code>u</code></td>
+    </tr>
+    <tr>
+      <td><code>smh</code></td>
+      <td><code>I</code></td>
+      <td><code>I.</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><code>U</code></td>
+    </tr>
+    <tr>
+      <td><code>umd</code></td>
+      <td><code>e</code></td>
+      <td><code>Y</code></td>
+      <td><code>@&lt;umd&gt;</code></td>
+      <td> </td>
+      <td><code>o-</code></td>
+      <td><code>o</code></td>
+    </tr>
+    <tr>
+      <td><code>mid</code></td>
+      <td> </td>
+      <td> </td>
+      <td><code>@</code></td>
+      <td><code>@.</code></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>lmd</code></td>
+      <td><code>E</code></td>
+      <td><code>W</code></td>
+      <td><code>V"</code></td>
+      <td><code>O"</code></td>
+      <td><code>V</code></td>
+      <td><code>O</code></td>
+    </tr>
+    <tr>
+      <td><code>sml</code></td>
+      <td><code>&amp;</code></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>low</code></td>
+      <td><code>a</code></td>
+      <td><code>a.</code></td>
+      <td> </td>
+      <td> </td>
+      <td><code>A</code></td>
+      <td><code>A.</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<ol>
+  <li>
+    <p>The <code>&amp;</code> phoneme is transcribed as being <code>{low,fnt,unr,vwl}</code>, and <code>a</code> as
+<code>{low,cnt,unr,vwl}</code> in ASCII-IPA. This does not match their placement in
+the IPA chart according to the Unicode characters those ASCII-IPA
+phonemes map to. As such, the table above reflects their IPA chart
+positions.</p>
+  </li>
+  <li>
+    <p>The <code>&amp;.</code> phoneme is defined in the segment table (Appendix D) of the
+ASCII-IPA definition. According to the IPA charts, this is not a valid
+phoneme. As such, it is not listed in the table above.</p>
+  </li>
+  <li>
+    <p>The <code>W</code> and <code>Y</code> phonemes have an alternate meaning in ASCII-IPA. This
+document only describes the variant preferred by Evan Kirshenbaum.</p>
+  </li>
+</ol>
+
+<h3 id="other-symbols-1">Other Symbols</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Features</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>R</code></td>
+      <td><code>unr</code> <code>mid</code> <code>cnt</code> <code>rzd</code> <code>vwl</code></td>
+    </tr>
+    <tr>
+      <td><code>R&lt;umd&gt;</code></td>
+      <td><code>unr</code> <code>lmd</code> <code>cnt</code> <code>rzd</code> <code>vwl</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<ol>
+  <li>
+    <p>The <code>R&lt;umd&gt;</code> phoneme is transcribed as being <code>{umd,cnt,unr,rzd,vwl}</code> in
+ASCII-IPA. However, the IPA phoneme it is representing is based on the
+<code>{lmd}</code> vowel. The table above keeps the <code>&lt;umd&gt;</code> modifying feature to be
+compatible with ASCII-IPA, but assigns it to <code>{lmd}</code> in this case to be
+compatible with the IPA chart.</p>
+  </li>
+  <li>
+    <p>The <code>R</code> phoneme has an alternate meaning in ASCII-IPA. This document only
+describes the variant preferred by Evan Kirshenbaum.</p>
+  </li>
+</ol>
+
+<h2 id="diacritics">Diacritics</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Feature</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>!</code></td>
+      <td><code>{clk}</code></td>
+    </tr>
+    <tr>
+      <td><code>[</code></td>
+      <td><code>{dnt}</code></td>
+    </tr>
+    <tr>
+      <td><code>;</code></td>
+      <td><code>{pzd}</code></td>
+    </tr>
+    <tr>
+      <td><code>^</code></td>
+      <td><code>{pal}</code></td>
+    </tr>
+    <tr>
+      <td><code>&lt;H&gt;</code></td>
+      <td><code>{fzd}</code></td>
+    </tr>
+    <tr>
+      <td><code>&lt;h&gt;</code></td>
+      <td><code>{asp}</code></td>
+    </tr>
+    <tr>
+      <td><code>&lt;o&gt;</code></td>
+      <td><code>{unx}</code></td>
+    </tr>
+    <tr>
+      <td><code>&lt;r&gt;</code></td>
+      <td><code>{rzd}</code></td>
+    </tr>
+    <tr>
+      <td><code>&lt;w&gt;</code></td>
+      <td><code>{ptr}</code></td>
+    </tr>
+    <tr>
+      <td><code>&lt;?&gt;</code></td>
+      <td><code>{brv}</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<ol>
+  <li>
+    <p>The <code>&lt;o&gt;</code> diacritic has an alternate meaning in ASCII-IPA. This document
+only describes the variant preferred by Evan Kirshenbaum.</p>
+  </li>
+  <li>
+    <p>The <code>{ptr}</code> (protruded) feature is specified as <code>{lzd}</code> (labialized) in
+ASCII-IPA.</p>
+  </li>
+  <li>
+    <p>The <code>{brv}</code> (breathy voice) feature is specified as <code>{mrm}</code> (murmured)
+in ASCII-IPA.</p>
+  </li>
+</ol>
+
+<p>The ASCII-IPA transcription scheme defines several diacritics that vary in
+meaning depending on whether the base phoneme is a vowel or consonant.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Vowel</th>
+      <th>Consonant</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>~</code></td>
+      <td><code>{nzd}</code></td>
+      <td><code>{vzd}</code></td>
+    </tr>
+    <tr>
+      <td><code>-</code></td>
+      <td><code>{unr}</code></td>
+      <td><code>{syl}</code></td>
+    </tr>
+    <tr>
+      <td><code>.</code></td>
+      <td><code>{rnd}</code></td>
+      <td><code>{rfx}</code></td>
+    </tr>
+    <tr>
+      <td><code>"</code></td>
+      <td><code>{cnt}</code></td>
+      <td><code>{uvl}</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The ASCII-IPA transcription scheme defines several diacritics that vary in
+meaning depending on the voicing of the base phoneme.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Voiceless</th>
+      <th>Voiced</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>`</code></td>
+      <td><code>{ejc}</code></td>
+      <td><code>{imp}</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="suprasegmentals">Suprasegmentals</h2>
+
+<h3 id="stress">Stress</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>'</code></td>
+      <td>primary stress</td>
+    </tr>
+    <tr>
+      <td><code>,</code></td>
+      <td>secondary stress</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="length">Length</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Feature</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>:</code></td>
+      <td><code>{lng}</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="references">References</h2>
+
+<ol>
+  <li><a name="ref1"></a> Kirshenbaum, Evan,
+<a href="https://web.archive.org/web/20160419125856/http://www.kirshenbaum.net/IPA/faq.html">Representing IPA phonetics in ASCII</a> (HTML).
+    <time datetime="1993-01-04T00:00">1993</time>
+    <p>. Updated <time datetime="2003-04-30T00:00">2003</time>.</p>
+  </li>
+  <li><a name="ref2"></a> Kirshenbaum, Evan,
+<a href="https://web.archive.org/web/20160419125856/http://www.kirshenbaum.net/IPA/ascii-ipa.pdf">Representing IPA phonetics in ASCII</a> (PDF).
+    <time datetime="2001-02-22T00:00">2001</time>
+    <p>. Updated <time datetime="2011-09-06T00:00">2011</time>.</p>
+  </li>
+</ol>
+
+</body>
+</html>

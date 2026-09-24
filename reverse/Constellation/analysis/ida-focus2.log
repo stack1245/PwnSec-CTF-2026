@@ -1,0 +1,47 @@
+
+  bytes   pages size description
+--------- ----- ---- --------------------------------------------
+  3850240   470 8192 allocating memory for b-tree...
+  2072576   253 8192 allocating memory for virtual array...
+   262144    32 8192 allocating memory for name pointers...
+-----------------------------------------------------------------
+  6184960            total memory allocated
+
+Loading processor module C:\Program Files\IDA Professional 9.4\procs\pc.dll for metapc...OK
+Loading type libraries...
+Autoanalysis subsystem has been initialized.
+Database for file 'main.exe' has been loaded.
+Hex-Rays Decompiler plugin has been loaded (v9.4.0.260714)
+  License: 14-0000-FFFF-88  (1 user)
+  The hotkeys are F5: decompile, Ctrl-F5: decompile all.
+
+  Please check the Edit/Plugins menu for more information.
+Hex-rays version 9.4.0.260714 has been detected, gooMBA plugin ready to use
+Using type parser: legacy
+D:\.dev\.competitions\.ctf\PwnSec CTF 2026\reverse\Constellation\analysis\ida_focus.py:35: DeprecationWarning: get_func() is deprecated, use get_func_start or get_func_entry_info()
+  fn = ida_funcs.get_func(xref.frm)
+140002A50: restored microcode from idb
+140002A50: restored pseudocode from idb
+140004120: restored microcode from idb
+140004120: restored pseudocode from idb
+1400043F0: restored microcode from idb
+1400043F0: restored pseudocode from idb
+1400057D0: restored microcode from idb
+1400057D0: restored pseudocode from idb
+140007700: restored microcode from idb
+140007700: restored pseudocode from idb
+14001F930: restored microcode from idb
+14001F930: restored pseudocode from idb
+1400352C0: restored microcode from idb
+1400352C0: restored pseudocode from idb
+The decompiler assumes that the segment '.rdata' is read-only because of its NAME.
+All data references to the segment will be replaced by constant values.
+This may lead to drastic changes in the decompiler output.
+If the segment is not read-only, please change the segment NAME.
+
+In general, the decompiler checks the segment permissions, class, and name
+to determine if it is read-only.
+ -> OK
+Wrote D:\.dev\.competitions\.ctf\PwnSec CTF 2026\reverse\Constellation\analysis\ida_focus.txt
+Flushing buffers, please wait...ok
+Unloading IDP module C:\Program Files\IDA Professional 9.4\procs\pc.dll...

@@ -1,0 +1,4 @@
+const http=require('node:http'),puppeteer=require('puppeteer');let seen=[];
+const b=http.createServer((q,r)=>{seen.push({url:q.url,site:q.headers['sec-fetch-site'],purpose:q.headers['sec-purpose']});if(q.url.startsWith('/sandbox')){r.setHeader('content-security-policy','sandbox allow-scripts');r.end(q.url.includes('x=1')?`<script type=speculationrules>{"prefetch":[{"source":"list","urls":["/dest"]}]}<\/script>`:`<script>location='/sandbox?x=1'</script>`)}else r.end('ok')});
+const a=http.createServer((q,r)=>r.end(`<script>open('http://localhost:${b.address().port}/sandbox')</script>`));
+(async()=>{await Promise.all([new Promise(x=>b.listen(0,'localhost',x)),new Promise(x=>a.listen(0,'127.0.0.1',x))]);let br=await puppeteer.launch({executablePath:process.env.CHROME_PATH,headless:'new'}),p=await br.newPage();await p.goto(`http://127.0.0.1:${a.address().port}/`);await new Promise(x=>setTimeout(x,1500));console.log(seen);await br.close();a.close();b.close()})();

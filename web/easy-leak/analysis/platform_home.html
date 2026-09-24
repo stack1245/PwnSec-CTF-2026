@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>PwnSec CTF 2026</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/png" href="assets/favicon.png" />
+<link rel="apple-touch-icon" href="assets/favicon.png" />
+<meta name="description" content="PwnSec CTF 2026 — a 24-hour online jeopardy Capture The Flag hosted by PwnSec. Starts September 12, 2026 at 14:00 UTC. Registration opens soon." />
+<meta name="theme-color" content="#0e1a47" />
+<meta name="author" content="PwnSec" />
+
+<!-- Open Graph (Discord, WhatsApp, Facebook, LinkedIn) -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="PwnSec CTF" />
+<meta property="og:url" content="https://ctf.pwnsec.team/" />
+<meta property="og:title" content="PwnSec CTF 2026" />
+<meta property="og:description" content="A 24-hour online jeopardy CTF hosted by PwnSec. Starts September 12, 2026 · 14:00 UTC. Registration opens soon." />
+<meta property="og:image" content="https://ctf.pwnsec.team/assets/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:alt" content="PwnSec CTF 2026" />
+
+<!-- Twitter / X card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@_PwnSec_" />
+<meta name="twitter:title" content="PwnSec CTF 2026" />
+<meta name="twitter:description" content="A 24-hour online jeopardy CTF hosted by PwnSec. Starts September 12, 2026 · 14:00 UTC." />
+<meta name="twitter:image" content="https://ctf.pwnsec.team/assets/og.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --navy-900: #0a1638;
+    --navy-800: #0e1a47;
+    --navy-700: #14245a;
+    --gold-500: #f5c518;
+    --gold-400: #ffd84d;
+    --gold-600: #d39e0c;
+    --fire-500: #ff7a1a;
+    --maroon: #5a1a0d;
+    --crt-green: #7dffa0;
+    --lock-red: #ff5a52;
+    --pixel: 'Press Start 2P', monospace;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Space Grotesk', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { min-height: 100%; }
+  body {
+    background: var(--navy-900);
+    color: #fff;
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img.pixel { image-rendering: pixelated; }
+  a { color: inherit; }
+
+  .stage {
+    position: relative;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* background */
+  .bg {
+    position: fixed; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 70% 55% at 50% 42%, rgba(245,197,24,0.15), transparent 62%),
+      radial-gradient(ellipse 55% 45% at 82% 84%, rgba(255,122,26,0.12), transparent 60%),
+      linear-gradient(180deg, #14245a 0%, #0e1a47 55%, #0a1638 100%);
+  }
+  .bg::before {
+    content: ""; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 26px 26px;
+    mask-image: radial-gradient(ellipse 100% 90% at 50% 40%, black 30%, transparent 85%);
+  }
+  .scanlines {
+    pointer-events: none; position: fixed; inset: 0; z-index: 40;
+    background-image: repeating-linear-gradient(to bottom,
+      rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px, rgba(0,0,0,0.08) 3px, rgba(0,0,0,0) 4px);
+    opacity: 0.5;
+  }
+
+  .wrap {
+    position: relative; z-index: 10;
+    width: 100%; max-width: 1180px; margin: 0 auto;
+    flex: 1; display: flex; flex-direction: column;
+    padding: 22px 36px 30px;
+  }
+
+  /* ---- top status bar ---- */
+  .statusbar {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+    color: rgba(255,255,255,0.5);
+    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(0,0,0,0.28);
+    padding: 8px 14px; border-radius: 4px;
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    margin-bottom: 22px;
+  }
+  .statusbar .prompt { color: var(--crt-green); }
+  .statusbar .path { color: rgba(255,255,255,0.8); }
+  .statusbar .lockflag {
+    margin-left: auto; color: var(--lock-red); font-weight: 700;
+    display: inline-flex; align-items: center; gap: 7px;
+  }
+  .statusbar .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--lock-red); box-shadow: 0 0 8px var(--lock-red);
+    animation: blink 1.4s steps(2, start) infinite;
+  }
+  @keyframes blink { 0%,60% { opacity: 1; } 61%,100% { opacity: 0.25; } }
+
+  /* ---- header ---- */
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 20px; margin-bottom: 8px;
+  }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .brand img { width: 52px; height: 52px; filter: drop-shadow(0 2px 0 rgba(0,0,0,0.5)); }
+  .brand .name { font-family: var(--pixel); font-size: 15px; color: var(--gold-400); text-shadow: 2px 2px 0 #000; }
+  .brand .sub { font-family: var(--mono); font-size: 10.5px; color: rgba(255,255,255,0.55); letter-spacing: 0.12em; margin-top: 6px; }
+  nav { display: flex; gap: 12px; align-items: center; }
+  .navlock {
+    position: relative; cursor: not-allowed; user-select: none;
+    font-family: var(--mono); font-size: 11px; font-weight: 600;
+    color: rgba(255,255,255,0.42); letter-spacing: 0.06em; text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 7px 11px; border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 4px; background: rgba(0,0,0,0.2);
+    transition: border-color .15s, color .15s;
+  }
+  .navlock:hover { border-color: rgba(255,90,82,0.45); color: rgba(255,255,255,0.6); }
+  .navlock .ic { font-size: 10px; opacity: 0.9; }
+
+  /* ---- hero / countdown gate ---- */
+  .gate {
+    flex: 1;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; gap: 22px;
+    padding: 44px 0 40px;
+  }
+  .gate .logo {
+    width: 150px;
+    filter: drop-shadow(0 6px 0 rgba(0,0,0,0.45)) drop-shadow(0 0 26px rgba(255,122,26,0.32));
+    animation: bob 4s ease-in-out infinite;
+  }
+  @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+
+  .eyebrow {
+    font-family: var(--pixel); font-size: 9px; color: var(--fire-500);
+    letter-spacing: 0.16em; text-shadow: 1px 1px 0 rgba(0,0,0,0.6);
+  }
+  .gate h1 {
+    font-family: var(--pixel); font-size: 40px; line-height: 1.28; color: #ffeb8c;
+    text-shadow: 2px 2px 0 var(--maroon), 5px 5px 0 rgba(0,0,0,0.55);
+    text-transform: uppercase; letter-spacing: 0.02em;
+  }
+  .gate h1 .year { color: var(--fire-500); text-shadow: 2px 2px 0 var(--maroon), 5px 5px 0 rgba(0,0,0,0.55); }
+  .tagline {
+    font-family: var(--mono); font-size: 14px; line-height: 1.65; color: rgba(255,255,255,0.82);
+    max-width: 500px;
+  }
+
+  /* countdown */
+  .countdown {
+    display: flex; align-items: flex-start; justify-content: center; gap: 10px;
+    margin-top: 6px;
+  }
+  .unit { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .unit .cell {
+    font-family: var(--pixel); font-size: 42px; color: var(--gold-400);
+    background: rgba(3,8,26,0.72);
+    border: 1px solid rgba(245,197,24,0.28);
+    border-radius: 8px;
+    box-shadow: inset 0 0 22px rgba(245,197,24,0.08), 0 6px 0 rgba(0,0,0,0.35);
+    padding: 20px 18px 16px; min-width: 104px;
+    text-shadow: 2px 2px 0 var(--maroon);
+    font-variant-numeric: tabular-nums;
+  }
+  .unit .lbl {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+  }
+  .sep {
+    font-family: var(--pixel); font-size: 34px; color: rgba(245,197,24,0.55);
+    padding-top: 22px; animation: blink 1.4s steps(2, start) infinite;
+  }
+
+  .unlockline {
+    font-family: var(--mono); font-size: 12.5px; color: var(--crt-green);
+    letter-spacing: 0.05em; font-weight: 600;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .unlockline .lk { color: var(--gold-400); }
+
+  /* locked CTA */
+  .cta { display: flex; gap: 14px; margin-top: 4px; flex-wrap: wrap; justify-content: center; }
+  .btn-lock {
+    font-family: var(--pixel); font-size: 10px; text-transform: uppercase; letter-spacing: 0.03em;
+    cursor: not-allowed; user-select: none;
+    background: rgba(245,197,24,0.12); color: var(--gold-400);
+    box-shadow: inset 0 0 0 1px rgba(245,197,24,0.4);
+    padding: 15px 20px; border-radius: 4px;
+    display: inline-flex; align-items: center; gap: 10px; line-height: 1.5;
+  }
+  .btn-lock .ic { font-size: 11px; }
+  .btn-ghost {
+    font-family: var(--mono); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+    color: rgba(255,255,255,0.75); text-decoration: none;
+    padding: 15px 20px; border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.16);
+    display: inline-flex; align-items: center; gap: 9px;
+    transition: border-color .15s, color .15s;
+  }
+  .btn-ghost:hover { border-color: var(--gold-500); color: var(--gold-400); }
+
+  /* event detail chips */
+  .chips {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+    margin-top: 4px;
+  }
+  .chip {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+    color: rgba(255,255,255,0.82);
+    border: 1px solid rgba(255,255,255,0.12); background: rgba(0,0,0,0.22);
+    padding: 8px 13px; border-radius: 999px;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .chip b { color: var(--gold-400); font-weight: 700; }
+
+  /* ---- locked modules ---- */
+  .modules-head {
+    display: flex; align-items: center; gap: 12px; margin: 6px 0 16px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+  }
+  .modules-head::after { content: ""; flex: 1; height: 1px; background: rgba(255,255,255,0.1); }
+  .modules {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+  }
+  .mod {
+    position: relative; overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.10); border-radius: 8px;
+    background: rgba(3,8,26,0.5);
+    padding: 20px 18px; cursor: not-allowed; user-select: none;
+    transition: border-color .15s, transform .12s;
+  }
+  .mod:hover { border-color: rgba(255,90,82,0.4); transform: translateY(-2px); }
+  .mod .padlock {
+    position: absolute; top: 12px; right: 12px;
+    font-size: 13px; color: var(--lock-red);
+  }
+  .mod .mic { font-size: 22px; margin-bottom: 12px; opacity: 0.92; }
+  .mod .mt { font-family: var(--pixel); font-size: 11px; color: #fff; letter-spacing: 0.02em; }
+  .mod .md { font-family: var(--mono); font-size: 11px; color: rgba(255,255,255,0.55); margin-top: 10px; line-height: 1.5; }
+  .mod .tag {
+    display: inline-flex; align-items: center; gap: 6px; margin-top: 14px;
+    font-family: var(--mono); font-size: 9.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--lock-red);
+    border: 1px solid rgba(255,90,82,0.35); background: rgba(255,90,82,0.08);
+    padding: 4px 8px; border-radius: 4px;
+  }
+  .mod::after {
+    content: ""; position: absolute; inset: 0;
+    background: repeating-linear-gradient(-45deg,
+      rgba(255,90,82,0.05) 0 10px, transparent 10px 20px);
+    pointer-events: none;
+  }
+
+  /* ---- footer ---- */
+  footer {
+    margin-top: 30px; padding-top: 18px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 18px; flex-wrap: wrap;
+  }
+  .foot-note { font-family: var(--mono); font-size: 11px; color: rgba(255,255,255,0.45); letter-spacing: 0.04em; }
+  .foot-note b { color: var(--gold-400); font-weight: 700; }
+  .links { display: flex; gap: 18px; align-items: center; }
+  .links a {
+    font-family: var(--mono); font-size: 11px; font-weight: 600;
+    color: rgba(255,255,255,0.7); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase;
+    transition: color .12s;
+  }
+  .links a:hover { color: var(--gold-400); }
+
+  /* ---- unlocked state (when countdown hits zero) ---- */
+  body.live .statusbar .lockflag { color: var(--crt-green); }
+  body.live .statusbar .dot { background: var(--crt-green); box-shadow: 0 0 8px var(--crt-green); }
+  body.live .sep { color: rgba(125,255,160,0.6); }
+
+  /* ---- responsive ---- */
+  @media (max-width: 1000px) {
+    .gate h1 { font-size: 32px; }
+    .unit .cell { font-size: 34px; min-width: 88px; padding: 18px 14px 14px; }
+    .sep { font-size: 28px; padding-top: 18px; }
+    .modules { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .wrap { padding: 18px 20px 28px; }
+    header { flex-direction: column; align-items: flex-start; gap: 16px; }
+    nav { flex-wrap: wrap; }
+    .statusbar .lockflag { margin-left: 0; }
+    .gate { padding: 30px 0; gap: 18px; }
+    .gate h1 { font-size: 25px; line-height: 1.35; }
+    .tagline { font-size: 13px; }
+    .unit .cell { font-size: 27px; min-width: 66px; padding: 14px 8px 11px; }
+    .unit .lbl { font-size: 8.5px; letter-spacing: 0.12em; }
+    .sep { font-size: 22px; padding-top: 14px; }
+    .countdown { gap: 6px; }
+  }
+  @media (max-width: 460px) {
+    .gate h1 { font-size: 20px; }
+    .unit .cell { font-size: 21px; min-width: 52px; padding: 11px 5px 9px; border-radius: 6px; }
+    .sep { font-size: 16px; padding-top: 11px; }
+    .modules { grid-template-columns: 1fr; }
+    footer { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="bg"></div>
+
+  <div class="wrap">
+    <!-- terminal status bar -->
+    <div class="statusbar">
+      <span class="prompt">root@pwnsec</span>:<span class="path">~/ctf-2026</span>$ ./launch --status
+      <span class="lockflag"><span class="dot"></span> ACCESS&nbsp;LOCKED</span>
+    </div>
+
+    <!-- header -->
+    <header>
+      <div class="brand">
+        <img class="pixel" src="assets/pwnsec_logo.png" alt="PwnSec logo" />
+        <div>
+          <div class="name">PwnSec CTF</div>
+          <div class="sub">2026 · JEOPARDY · ONLINE</div>
+        </div>
+      </div>
+      <nav>
+        <span class="navlock" title="Unlocks Sep 12, 2026"><span class="ic">🔒</span> Challenges</span>
+        <span class="navlock" title="Unlocks Sep 12, 2026"><span class="ic">🔒</span> Scoreboard</span>
+        <span class="navlock" title="Unlocks Sep 12, 2026"><span class="ic">🔒</span> Rules</span>
+        <span class="navlock" title="Unlocks Sep 12, 2026"><span class="ic">🔒</span> Register</span>
+      </nav>
+    </header>
+
+    <!-- countdown gate -->
+    <div class="gate">
+      <img class="logo pixel" src="assets/pwnsec_logo.png" alt="PwnSec CTF" />
+      <div class="eyebrow">► DECRYPTING EVENT</div>
+      <h1>PwnSec CTF <span class="year">2026</span></h1>
+
+      <div class="countdown" id="countdown" aria-label="Time until PwnSec CTF 2026 unlocks">
+        <div class="unit"><div class="cell" id="d">--</div><div class="lbl">Days</div></div>
+        <div class="sep">:</div>
+        <div class="unit"><div class="cell" id="h">--</div><div class="lbl">Hours</div></div>
+        <div class="sep">:</div>
+        <div class="unit"><div class="cell" id="m">--</div><div class="lbl">Minutes</div></div>
+        <div class="sep">:</div>
+        <div class="unit"><div class="cell" id="s">--</div><div class="lbl">Seconds</div></div>
+      </div>
+
+      <div class="unlockline" id="unlockline">
+        <span class="lk">🔓</span> UNLOCKS 12 SEP 2026 · 14:00 UTC
+      </div>
+
+      <div class="cta">
+        <span class="btn-lock" title="Registration opens when the countdown ends"><span class="ic">🔒</span> Registration opening soon</span>
+        <a class="btn-ghost" href="https://ctftime.org/event/list/upcoming" target="_blank" rel="noopener">◔ Get notified on CTFtime</a>
+      </div>
+
+      <div class="chips">
+        <span class="chip">📅 STARTS <b>SEP 12, 2026</b></span>
+        <span class="chip">⏱ <b>24</b> HOURS</span>
+        <span class="chip">🌐 JEOPARDY · ONLINE</span>
+        <span class="chip">🌍 OPEN <b>WORLDWIDE</b></span>
+      </div>
+    </div>
+
+    <!-- locked modules -->
+    <div class="modules-head">// sealed until launch</div>
+    <div class="modules">
+      <div class="mod" title="Unlocks Sep 12, 2026">
+        <span class="padlock">🔒</span>
+        <div class="mic">🚩</div>
+        <div class="mt">Challenges</div>
+        <div class="md">pwn · web · crypto · rev · forensics · misc</div>
+        <div class="tag" data-days>◴ Locked</div>
+      </div>
+      <div class="mod" title="Unlocks Sep 12, 2026">
+        <span class="padlock">🔒</span>
+        <div class="mic">📊</div>
+        <div class="mt">Scoreboard</div>
+        <div class="md">live rankings the moment the first flag drops.</div>
+        <div class="tag" data-days>◴ Locked</div>
+      </div>
+      <div class="mod" title="Unlocks Sep 12, 2026">
+        <span class="padlock">🔒</span>
+        <div class="mic">📝</div>
+        <div class="mt">Register</div>
+        <div class="md">grab your team slot — sign-ups open at launch.</div>
+        <div class="tag" data-days>◴ Locked</div>
+      </div>
+      <div class="mod" title="Unlocks Sep 12, 2026">
+        <span class="padlock">🔒</span>
+        <div class="mic">📜</div>
+        <div class="mt">Rules</div>
+        <div class="md">scoring, eligibility & code of conduct.</div>
+        <div class="tag" data-days>◴ Locked</div>
+      </div>
+    </div>
+
+    <!-- footer -->
+    <footer>
+      <div class="foot-note">Hosted by <b>PwnSec</b> · est. 2022</div>
+      <div class="links">
+        <a href="https://ctftime.org/team/28797" target="_blank" rel="noopener">CTFtime</a>
+        <a href="https://x.com/_PwnSec_" target="_blank" rel="noopener">X</a>
+        <a href="https://www.linkedin.com/company/pwnsec-ctf/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </footer>
+  </div>
+
+  <div class="scanlines"></div>
+</div>
+
+<script>
+  // ---- countdown to PwnSec CTF 2026 ----
+  // Target: 12 Sep 2026, 14:00 UTC (2pm UTC). Month is 0-indexed -> 8 = September.
+  var LAUNCH = Date.UTC(2026, 8, 12, 14, 0, 0);
+
+  var el = {
+    d: document.getElementById('d'),
+    h: document.getElementById('h'),
+    m: document.getElementById('m'),
+    s: document.getElementById('s'),
+    unlockline: document.getElementById('unlockline')
+  };
+  var dayTags = document.querySelectorAll('[data-days]');
+
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+
+  function render() {
+    var diff = LAUNCH - Date.now();
+
+    if (diff <= 0) {
+      // event is live — flip the whole gate into its unlocked state
+      document.body.classList.add('live');
+      el.d.textContent = '00'; el.h.textContent = '00';
+      el.m.textContent = '00'; el.s.textContent = '00';
+      el.unlockline.innerHTML = '<span class="lk">▶</span> PWNSEC CTF 2026 IS LIVE — GO CAPTURE FLAGS';
+      dayTags.forEach(function (t) { t.textContent = '✓ Open'; });
+      return true; // stop ticking
+    }
+
+    var sec = Math.floor(diff / 1000);
+    var days = Math.floor(sec / 86400);
+    var hrs  = Math.floor((sec % 86400) / 3600);
+    var mins = Math.floor((sec % 3600) / 60);
+    var secs = sec % 60;
+
+    el.d.textContent = pad(days);
+    el.h.textContent = pad(hrs);
+    el.m.textContent = pad(mins);
+    el.s.textContent = pad(secs);
+
+    dayTags.forEach(function (t) {
+      t.textContent = '◴ ' + days + 'd left';
+    });
+    return false;
+  }
+
+  if (!render()) {
+    var timer = setInterval(function () {
+      if (render()) clearInterval(timer);
+    }, 1000);
+  }
+</script>
+
+<template id="__bundler_thumbnail">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#0e1a47"/>
+    <text x="50" y="40" font-family="monospace" font-size="12" fill="#ffd84d" text-anchor="middle" font-weight="bold">Pwn</text>
+    <text x="50" y="56" font-family="monospace" font-size="12" fill="#ff7a1a" text-anchor="middle" font-weight="bold">Sec</text>
+    <text x="50" y="76" font-family="monospace" font-size="9" fill="#7dffa0" text-anchor="middle">2026</text>
+  </svg>
+</template>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<section class="vault">
+  <p class="eyebrow">clearance granted · drawer 09</p>
+  <h2 class="panel__title">The long lost human seed</h2>
+  <p class="panel__sub">
+    Sealed the night the last broadcast stopped. Catalogued, never opened,
+    never decayed. This is the specimen designation the archive kept for it.
+  </p>
+
+  <div class="panel panel--vault">
+    <div class="vault__meta">
+      <div><span>custodian</span><b><%= HTML.escape(@username) %></b></div>
+      <div><span>drawer</span><b>09 / terra</b></div>
+      <div><span>state</span><b class="ok">unsealed</b></div>
+    </div>
+
+    <div class="seed">
+      <span class="seed__label">specimen designation</span>
+      <output class="seed__value" id="flag"><%= @flag %></output>
+      <button class="btn btn--ghost" type="button" data-copy="#flag">Copy designation</button>
+    </div>
+
+    <p class="vault__note">
+      Session <code><%= HTML.escape(@session_id) %></code> · this drawer closes
+      when the session does.
+    </p>
+  </div>
+</section>

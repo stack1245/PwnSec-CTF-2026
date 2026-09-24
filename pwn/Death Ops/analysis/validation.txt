@@ -1,0 +1,15 @@
+Local validation (2026-09-13, Asia/Seoul)
+============================================================
+Command: python solve.py
+Endpoint used for this check: local QEMU via TCP 172.31.115.4:31337
+Kernel settings: kaslr pti=on, supplied bzImage and rootfs.cpio.gz
+
+Successful output, repeated across randomized kernel/module bases:
+flag{test_flag_for_ctf_challenge}
+
+Remote validation (2026-09-13, Asia/Seoul)
+Endpoint: 9ee4d30c7a4bbd0c.chal.ctf.ae:443 (TLS)
+Command: python solve.py
+Exit status: 0
+Output:
+pwnsec{527916de221fe1c8}
